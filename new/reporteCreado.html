@@ -30,22 +30,35 @@
                     <li><a href="/revisarDatos">Revisar datos</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li id="fullname"></li>
                     <li><a href="/logout">Cerrar sesión</a></li>
                 </ul>
             </div>
         </div>
     </nav>
     <div class="container row">
-        <h4>Texto largo por definir</h4>
+        <div class="container">
+            <div class="alert alert-success">
+                <strong>Exito!</strong> Empresa creada satisfactoriamente.
+            </div>
+        </div>
     </div>
 </body>
 <script>
     $(document).ready(function () {
-        $.get("/fullname/get", function (response) {
-            //$("#fullname").html(response);
-            $("#fullname").append("<a href='#'> " + response + "</a>");
-        });
+        // $.get("/empresa/get", function (response) {
+        //     $("#empresas").html();
+        //     $("#empresas").append("<option value='0'>Seleccione</option>");
+        //     for (i = 0; i < response.length; i++) {
+        //         $("#empresas").append("<option value='" + response[i].id + "'>" + response[i].nombre + "</option>");
+        //     }
+        // });
+        // $.get("/norma/get", function (response) {
+        //     $("#normas").html();
+        //     $("#normas").append("<option value='0'>Seleccione</option>");
+        //     for (i = 0; i < response.length; i++) {
+        //         $("#normas").append("<option value='" + response[i].id + "'>" + response[i].nombre + "</option>");
+        //     }
+        // });
     });</script>
 
 </html>

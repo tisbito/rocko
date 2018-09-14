@@ -30,22 +30,58 @@
                     <li><a href="/revisarDatos">Revisar datos</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li id="fullname"></li>
                     <li><a href="/logout">Cerrar sesión</a></li>
                 </ul>
             </div>
         </div>
     </nav>
     <div class="container row">
-        <h4>Texto largo por definir</h4>
+        <div class="row">
+            <br>
+            <div class="col-md-10">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Actividad</th>
+                            <th>Duración en horas</th>
+                            <th>Hora ANS</th>
+                            <th>Días ANS</th>
+                            <th>Analista Responsable</th>
+                            <th>Fecha Hora Registro</th>
+                        </tr>
+                    </thead>
+                    <tbody id="registroActidad_lista"></tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </body>
 <script>
     $(document).ready(function () {
-        $.get("/fullname/get", function (response) {
-            //$("#fullname").html(response);
-            $("#fullname").append("<a href='#'> " + response + "</a>");
+        // $.get("/companies", function (response) {
+        //     $("#companies").html();
+        //     $("#companies").append("<option value='0'>Seleccione</option>");
+        //     for (i = 0; i < response.length; i++) {
+        //         $("#companies").append("<option value='" + response[i].id + "'>" + response[i].name + "</option>");
+        //     }
+        // });
+        IDS = [];
+        $.get("/registroActividad", function (response) {
+            $("#registroActidad_lista").html();
+            select_template = "<select id='answer_:id' class='form-control'><option value='-1'>N/A</option><option value='0'>NO</option><option value='1'>SI</option></select>";
+            for (i = 0; i < response.length; i++) {
+                IDS.push(response[i].id);
+                question_select = select_template.replace(":id", response[i].id);
+                tr = "<tr>";
+                tr += "<td>" + response[i].id + "</td>";
+                tr += "<td>" + response[i].description + "</td>";
+                tr += "<td>" + question_select + "</td>";
+                tr += "</tr>";
+                $("#question_list").append(tr);
+            }
         });
-    });</script>
+    });
+</script>
 
 </html>

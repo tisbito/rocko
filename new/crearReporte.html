@@ -37,13 +37,26 @@
     </nav>
 
     <div class="container row">
-        <div class="container">
-            <div class="alert alert-danger">
-                <strong>Error!</strong> La empresa no pudo ser creada
-            </div>
+        <div class="jumbotron col-sm-4 pull-center">
+            <form action="/crearReporte" method="post">
+                <div>
+                    <label>Nombre:</label>
+                    <input type="text" name="nombreEmpresa" />
+                </div>
+                <!-- <div>
+                    <label>Email:</label>
+                    <input type="text" name="email" />
+                </div> -->
+                <div>
+                    <label>NIT:</label>
+                    <input type="text" name="nitEmpresa" />
+                </div>
+                <div>
+                    <input class="btn btn-primary" type="submit" value="Crear empresa" />
+                </div>
+            </form>
         </div>
     </div>
 </body>
-
 
 </html>

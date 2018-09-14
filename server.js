@@ -10,7 +10,6 @@ const application = require('./application.json')
 var Sequelize = require('sequelize');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
-var User = require('./models/user');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var needle = require('needle');
@@ -24,7 +23,7 @@ var con = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "",
-    database: "db_reporteria"
+    database: "db_reportes"
 });
 //Configuramos la aplicacion
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -52,7 +51,7 @@ var sessionChecker = (req, res, next) => {
 app.get('/', sessionChecker, (req, res) => {
     res.redirect('/login');
 });
-app.route('/guardarReporte')
+app.route('/registrarReporteSubmit')
     .get(sessionChecker, (req, res) => {
         res.sendFile(__dirname + '/public/login.html');
     })
@@ -62,19 +61,44 @@ app.route('/guardarReporte')
         con.query("INSERT INTO empresa (id, nombre, nit) VALUES (?, ?, ?);", [null, nombreEmpresa, nitEmpresa], function (err, result, fields) {
             if (err) throw err;
             if (result.affectedRows == 1) {
-                res.sendFile(__dirname + '/public/reporteGuardado.html');
+                res.sendFile(__dirname + '/public/reporteRegistrado.html');
             } else {
-                res.sendFile(__dirname + '/public/reporteNoGuardado.html');
+                res.sendFile(__dirname + '/public/reporteNoRegistrado.html');
             }
         });
     });
 app.get('/inicio', (req, res) => {
     if (req.session.user && req.cookies.user_sid) {
-        console.log("A");
-        console.log(req.session.user);
         res.sendFile(__dirname + '/public/inicio.html');
     } else {
-        console.log("B");
+        res.redirect('/login');
+    }
+});
+app.get('/registrarReporte', (req, res) => {
+    if (req.session.user && req.cookies.user_sid) {
+        res.sendFile(__dirname + '/public/registrarReporte.html');
+    } else {
+        res.redirect('/login');
+    }
+});
+app.get('/revisarDatos', (req, res) => {
+    if (req.session.user && req.cookies.user_sid) {
+        res.sendFile(__dirname + '/public/revisarDatos.html');
+    } else {
+        res.redirect('/login');
+    }
+});
+app.get('/registroActividadCorrecto', (req, res) => {
+    if (req.session.user && req.cookies.user_sid) {
+        res.sendFile(__dirname + '/public/registroActividadCorrecto.html');
+    } else {
+        res.redirect('/login');
+    }
+});
+app.get('/registroActividadFallido', (req, res) => {
+    if (req.session.user && req.cookies.user_sid) {
+        res.sendFile(__dirname + '/public/registroActividadFallido.html');
+    } else {
         res.redirect('/login');
     }
 });
@@ -83,20 +107,15 @@ app.route('/login')
         res.sendFile(__dirname + '/public/login.html');
     })
     .post((req, res) => {
-        var username_ = req.body.username,
-            password_ = req.body.password;
-        // console.log(username_);
-        // console.log(password_);
+        var username_ = req.body.username, password_ = req.body.password;
         needle.post('http://10.1.1.243:8888/login', { user: username_, password: password_ }, function (err, resp, body) {
             if (err) throw err;
             if (resp.statusCode == 200) {
                 var jsonResponse = (body);
-                console.log(jsonResponse.epersonal.user);
-                console.log(jsonResponse.epersonal.first_name);
-                console.log(jsonResponse.epersonal.last_name);
-                console.log(jsonResponse.ldap.full_name);
-                var user = User.create(jsonResponse.epersonal.user, jsonResponse.epersonal.first_name, jsonResponse.epersonal.last_name, jsonResponse.epersonal.position, jsonResponse.ldap.full_name);
-                req.session.user = user.dataValues;
+                req.session.user = jsonResponse.epersonal.user;
+                req.session.first_name = jsonResponse.epersonal.first_name;
+                req.session.last_name = jsonResponse.epersonal.last_name;
+                req.session.full_name = jsonResponse.ldap.full_name;
                 res.redirect('/inicio');
             } else if (resp.statusCode == 403) {
                 res.redirect('/loginError');
@@ -113,28 +132,21 @@ app.get('/logout', (req, res) => {
         res.redirect('/login');
     }
 });
-app.post('/auditoria/crear', function (req, res) {
-    var empresa = req.body.empresa;
-    var fecha = req.body.fecha;
-    var norma = req.body.norma;
-    console.log(empresa);
-    console.log(fecha);
-    console.log(norma);
-    app.get('/norma/get', function (req, res) {
+app.get('/registroActividad', function (req, res) {
+    var consulta = "select ra.id_registro, ac.nombre, ac.tiempo_ejecucion, ac.ans_hora, ac.ans_dias, an.nombres_completos, cl.nombre, fr.nombre, ra.fecha_hora";
+    consulta += " from registro_actividad ra";
+    consulta += " inner join actividad ac on ra.id_actividad = ac.id_actividad";
+    consulta += " inner join analista an on an.id_analista = ac.id_analista";
+    consulta += " inner join cliente cl on cl.id_cliente = ac.id_cliente";
+    consulta += " inner join frecuencia fr on fr.id_frecuencia = ac.id_frecuencia;";
+    con.query(consulta, function (err, result, fields) {
+        if (err) throw err;
         res.json(result);
     });
-    // con.query("INSERT INTO auditoria (id, empresa, norma, fecha, auditor) VALUES (?, ?, ?, ?, ?);",
-    //     [null, empresa, norma, fecha, req.session.user.id], function (err, result, fields) {
-    //         if (err) throw err;
-    //         if (result.affectedRows >= 1) {
-    //             res.json({ insertID: result.insertId });
-    //         } else {
-    //             res.json({ insertID: -1 });
-    //         }
-    //     });
 });
-app.get('/id_usuario/get', function (req, res) {
-    console.log(req.session.user.id);
+app.get('/fullname/get', function (req, res) {
+    res.send(req.session.full_name);
+    console.log(req.session.full_name);
 });
 app.listen(4000, function () {
     console.log("Funciona puerto 4000");
