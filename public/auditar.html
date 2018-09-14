@@ -1,0 +1,88 @@
+<html>
+
+
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+</head>
+
+<body class="container">
+    <div class="page-header">
+        <h1>Auditoria IUSH 2018</h1>
+    </div>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Inicio</a></li>
+                    <li><a href="/crearEmpresa">Crear empresa</a></li>
+                    <li><a href="/auditar">Auditar empresa</a></li>
+                    <li><a href="/revisionAuditoria">Revisar auditoria</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/logout">Cerrar sesión</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <span id="id_auditoria"></span>
+    <div class="container row">
+        <div class="row">
+            <div class="col-md-6">
+                Fecha: <input type="date" class="form-control" id="date"> Empresa: <select class="form-control" id="empresas"></select>
+                Norma: <select class="form-control" id="normas"></select>
+                <button class="btn btn-success" onclick="crearAuditoria();">Crear</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    function crearAuditoria() {
+        fecha = $("#date").val();
+        empresa = $("#empresas").val();
+        norma = $("#normas").val();
+        id_usuario = 0;
+        if (fecha == "" || empresa == "0" || norma == "") {
+            alert("Debes seleccionar una fecha, una empresa y una norma.");
+            return false;
+        }
+        data = { fecha: fecha, empresa: empresa, norma: norma, id_usuario: id_usuario };
+        $.post("/auditoria/crear", data, function (response) {
+            $("#id_auditoria").val(response.insertID);
+            if (response.insertID > 0) {
+                alert("Insertado correctamente, su ID de examen es " + response.insertID);
+                $("#exam_id").val(response.insertID);
+            } else {
+                alert("Hubo un error, Oops intente mas tarde");
+            }
+        });
+    }
+    $(document).ready(function () {
+        $.get("/empresa/get", function (response) {
+            $("#empresas").html();
+            $("#empresas").append("<option value='0'>Seleccione</option>");
+            for (i = 0; i < response.length; i++) {
+                $("#empresas").append("<option value='" + response[i].id + "'>" + response[i].nombre + "</option>");
+            }
+        });
+        $.get("/norma/get", function (response) {
+            $("#normas").html();
+            $("#normas").append("<option value='0'>Seleccione</option>");
+            for (i = 0; i < response.length; i++) {
+                $("#normas").append("<option value='" + response[i].id + "'>" + response[i].nombre + "</option>");
+            }
+        });
+    });
+</script>
+
+</html>
