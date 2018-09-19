@@ -51,21 +51,22 @@ var sessionChecker = (req, res, next) => {
 app.get('/', sessionChecker, (req, res) => {
     res.redirect('/login');
 });
-app.route('/registrarReporteSubmit')
+app.route('/registro/actividad')
     .get(sessionChecker, (req, res) => {
         res.sendFile(__dirname + '/public/login.html');
     })
     .post((req, res) => {
-        var nombreEmpresa = req.body.nombreEmpresa,
-            nitEmpresa = req.body.nitEmpresa;
-        con.query("INSERT INTO empresa (id, nombre, nit) VALUES (?, ?, ?);", [null, nombreEmpresa, nitEmpresa], function (err, result, fields) {
-            if (err) throw err;
-            if (result.affectedRows == 1) {
-                res.sendFile(__dirname + '/public/reporteRegistrado.html');
-            } else {
-                res.sendFile(__dirname + '/public/reporteNoRegistrado.html');
-            }
-        });
+        var id_actividad = req.body.id_actividad,
+            observaciones = req.body.observaciones;
+        con.query("INSERT INTO registo_actividad (id_actividad, observaciones) VALUES (?, ?);",
+            [id_actividad, observaciones], function (err, result, fields) {
+                if (err) throw err;
+                if (result.affectedRows == 1) {
+                    res.json({ resultado: 1 });
+                } else {
+                    res.json({ resultado: 0 });
+                }
+            });
     });
 app.get('/inicio', (req, res) => {
     if (req.session.user && req.cookies.user_sid) {
@@ -112,10 +113,12 @@ app.route('/login')
             if (err) throw err;
             if (resp.statusCode == 200) {
                 var jsonResponse = (body);
+                req.session.idUsuario = 0;
                 req.session.user = jsonResponse.epersonal.user;
                 req.session.first_name = jsonResponse.epersonal.first_name;
                 req.session.last_name = jsonResponse.epersonal.last_name;
                 req.session.full_name = jsonResponse.ldap.full_name;
+                usuarioValido(req);
                 res.redirect('/inicio');
             } else if (resp.statusCode == 403) {
                 res.redirect('/loginError');
@@ -124,6 +127,7 @@ app.route('/login')
             }
         });
     });
+
 app.get('/logout', (req, res) => {
     if (req.session.user && req.cookies.user_sid) {
         res.clearCookie('user_sid');
@@ -131,6 +135,34 @@ app.get('/logout', (req, res) => {
     } else {
         res.redirect('/login');
     }
+});
+
+function usuarioValido(req) {
+    var username = req.session.user;
+    var consulta = "SELECT id_analista FROM analista where usuario_red = ?;"
+    con.query(consulta, [username], function (err, result, fields) {
+        if (err) throw err;
+        if (result.length == 1) {
+            req.session.idUsuario = result[0].id_analista;
+        }
+    });
+}
+
+app.get('/actividades/get', function (req, res) {
+    var id_usuario = req.session.idUsuario;
+    // if (id_usuario > 0) {
+
+    console.log(id_usuario);
+    var consulta = "SELECT a.id_actividad, c.nombre as cliente, a.nombre as actividad";
+    consulta += " FROM actividad a inner join cliente c on c.id_cliente = a.id_cliente";
+    consulta += " where a.id_analista = ?";
+    con.query(consulta, [id_usuario], function (err, result, fields) {
+        if (err) throw err;
+        res.json(result);
+    });
+    // } else {
+    // res.json({ resultado: 0 });
+    // }
 });
 app.get('/registroActividad', function (req, res) {
     var consulta = "select ra.id_registro, ac.nombre, ac.tiempo_ejecucion, ac.ans_hora, ac.ans_dias, an.nombres_completos, cl.nombre, fr.nombre, ra.fecha_hora";
@@ -146,7 +178,7 @@ app.get('/registroActividad', function (req, res) {
 });
 app.get('/fullname/get', function (req, res) {
     res.send(req.session.full_name);
-    console.log(req.session.full_name);
+    // console.log(req.session.full_name);
 });
 app.listen(4000, function () {
     console.log("Funciona puerto 4000");
