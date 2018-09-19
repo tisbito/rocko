@@ -30,6 +30,7 @@
                     <li><a href="/revisarDatos">Revisar datos</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    <li id="fullname"></li>
                     <li><a href="/logout">Cerrar sesión</a></li>
                 </ul>
             </div>
@@ -38,16 +39,19 @@
     <div class="container row">
         <div class="row">
             <br>
-            <div class="col-md-10">
-                <table class="table table-bordered">
+            <div class="col-md-20">
+                <table class="table table-striped table-hover table-sm">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Actividad</th>
-                            <th>Duración en horas</th>
+                            <th>#</th>
+                            <th>Cliente</th>
+                            <th>Nombre Actividad</th>
+                            <th>tiempo_ejecucion</th>
                             <th>Hora ANS</th>
                             <th>Días ANS</th>
+                            <th>Frecuencia</th>
                             <th>Analista Responsable</th>
+                            <th>Observaciones</th>
                             <th>Fecha Hora Registro</th>
                         </tr>
                     </thead>
@@ -59,26 +63,31 @@
 </body>
 <script>
     $(document).ready(function () {
-        // $.get("/companies", function (response) {
-        //     $("#companies").html();
-        //     $("#companies").append("<option value='0'>Seleccione</option>");
-        //     for (i = 0; i < response.length; i++) {
-        //         $("#companies").append("<option value='" + response[i].id + "'>" + response[i].name + "</option>");
-        //     }
-        // });
-        IDS = [];
-        $.get("/registroActividad", function (response) {
+        $.get("/fullname/get", function (response) {
+            $("#fullname").append("<a href='#'> " + response + "</a>");
+        });
+        $.get("/get/registroActividad", function (response) {
             $("#registroActidad_lista").html();
-            select_template = "<select id='answer_:id' class='form-control'><option value='-1'>N/A</option><option value='0'>NO</option><option value='1'>SI</option></select>";
+            var j = 1;
             for (i = 0; i < response.length; i++) {
-                IDS.push(response[i].id);
-                question_select = select_template.replace(":id", response[i].id);
                 tr = "<tr>";
-                tr += "<td>" + response[i].id + "</td>";
-                tr += "<td>" + response[i].description + "</td>";
-                tr += "<td>" + question_select + "</td>";
+                tr += "<td>" + j + "</td>";
+                tr += "<td>" + response[i].Cliente + "</td>";
+                tr += "<td>" + response[i].nombre + "</td>";
+                tr += "<td>" + response[i].tiempo_ejecucion + "</td>";
+                tr += "<td>" + response[i].ans_hora + "</td>";
+                tr += "<td>" + response[i].ans_dias + "</td>";
+                tr += "<td>" + response[i].frecuencia + "</td>";
+                tr += "<td>" + response[i].analista + "</td>";
+                if (response[i].Observaciones == null) {
+                    tr += "<td></td>";
+                } else {
+                    tr += "<td>" + response[i].Observaciones + "</td>";
+                }
+                tr += "<td>" + response[i].fecha_hora + "</td>";
                 tr += "</tr>";
-                $("#question_list").append(tr);
+                $("#registroActidad_lista").append(tr);
+                j++;
             }
         });
     });

@@ -56,6 +56,7 @@
                 <div class="col-md-6">
                     Actividades: <select class="form-control" id="actividades"></select>
                     Observaciones: <input type="text" class="form-control" id="observaciones">
+                    <br>
                     <button class="btn btn-success" onclick="guardarRegistroActividad();">Guardar</button>
                 </div>
             </div>
@@ -66,17 +67,19 @@
 <script>
 
     function guardarRegistroActividad() {
-        id_actividad = $("#date").val();
-        observaciones = $("#empresas").val();
-        // if (fecha == "" || empresa == "0" || norma == "") {
-        //     alert("Debes seleccionar una fecha, una empresa y una norma.");
-        //     return false;
-        // }
+        id_actividad = $("#actividades").val();
+        observaciones = $("#observaciones").val();
+        if (id_actividad == "0") {
+            alert("Neh, te faltaron datos, selecciona una actividad de la lista desplegable.");
+            return false;
+        }
         data = { id_actividad: id_actividad, observaciones: observaciones };
-        $.post("/auditoria/crear", data, function (response) {
+        $.post("/registro/actividad", data, function (response) {
             if (response.resultado == 1) {
                 $("#Guardado").show();
                 $("#NoGuardado").hide();
+                $("#actividades").val(0);
+                $("#observaciones").val("");
             } else {
                 $("#NoGuardado").show();
                 $("#Guardado").hide();
@@ -88,14 +91,13 @@
         $("#NoGuardado").hide();
         $("#Guardado").hide();
         $.get("/fullname/get", function (response) {
-
             $("#fullname").append("<a href='#'> " + response + "</a>");
         });
         $.get("/actividades/get", function (response) {
             $("#actividades").html();
             $("#actividades").append("<option value='0'>Seleccione</option>");
             for (i = 0; i < response.length; i++) {
-                $("#actividades").append("<option value='" + response[i].id + "'>" + response[i].actividad + "</option>");
+                $("#actividades").append("<option value='" + response[i].id_actividad + "'>" + response[i].cliente + ":" + response[i].actividad + "</option>");
             }
         });
     });
