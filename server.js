@@ -6,27 +6,53 @@ var express = require("express");
 var app = express();
 var path = require("path");
 var mysql = require("mysql");
-const application = require('./application.json')
-var Sequelize = require('sequelize');
+//const application = require('./application.json')
+//var Sequelize = require('sequelize');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var needle = require('needle');
 
-var Moment = require('moment-timezone'); Moment().tz('America/Bogota').format(); 
+var Moment = require('moment-timezone'); Moment().tz('America/Bogota').format();
 //app.use(morgan('dev'));//Debug
-const sequelize = new Sequelize(application.database, application.username, application.password, {
-    host: application.host,
-    dialect: 'mysql'
-});
-var con = mysql.createConnection({
+// const sequelize = new Sequelize(application.database, application.username, application.password, {
+//     host: application.host,
+//     dialect: 'mysql'
+// });
+app.use(morgan('dev'));//Debug
+var db_config = {
     host: "10.1.109.15",
     user: "db_reportes",
     password: "6uHsCIhZlaxc",
     database: "db_reportes"
-});
-//Configuramos la aplicacion
+}
+var con;
+function handleDisconnect() {
+    con = mysql.createConnection(db_config); // Recreate the connection, since the old one cannot be reused.
+    con.connect(function (err) {              // The server is either down
+        if (err) {                                     // or restarting (takes a while sometimes).
+            console.log('error when connecting to db:', err);
+            setTimeout(handleDisconnect, 2000); // We introduce a delay before attempting to reconnect,
+        } else { console.log("MySQL Connected."); }                                     // to avoid a hot loop, and to allow our node script to
+    });                                     // process asynchronous requests in the meantime.
+    // If you're also serving http, display a 503 error.
+    con.on('error', function (err) {
+        console.log('db error', err);
+        if (err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
+            handleDisconnect();                         // lost due to either server restart, or a
+        } else {                                      // connnection idle timeout (the wait_timeout
+            throw err;                                  // server variable configures this)
+        }
+    });
+}
+handleDisconnect();
+// var con = mysql.createConnection({
+//     host: "10.1.109.15",
+//     user: "db_reportes",
+//     password: "6uHsCIhZlaxc",
+//     database: "db_reportes"
+// });
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(session({
@@ -52,49 +78,32 @@ var sessionChecker = (req, res, next) => {
 app.get('/', sessionChecker, (req, res) => {
     res.redirect('/login');
 });
-
-app.route('/registro/actividad')
-    .get(sessionChecker, (req, res) => {
-        res.sendFile(__dirname + '/public/login.html');
-    })
-    .post((req, res) => {
-        var id_actividad = req.body.id_actividad, observaciones = req.body.observaciones;
-        con.query("INSERT INTO registro_actividad (id_registro, id_actividad, observaciones, fecha_hora) VALUES (?, ?, ?, CURRENT_TIMESTAMP);",
-            [null, id_actividad, observaciones], function (err, result, fields) {
-                if (err) throw err;
-                if (result.affectedRows == 1) {
-                    res.json({ resultado: 1 });
-                } else {
-                    res.json({ resultado: 0 });
-                }
-            });
-    });
-
 app.get('/inicio', (req, res) => {
+    registrarUso(req.session.user, '/inicio');
     if (req.session.user && req.cookies.user_sid) {
         res.sendFile(__dirname + '/public/inicio.html');
     } else {
         res.redirect('/login');
     }
 });
-
 app.get('/registrarReporte', (req, res) => {
+    registrarUso(req.session.user, '/registrarReporte');
     if (req.session.user && req.cookies.user_sid) {
         res.sendFile(__dirname + '/public/registrarReporte.html');
     } else {
         res.redirect('/login');
     }
 });
-
 app.get('/revisarDatos', (req, res) => {
+    registrarUso(req.session.user, '/revisarDatos');
     if (req.session.user && req.cookies.user_sid) {
         res.sendFile(__dirname + '/public/revisarDatos.html');
     } else {
         res.redirect('/login');
     }
 });
-
 app.get('/logout', (req, res) => {
+    registrarUso(req.session.user, '/logout');
     if (req.session.user && req.cookies.user_sid) {
         res.clearCookie('user_sid');
         res.redirect('/');
@@ -102,82 +111,186 @@ app.get('/logout', (req, res) => {
         res.redirect('/login');
     }
 });
-
 app.route('/login')
     .get(sessionChecker, (req, res) => {
         res.sendFile(__dirname + '/public/login.html');
     })
     .post((req, res) => {
-        var username_ = req.body.username, password_ = req.body.password;
-        needle.post('http://10.1.1.243:8888/login', { user: username_, password: password_ }, function (err, resp, body) {
-            if (err) throw err;
-            if (resp.statusCode == 200) {
-                var jsonResponse = (body);
-                req.session.user = jsonResponse.epersonal.user;
-                req.session.first_name = jsonResponse.epersonal.first_name;
-                req.session.last_name = jsonResponse.epersonal.last_name;
-                req.session.full_name = jsonResponse.ldap.full_name;
-                req.session.idUsuario = 0;
-                res.redirect('/inicio');
-            } else if (resp.statusCode == 403) {
-                res.redirect('/loginError');
-            } else {
-                res.redirect('/loginError');
-            }
-        });
-    });
-
-app.get('/actividades/get', function (req, res) {
-    var id_usuario = req.session.idUsuario;
-    var consulta = "SELECT a.id_actividad, c.nombre as cliente, a.nombre as actividad";
-    consulta += " FROM actividad a inner join cliente c on c.id_cliente = a.id_cliente";
-    consulta += " where a.id_analista = ?";
-    con.query(consulta, [id_usuario], function (err, result, fields) {
-        if (err) throw err;
-        res.json(result);
-    });
-});
-
-app.get('/get/registroActividad', function (req, res) {
-    var consulta = "select cl.nombre as Cliente, ac.nombre, ac.tiempo_ejecucion, ac.ans_hora, ac.ans_dias, an.usuario_red as analista, fr.nombre as frecuencia, ra.Observaciones, CAST(ra.fecha_hora as char) as fecha_hora";
-    consulta += " from registro_actividad ra";
-    consulta += " inner join actividad ac on ra.id_actividad = ac.id_actividad";
-    consulta += " inner join analista an on an.id_analista = ac.id_analista";
-    consulta += " inner join cliente cl on cl.id_cliente = ac.id_cliente";
-    consulta += " inner join frecuencia fr on fr.id_frecuencia = ac.id_frecuencia;";
-    con.query(consulta, function (err, result, fields) {
-        if (err) throw err;
-        res.json(result);
-    });
-});
-
-app.get('/get/registroActividad/excel', function (req, res) {
-    var consulta = "select cl.nombre as Cliente, ac.nombre, ac.tiempo_ejecucion, ac.ans_hora, ac.ans_dias, an.usuario_red as analista, fr.nombre as frecuencia, ra.Observaciones, CAST(ra.fecha_hora as char) as fecha_hora";
-    consulta += " from registro_actividad ra";
-    consulta += " inner join actividad ac on ra.id_actividad = ac.id_actividad";
-    consulta += " inner join analista an on an.id_analista = ac.id_analista";
-    consulta += " inner join cliente cl on cl.id_cliente = ac.id_cliente";
-    consulta += " inner join frecuencia fr on fr.id_frecuencia = ac.id_frecuencia;";
-    con.query(consulta, function (err, result, fields) {
-        if (err) throw err;
-        res.json(result);
-    });
-});
-
-app.get('/fullname/get', function (req, res) {
-    var username = req.session.user;
-    var consulta = "SELECT id_analista FROM analista where usuario_red = ?;"
-    con.query(consulta, [username], function (err, result, fields) {
-        if (err) throw err;
-        if (result.length == 1) {
-            req.session.idUsuario = result[0].id_analista;
-            res.send(req.session.full_name);
-        } else {
-            res.send(req.session.full_name);
+        try {
+            var username_ = req.body.username, password_ = req.body.password;
+            needle.post('http://10.1.1.243:8888/login', { user: username_, password: password_ }, function (err, resp, body) {
+                if (err) throw err;
+                if (resp.statusCode == 200) {
+                    var jsonResponse = (body);
+                    req.session.user = jsonResponse.epersonal.user;
+                    req.session.first_name = jsonResponse.epersonal.first_name;
+                    req.session.last_name = jsonResponse.epersonal.last_name;
+                    req.session.full_name = jsonResponse.ldap.full_name;
+                    if (req.session.user == 'dgomezh' || req.session.user == 'jre-strch' || req.session.user == 'rvelezv' || req.session.user == 'ncasta-ne') {
+                        req.session.padre = 1;
+                    } else {
+                        req.session.padre = 0;
+                    }
+                    req.session.idUsuario = 0;
+                    res.redirect('/inicio');
+                    registrarUso(req.body.username, '/login:200');
+                } else if (resp.statusCode == 403) {
+                    res.redirect('/loginError');
+                    registrarUso(req.body.username, '/login:403');
+                } else {
+                    res.redirect('/loginError');
+                    registrarUso(req.body.username, '/login:0');
+                }
+            });
+        } catch (error) {
+            console.log("Error en /login");
+            console.log(error);
         }
     });
-
+app.route('/registro/actividad')
+    .get(sessionChecker, (req, res) => {
+        res.sendFile(__dirname + '/public/login.html');
+    })
+    .post((req, res) => {
+        try {
+            registrarUso(req.session.user, '/registro/actividad');
+            var id_actividad = req.body.id_actividad, observaciones = req.body.observaciones;
+            con.query("INSERT INTO registro_actividad (id_registro, id_actividad, observaciones, fecha_hora, id_usuario) VALUES (?, ?, ?, CURRENT_TIMESTAMP, ?);",
+                [null, id_actividad, observaciones, req.session.idUsuario], function (err, result, fields) {
+                    if (err) {
+                        console.log('query ', this.sql);
+                        console.log(command);
+                        console.log("ERROR");
+                        console.log(err);
+                        res.json({ resultado: -1 });
+                    } else if (result.affectedRows == 1) {
+                        res.json({ resultado: 1 });
+                    } else {
+                        res.json({ resultado: 0 });
+                    }
+                });
+        } catch (error) {
+            console.log("Error en /registro/actividad");
+            console.log(error);
+        }
+    });
+app.get('/actividades/get', function (req, res) {
+    registrarUso(req.session.user, '/actividades/get');
+    try {
+        var id_usuario = req.session.idUsuario;
+        var consulta = "SELECT a.id_actividad, c.nombre as cliente, a.nombre as actividad";
+        consulta += " FROM actividad a inner join cliente c on c.id_cliente = a.id_cliente";
+        if (req.session.padre == 0) {
+            consulta += " where a.id_analista = ?";
+            con.query(consulta, [id_usuario], function (err, result, fields) {
+                console.log(con.query);
+                if (err) throw err;
+                res.json(result);
+            });
+        } else if (req.session.padre == 1) {
+            con.query(consulta, function (err, result, fields) {
+                console.log(con.query);
+                if (err) throw err;
+                res.json(result);
+            });
+        } else {
+            res.json(0);
+        }
+    } catch (error) {
+        console.log("Error en /actividades/get");
+        console.log(error);
+    }
 });
+app.get('/get/registroActividad', function (req, res) {
+    registrarUso(req.session.user, '/get/registroActividad');
+    try {
+        var id_usuario = req.session.idUsuario;
+        var consulta = "select cl.nombre as Cliente, ac.nombre, ac.tiempo_ejecucion, ac.ans_hora, ac.ans_dias, an.usuario_red as analista, fr.nombre as frecuencia, ra.Observaciones, CAST(ra.fecha_hora as char) as fecha_hora, ann.usuario_red as analistareporte";
+        consulta += " from registro_actividad ra";
+        consulta += " inner join actividad ac on ra.id_actividad = ac.id_actividad";
+        consulta += " inner join analista an on an.id_analista = ac.id_analista";
+        consulta += " inner join cliente cl on cl.id_cliente = ac.id_cliente";
+        consulta += " inner join frecuencia fr on fr.id_frecuencia = ac.id_frecuencia";
+        consulta += " inner join analista ann on ann.id_analista = ra.id_usuario ";
+
+        if (req.session.padre == 0) {
+            consulta += " where ann.id_analista = ?";
+            consulta += " order by ra.id_registro desc;";
+            con.query(consulta, [id_usuario], function (err, result, fields) {
+                console.log(con.query);
+                if (err) throw err;
+                res.json(result);
+            });
+        } else if (req.session.padre == 1) {
+            consulta += " order by ra.id_registro desc;";
+            con.query(consulta, function (err, result, fields) {
+                console.log(con.query);
+                if (err) throw err;
+                res.json(result);
+            });
+        } else {
+            res.json(0);
+        }
+    } catch (error) {
+        console.log("Error en /get/registroActividad");
+        console.log(error);
+    }
+});
+app.get('/get/registroActividad/excel', function (req, res) {
+    try {
+        var consulta = "select cl.nombre as Cliente, ac.nombre, ac.tiempo_ejecucion, ac.ans_hora, ac.ans_dias, an.usuario_red as analista, fr.nombre as frecuencia, ra.Observaciones, CAST(ra.fecha_hora as char) as fecha_hora";
+        consulta += " from registro_actividad ra";
+        consulta += " inner join actividad ac on ra.id_actividad = ac.id_actividad";
+        consulta += " inner join analista an on an.id_analista = ac.id_analista";
+        consulta += " inner join cliente cl on cl.id_cliente = ac.id_cliente";
+        consulta += " inner join frecuencia fr on fr.id_frecuencia = ac.id_frecuencia;";
+        con.query(consulta, function (err, result, fields) {
+            console.log(con.query);
+            if (err) throw err;
+            res.json(result);
+        });
+    } catch (error) {
+        console.log("Error en /get/registroActividad/excel");
+        console.log(error);
+    }
+});
+app.get('/fullname/get', function (req, res) {
+    registrarUso(req.session.user, '/fullname/get');
+    try {
+        var username = req.session.user;
+        var consulta = "SELECT id_analista FROM analista where usuario_red = ?;"
+        con.query(consulta, [username], function (err, result, fields) {
+            if (err) throw err;
+            if (result.length == 1) {
+                req.session.idUsuario = result[0].id_analista;
+                res.send(req.session.full_name);
+            } else {
+                res.send(req.session.full_name);
+            }
+        });
+    } catch (error) {
+        console.log("Error en /fullname/get");
+        console.log(error);
+    }
+});
+function registrarUso(usuario, pagina) {
+    try {
+        con.query("INSERT INTO uso (id_uso, usuario, pagina, fecha_hora) VALUES (?, ?, ?, CURRENT_TIMESTAMP);",
+            [null, usuario, pagina], function (err, result, fields) {
+                if (err) {
+                    console.log('query ', this.sql);
+                    console.log(command);
+                    console.log("ERROR");
+                    console.log(err);
+                } else if (result.affectedRows == 1) {
+                } else {
+                }
+            });
+    } catch (error) {
+        console.log("Error en registrarUso");
+        console.log(error);
+    }
+}
 app.listen(4000, function () {
     console.log("Funciona puerto 4000");
 });

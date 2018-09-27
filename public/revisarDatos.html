@@ -78,7 +78,11 @@
                 tr += "<td>" + response[i].ans_hora + "</td>";
                 tr += "<td>" + response[i].ans_dias + "</td>";
                 tr += "<td>" + response[i].frecuencia + "</td>";
-                tr += "<td>" + response[i].analista + "</td>";
+                if (response[i].analista == response[i].analistareporte) {
+                    tr += "<td>" + response[i].analista + "</td>";
+                } else {
+                    tr += "<td>" + response[i].analista + "(" + response[i].analistareporte + ")" + "</td>";
+                }
                 if (response[i].Observaciones == null) {
                     tr += "<td></td>";
                 } else {
