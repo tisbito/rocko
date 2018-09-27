@@ -42,10 +42,12 @@ function handleDisconnect() {
         if (err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
             handleDisconnect();                         // lost due to either server restart, or a
         } else {                                      // connnection idle timeout (the wait_timeout
-            throw err;                                  // server variable configures this)
+            //throw err;                                  // server variable configures this)
+            console.log("Error en con");
         }
     });
 }
+//con.on('error', function() {});
 handleDisconnect();
 // var con = mysql.createConnection({
 //     host: "10.1.109.15",
@@ -126,7 +128,7 @@ app.route('/login')
                     req.session.first_name = jsonResponse.epersonal.first_name;
                     req.session.last_name = jsonResponse.epersonal.last_name;
                     req.session.full_name = jsonResponse.ldap.full_name;
-                    if (req.session.user == 'dgomezh' || req.session.user == 'jre-strch' || req.session.user == 'rvelezv' || req.session.user == 'ncasta-ne') {
+                    if (req.session.user == 'dgomezh' || req.session.user == 'jrestrch' || req.session.user == 'rvelezv' || req.session.user == 'ncastane') {
                         req.session.padre = 1;
                     } else {
                         req.session.padre = 0;
@@ -159,7 +161,6 @@ app.route('/registro/actividad')
                 [null, id_actividad, observaciones, req.session.idUsuario], function (err, result, fields) {
                     if (err) {
                         console.log('query ', this.sql);
-                        console.log(command);
                         console.log("ERROR");
                         console.log(err);
                         res.json({ resultado: -1 });
@@ -273,19 +274,31 @@ app.get('/fullname/get', function (req, res) {
         console.log(error);
     }
 });
-function registrarUso(usuario, pagina) {
+function registrarUso(usuario, pagina, an_ip) {
+    if (an_ip == undefined) {
+        an_ip = "No definida";
+    }
+    if (usuario == undefined) {
+        usuario = "No definido";
+    }
+    //req.connection.remoteAddress
     try {
-        con.query("INSERT INTO uso (id_uso, usuario, pagina, fecha_hora) VALUES (?, ?, ?, CURRENT_TIMESTAMP);",
-            [null, usuario, pagina], function (err, result, fields) {
-                if (err) {
-                    console.log('query ', this.sql);
-                    console.log(command);
-                    console.log("ERROR");
-                    console.log(err);
-                } else if (result.affectedRows == 1) {
-                } else {
-                }
-            });
+        if (usuario !== undefined) {
+            con.query("INSERT INTO uso (id_uso, usuario, pagina, fecha_hora, ip) VALUES (?, ?, ?, CURRENT_TIMESTAMP, ?);",
+                [null, usuario, pagina, an_ip], function (err, result, fields) {
+                    if (err) {
+                        console.log(usuario);
+                        console.log(pagina);
+                        console.log('query ', this.sql);
+                        console.log("ERROR");
+                        console.log(err);
+                    } else if (result.affectedRows == 1) {
+                    } else {
+                    }
+                });
+        } else {
+            console.log(req.user);
+        }
     } catch (error) {
         console.log("Error en registrarUso");
         console.log(error);
