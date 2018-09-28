@@ -55,10 +55,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    Actividades: <select class="form-control" id="actividades"></select>
+                    Usuario de red: <input type="text" class="form-control" id="otroUsuarioRed" onchange="getActividades();">
+                    Actividades: <select class="form-control" id="actividadesOtro"></select>
                     Observaciones: <input type="text" class="form-control" id="observaciones">
                     <br>
-                    <button class="btn btn-success" onclick="guardarRegistroActividad();">Guardar</button>
+                    <button id="BotonGuardarOtro" class="btn btn-success" onclick="guardarRegistroOtro();">Guardar</button>
                 </div>
             </div>
         </div>
@@ -66,12 +67,31 @@
 </body>
 
 <script>
-
-    function guardarRegistroActividad() {
-        id_actividad = $("#actividades").val();
+    function getActividades() {
+        otroUsuarioRed = $("#otroUsuarioRed").val();
+        $("#actividadesOtro").prop("disabled", true);
+        $("#observaciones").prop("disabled", true);
+        $("#BotonGuardarOtro").prop("disabled", true);
+        if (otroUsuarioRed != "") {
+            $.get("/actividades/get/" + otroUsuarioRed, function (response) {
+                $("#actividadesOtro").empty();
+                $("#actividadesOtro").append("<option value='0'>Seleccione</option>");
+                if (response.length > 0) {
+                    $("#actividadesOtro").prop("disabled", false);
+                    $("#observaciones").prop("disabled", false);
+                    $("#BotonGuardarOtro").prop("disabled", false);
+                    for (i = 0; i < response.length; i++) {
+                        $("#actividadesOtro").append("<option value='" + response[i].id_actividad + "'>" + response[i].cliente + ":" + response[i].actividad + "</option>");
+                    }
+                }
+            });
+        }
+    }
+    function guardarRegistroOtro() {
+        id_actividad = $("#actividadesOtro").val();
         observaciones = $("#observaciones").val();
-        if (id_actividad == "0") {
-            alert("Neh, te faltaron datos, selecciona una actividad de la lista desplegable.");
+        if (id_actividad == "0" || id_actividad == null) {
+            alert("Neh, te faltaron datos, ingresa el usuario de red de tu compañero y selecciona una actividad de la lista desplegable.");
             return false;
         }
         data = { id_actividad: id_actividad, observaciones: observaciones };
@@ -87,19 +107,14 @@
             }
         });
     }
-
     $(document).ready(function () {
         $("#NoGuardado").hide();
         $("#Guardado").hide();
+        $("#actividadesOtro").prop("disabled", true);
+        $("#observaciones").prop("disabled", true);
+        $("#BotonGuardarOtro").prop("disabled", true);
         $.get("/fullname/get", function (response) {
             $("#fullname").append("<a href='#'> " + response + "</a>");
-        });
-        $.get("/actividades/get", function (response) {
-            $("#actividades").empty();
-            $("#actividades").append("<option value='0'>Seleccione</option>");
-            for (i = 0; i < response.length; i++) {
-                $("#actividades").append("<option value='" + response[i].id_actividad + "'>" + response[i].cliente + ":" + response[i].actividad + "</option>");
-            }
         });
     });
 </script>

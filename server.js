@@ -62,7 +62,7 @@ app.use(session({
     secret: 'programacionycontrol',
     resave: false,
     saveUninitialized: false,
-    cookie: { expires: 600000 }
+    cookie: { expires: 3600000 * 8 }
 }));
 app.use((req, res, next) => {
     if (req.cookies.user_sid && !req.session.user) {
@@ -92,6 +92,14 @@ app.get('/registrarReporte', (req, res) => {
     registrarUso(req.session.user, '/registrarReporte');
     if (req.session.user && req.cookies.user_sid) {
         res.sendFile(__dirname + '/public/registrarReporte.html');
+    } else {
+        res.redirect('/login');
+    }
+});
+app.get('/registrarReporteOtro', (req, res) => {
+    registrarUso(req.session.user, '/registrarReporte');
+    if (req.session.user && req.cookies.user_sid) {
+        res.sendFile(__dirname + '/public/registrarReporteOtro.html');
     } else {
         res.redirect('/login');
     }
@@ -175,6 +183,7 @@ app.route('/registro/actividad')
             console.log(error);
         }
     });
+
 app.get('/actividades/get', function (req, res) {
     registrarUso(req.session.user, '/actividades/get');
     try {
@@ -197,6 +206,25 @@ app.get('/actividades/get', function (req, res) {
         } else {
             res.json(0);
         }
+    } catch (error) {
+        console.log("Error en /actividades/get");
+        console.log(error);
+    }
+});
+app.get('/actividades/get/:otroUsername', function (req, res) {
+    var otroUsername = req.params.otroUsername;
+    registrarUso(req.session.user, '/actividades/get');
+    try {
+        var id_usuario = req.session.idUsuario;
+        var consulta = "SELECT a.id_actividad, c.nombre as cliente, a.nombre as actividad";
+        consulta += " FROM actividad a inner join cliente c on c.id_cliente = a.id_cliente";
+        consulta += " inner join analista an on an.id_analista = a.id_analista";
+        consulta += " where an.usuario_red = ? ORDER BY c.nombre ASC;";
+        con.query(consulta, [otroUsername], function (err, result, fields) {
+            console.log(con.query);
+            if (err) throw err;
+            res.json(result);
+        });
     } catch (error) {
         console.log("Error en /actividades/get");
         console.log(error);
@@ -287,8 +315,6 @@ function registrarUso(usuario, pagina, an_ip) {
             con.query("INSERT INTO uso (id_uso, usuario, pagina, fecha_hora, ip) VALUES (?, ?, ?, CURRENT_TIMESTAMP, ?);",
                 [null, usuario, pagina, an_ip], function (err, result, fields) {
                     if (err) {
-                        console.log(usuario);
-                        console.log(pagina);
                         console.log('query ', this.sql);
                         console.log("ERROR");
                         console.log(err);
