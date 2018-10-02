@@ -96,10 +96,26 @@ app.get('/registrarReporte', (req, res) => {
         res.redirect('/login');
     }
 });
+app.get('/misActividades', (req, res) => {
+    registrarUso(req.session.user, '/misActividades');
+    if (req.session.user && req.cookies.user_sid) {
+        res.sendFile(__dirname + '/public/misActividades.html');
+    } else {
+        res.redirect('/login');
+    }
+});
 app.get('/registrarReporteOtro', (req, res) => {
     registrarUso(req.session.user, '/registrarReporte');
     if (req.session.user && req.cookies.user_sid) {
         res.sendFile(__dirname + '/public/registrarReporteOtro.html');
+    } else {
+        res.redirect('/login');
+    }
+});
+app.get('/registrarActividad', (req, res) => {
+    registrarUso(req.session.user, '/registrarReporte');
+    if (req.session.user && req.cookies.user_sid) {
+        res.sendFile(__dirname + '/public/registrarActividad.html');
     } else {
         res.redirect('/login');
     }
@@ -157,6 +173,69 @@ app.route('/login')
             console.log(error);
         }
     });
+
+app.route('/crear/actividad')
+    .get(sessionChecker, (req, res) => {
+        res.sendFile(__dirname + '/public/login.html');
+    })
+    .post((req, res) => {
+        try {
+            registrarUso(req.session.user, '/crear/actividad');
+            var id_cliente = req.body.id_cliente,
+                id_frecuencia = req.body.id_frecuencia,
+                nombre = req.body.nombre,
+                duracion = req.body.duracion,
+                hora_ans = req.body.hora_ans,
+                dia_ans = req.body.dia_ans;
+            var consulta = "INSERT INTO db_reportes.actividad (id_analista, id_cliente, id_frecuencia, nombre, tiempo_ejecucion, ans_hora, ans_dias, fecha_hora)";
+            consulta += " VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP);";
+            con.query(consulta,
+                [req.session.idUsuario, id_cliente, id_frecuencia, nombre, duracion, hora_ans, dia_ans], function (err, result, fields) {
+                    if (err) {
+                        console.log('query ', this.sql);
+                        console.log("ERROR");
+                        console.log(err);
+                        res.json({ resultado: -1 });
+                    } else if (result.affectedRows == 1) {
+                        res.json({ resultado: 1 });
+                    } else {
+                        res.json({ resultado: 0 });
+                    }
+                });
+        } catch (error) {
+            console.log("Error en /crear/actividad");
+            console.log(error);
+        }
+    });
+
+app.route('/eliminar/actividad')
+    .get(sessionChecker, (req, res) => {
+        res.sendFile(__dirname + '/public/login.html');
+    })
+    .post((req, res) => {
+        try {
+            registrarUso(req.session.user, '/eliminar/actividad');
+            var id_actividad = req.body.id_actividad;
+            var consulta = "UPDATE actividad SET estado = 2, usuario_eliminacion = ?, fecha_hora_eliminacion = CURRENT_TIMESTAMP WHERE id_actividad = ?;";
+            con.query(consulta,
+                [req.session.idUsuario, id_actividad], function (err, result, fields) {
+                    if (err) {
+                        console.log('query ', this.sql);
+                        console.log("ERROR");
+                        console.log(err);
+                        res.json({ resultado: -1 });
+                    } else if (result.affectedRows == 1) {
+                        res.json({ resultado: 1 });
+                    } else {
+                        res.json({ resultado: 0 });
+                    }
+                });
+        } catch (error) {
+            console.log("Error en /eliminar/actividad");
+            console.log(error);
+        }
+    });
+
 app.route('/registro/actividad')
     .get(sessionChecker, (req, res) => {
         res.sendFile(__dirname + '/public/login.html');
@@ -183,6 +262,76 @@ app.route('/registro/actividad')
             console.log(error);
         }
     });
+
+app.get('/get/miActividad', function (req, res) {
+    registrarUso(req.session.user, '/get/registroActividad');
+    try {
+        var id_usuario = req.session.idUsuario;
+        var consulta = "SELECT a.id_actividad, c.nombre as nombre_cliente, f.nombre as nombre_frecuencia,";
+        consulta += " an.usuario_red, a.nombre, a.tiempo_ejecucion, a.ans_hora,";
+        consulta += " a.ans_dias, CAST(a.fecha_hora as char) as fecha_hora,";
+        consulta += " CAST(a.fecha_hora_eliminacion as char) as fecha_hora_eliminacion, ann.usuario_red as usuario_eliminacion,";
+        consulta += " a.estado";
+        consulta += " FROM actividad a";
+        consulta += " INNER JOIN cliente c ON a.id_cliente = c.id_cliente";
+        consulta += " INNER JOIN frecuencia f ON a.id_frecuencia = f.id_frecuencia";
+        consulta += " INNER JOIN analista an ON an.id_analista = a.id_analista";
+        consulta += " LEFT JOIN analista ann ON ann.id_analista = a.usuario_eliminacion";
+        if (req.session.padre == 0) {
+            consulta += " WHERE an.id_analista = ?";
+            consulta += " ORDER BY a.estado, a.id_actividad";
+            con.query(consulta, [id_usuario], function (err, result, fields) {
+                console.log(con.query);
+                if (err) throw err;
+                res.json(result);
+            });
+        } else if (req.session.padre == 1) {
+            consulta += " ORDER BY a.estado, a.id_actividad";
+            con.query(consulta, function (err, result, fields) {
+                console.log(con.query);
+                if (err) throw err;
+                res.json(result);
+            });
+        } else {
+            res.json(0);
+        }
+    } catch (error) {
+        console.log("Error en /get/registroActividad");
+        console.log(error);
+    }
+});
+
+app.get('/cliente/get', function (req, res) {
+    registrarUso(req.session.user, '/actividades/get');
+    try {
+        var id_usuario = req.session.idUsuario;
+        var consulta = "SELECT id_cliente, nombre FROM cliente";
+        con.query(consulta, function (err, result, fields) {
+            console.log(con.query);
+            if (err) throw err;
+            res.json(result);
+        });
+    } catch (error) {
+        console.log("Error en /cliente/get");
+        console.log(error);
+    }
+});
+
+app.get('/frecuencia/get', function (req, res) {
+    registrarUso(req.session.user, '/actividades/get');
+    try {
+        var id_usuario = req.session.idUsuario;
+        var consulta = "SELECT id_frecuencia, nombre FROM frecuencia";
+        con.query(consulta, function (err, result, fields) {
+            console.log(con.query);
+            if (err) throw err;
+            res.json(result);
+        });
+    } catch (error) {
+        console.log("Error en /clientes/get");
+        console.log(error);
+    }
+});
 
 app.get('/actividades/get', function (req, res) {
     registrarUso(req.session.user, '/actividades/get');
@@ -235,7 +384,7 @@ app.get('/get/registroActividad', function (req, res) {
     registrarUso(req.session.user, '/get/registroActividad');
     try {
         var id_usuario = req.session.idUsuario;
-        var consulta = "select cl.nombre as Cliente, ac.nombre, ac.tiempo_ejecucion, ac.ans_hora, ac.ans_dias, an.usuario_red as analista, fr.nombre as frecuencia, ra.Observaciones, CAST(ra.fecha_hora as char) as fecha_hora, ann.usuario_red as analistareporte";
+        var consulta = "select ra.id_registro, cl.nombre as Cliente, ac.nombre, ac.tiempo_ejecucion, ac.ans_hora, ac.ans_dias, an.usuario_red as analista, fr.nombre as frecuencia, ra.Observaciones, CAST(ra.fecha_hora as char) as fecha_hora, ann.usuario_red as analistareporte";
         consulta += " from registro_actividad ra";
         consulta += " inner join actividad ac on ra.id_actividad = ac.id_actividad";
         consulta += " inner join analista an on an.id_analista = ac.id_analista";

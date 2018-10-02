@@ -1,0 +1,161 @@
+<html>
+
+<head>
+    <title>.:: PyC - Reportes ::.</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+</head>
+
+<body class="container-fluid">
+    <div class="page-header">
+        <h1 id="titulo">Programación y Control - Reportes</h1>
+    </div>
+    <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/">Inicio</a></li>
+                        <li><a href="/registrarActividad">Crear Actividad</a></li>
+                        <li><a href="/registrarReporte">Registrar reporte</a></li>
+                        <li><a href="/registrarReporteOtro">Registrar reporte otro</a></li>
+                        <li><a href="/misActividades">Mis actividades</a></li>
+                        <li><a href="/revisarDatos">Revisar datos</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li id="fullname"></li>
+                        <li><a href="/logout">Cerrar sesión</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    <div class="container row" id="Guardado">
+        <div class="container">
+            <div class="alert alert-success">
+                <strong>Exito!</strong> Registro guardado satisfactoriamente.
+            </div>
+        </div>
+    </div>
+    <div class="container row" id="NoGuardado">
+        <div class="container">
+            <div class="alert alert-danger">
+                <strong>Error!</strong> El registro no pudo ser guardado.
+            </div>
+        </div>
+    </div>
+    <div class="container row">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    Cliente: <select class="form-control" id="cliente"></select>
+                    Frecuencia: <select class="form-control" id="frecuencia"></select>
+                    Nombre: <input type="text" class="form-control" id="nombre">
+                    Duración en minutos: <input type="text" class="form-control" id="duracion">
+                    Hora ANS: <input type="text" class="form-control" id="hora_ans">
+                    Día ANS: <input type="text" class="form-control" id="dia_ans">
+                    <br>
+                    <button class="btn btn-success" onclick="guardarActividad();">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+
+    function guardarActividad() {
+        id_cliente = $("#cliente").val();
+        id_frecuencia = $("#frecuencia").val();
+        nombre = $("#nombre").val();
+        duracion = $("#duracion").val();
+        hora_ans = $("#hora_ans").val();
+        dia_ans = $("#dia_ans").val();
+        if (id_cliente == "0" || id_frecuencia == "0" || nombre == "" || duracion == "") {
+            alert("Neh, te faltaron datos, selecciona una cliente, una frecuencia, ingresa un nombre y una duración.");
+            return false;
+        } else {
+            if (duracion > 0 && duracion < 8 * 60) {
+                switch (id_frecuencia) {
+                    case "1"://Diario
+                        if (hora_ans !== "" && esHora(hora_ans)) {
+                            GuardarDato(id_cliente, id_frecuencia, nombre, duracion, hora_ans, dia_ans);
+                        } else if (hora_ans == "") {
+                            alert("Neh, te faltó la hora de publicación");
+                            return false;
+                        } else if (!esHora(hora_ans)) {
+                            alert("Neh, confirme la hora de publicación");
+                        }
+                        break;
+                    case "2"://Mensual
+                        if (dia_ans !== "" && (dia_ans > 0 && dia_ans < 20)) {
+                            GuardarDato(id_cliente, id_frecuencia, nombre, duracion, hora_ans, dia_ans);
+                        } else if (dia_ans == "") {
+                            alert("Neh, te faltó la cantidad de días hábiles");
+                            return false;
+                        } else if (dia_ans < 0) {
+                            alert("Neh, la cantidad de días debe estar entre 1 y 20");
+                        }
+                        break;
+                    default:
+                        GuardarDato(id_cliente, id_frecuencia, nombre, duracion, hora_ans, dia_ans);
+                        break;
+                }
+            } else {
+                alert("Neh, confirma la duración de la actividad.");
+                return false;
+            }
+        }
+    }
+
+    function esHora(valor) {
+        var isValid = /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/.test(valor);
+        return isValid;
+    }
+
+    function GuardarDato(id_cliente, id_frecuencia, nombre, duracion, hora_ans, dia_ans) {
+        data = { id_cliente: id_cliente, id_frecuencia: id_frecuencia, nombre: nombre, duracion: duracion, hora_ans: hora_ans, dia_ans: dia_ans };
+        $.post("/crear/actividad", data, function (response) {
+            if (response.resultado == 1) {
+                $("#Guardado").show();
+                $("#NoGuardado").hide();
+                $("#actividades").val(0);
+                $("#observaciones").val("");
+            } else {
+                $("#NoGuardado").show();
+                $("#Guardado").hide();
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        $("#NoGuardado").hide();
+        $("#Guardado").hide();
+        $.get("/fullname/get", function (response) {
+            $("#fullname").append("<a href='#'> " + response + "</a>");
+        });
+        $.get("/cliente/get", function (response) {
+            $("#cliente").empty();
+            $("#cliente").append("<option value='0'>Seleccione</option>");
+            for (i = 0; i < response.length; i++) {
+                $("#cliente").append("<option value='" + response[i].id_cliente + "'>" + response[i].nombre + "</option>");
+            }
+        });
+        $.get("/frecuencia/get", function (response) {
+            $("#frecuencia").empty();
+            $("#frecuencia").append("<option value='0'>Seleccione</option>");
+            for (i = 0; i < response.length; i++) {
+                $("#frecuencia").append("<option value='" + response[i].id_frecuencia + "'>" + response[i].nombre + "</option>");
+            }
+        });
+    });
+</script>
+
+</html>
