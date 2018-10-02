@@ -190,8 +190,9 @@ app.get('/actividades/get', function (req, res) {
         var id_usuario = req.session.idUsuario;
         var consulta = "SELECT a.id_actividad, c.nombre as cliente, a.nombre as actividad";
         consulta += " FROM actividad a inner join cliente c on c.id_cliente = a.id_cliente";
+        consulta += " WHERE a.estado = 1";
         if (req.session.padre == 0) {
-            consulta += " where a.id_analista = ?";
+            consulta += " AND a.id_analista = ?";
             con.query(consulta, [id_usuario], function (err, result, fields) {
                 console.log(con.query);
                 if (err) throw err;
@@ -219,7 +220,7 @@ app.get('/actividades/get/:otroUsername', function (req, res) {
         var consulta = "SELECT a.id_actividad, c.nombre as cliente, a.nombre as actividad";
         consulta += " FROM actividad a inner join cliente c on c.id_cliente = a.id_cliente";
         consulta += " inner join analista an on an.id_analista = a.id_analista";
-        consulta += " where an.usuario_red = ? ORDER BY c.nombre ASC;";
+        consulta += " where a.estado = 1 AND an.usuario_red = ? ORDER BY c.nombre ASC;";
         con.query(consulta, [otroUsername], function (err, result, fields) {
             console.log(con.query);
             if (err) throw err;
