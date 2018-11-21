@@ -20,23 +20,23 @@
         <h1 id="titulo">Programación y Control - Reportes</h1>
     </div>
     <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li><a href="/">Inicio</a></li>
-                        <li><a href="/registrarActividad">Crear Actividad</a></li>
-                        <li><a href="/registrarReporte">Registrar reporte</a></li>
-                        <li><a href="/registrarReporteOtro">Registrar reporte otro</a></li>
-                        <li><a href="/misActividades">Mis actividades</a></li>
-                        <li><a href="/revisarDatos">Revisar datos</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li id="fullname"></li>
-                        <li><a href="/logout">Cerrar sesión</a></li>
-                    </ul>
-                </div>
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Inicio</a></li>
+                    <li><a href="/registrarActividad">Crear Actividad</a></li>
+                    <li><a href="/registrarReporte">Registrar reporte</a></li>
+                    <li><a href="/registrarReporteOtro">Registrar reporte otro</a></li>
+                    <li><a href="/misActividades">Mis actividades</a></li>
+                    <li><a href="/revisarDatos">Revisar datos</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li id="fullname"></li>
+                    <li><a href="/logout">Cerrar sesión</a></li>
+                </ul>
             </div>
-        </nav>
+        </div>
+    </nav>
     <div class="container row">
         <div class="row">
             <div class="col-md-offset-1">
@@ -62,18 +62,40 @@
             </div>
         </div>
     </div>
+    <!-- <div id="myModal" class="modal fade">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="icon-box">
+                        <i class="material-icons">&#xE5CD;</i>
+                    </div>
+                    <h4 class="modal-title">¿Está completamente seguro?</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Realmente desea eliminar esta actividad, esta acción no se puede deshacer.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Me arrepiento</button>
+                    <button type="button" class="btn btn-danger">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div> -->
 </body>
 <script>
     function EliminarRegistro(id) {
-        
-        data = { id_actividad: id };
-        $.post("/eliminar/actividad", data, function (response) {
-            if (response.resultado == 1) {
-                $("#id_actividad_" + id).remove();
-            } else {
+        var x = confirm("¿Está completamente seguro?, esta acción no se puede deshacer.");
+        if (x) {
+            data = { id_actividad: id };
+            $.post("/eliminar/actividad", data, function (response) {
+                if (response.resultado == 1) {
+                    $("#id_actividad_" + id).remove();
+                } else {
 
-            }
-        });
+                }
+            });
+        }
     }
     $(document).ready(function () {
         $.get("/fullname/get", function (response) {

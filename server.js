@@ -341,13 +341,14 @@ app.get('/actividades/get', function (req, res) {
         consulta += " FROM actividad a inner join cliente c on c.id_cliente = a.id_cliente";
         consulta += " WHERE a.estado = 1";
         if (req.session.padre == 0) {
-            consulta += " AND a.id_analista = ?";
+            consulta += " AND a.id_analista = ? ORDER BY c.nombre, a.nombre";
             con.query(consulta, [id_usuario], function (err, result, fields) {
                 console.log(con.query);
                 if (err) throw err;
                 res.json(result);
             });
         } else if (req.session.padre == 1) {
+			consulta += " ORDER BY c.nombre, a.nombre";
             con.query(consulta, function (err, result, fields) {
                 console.log(con.query);
                 if (err) throw err;
@@ -442,7 +443,7 @@ app.get('/fullname/get', function (req, res) {
             if (err) throw err;
             if (result.length == 1) {
                 req.session.idUsuario = result[0].id_analista;
-                res.send(req.session.full_name);
+                res.send(req.session.full_name + "(" + result[0].id_analista + ")");
             } else {
                 res.send(req.session.full_name);
             }

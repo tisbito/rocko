@@ -22,14 +22,14 @@
 
     <div class="container">
         <div class="jumbotron col-sm-4 pull-center">
-            <form action="/login" method="post">
+            <form action="/login" method="post" id="formLogin">
                 <div>
                     <label>Usuario:</label>
-                    <input type="text" name="username" />
+                    <input type="text" name="username" id="username" />
                 </div>
                 <div>
                     <label>Clave:</label>
-                    <input type="password" name="password" />
+                    <input type="password" name="password" id="password_"/>
                 </div>
                 <div>
                     <input class="btn btn-primary" type="submit" value="Iniciar sesión" />
@@ -38,5 +38,15 @@
         </div>
     </div>
 </body>
+<script>
+    $("#formLogin").submit(function (event) {
+        if ($("#username") !== "" && $("#password_") !== "") {
+            $("#username").val($("#username").val().toLowerCase())
+            return;
+        }
+        // $("span").text("Not valid!").show().fadeOut(1000);
+        // event.preventDefault();
+    });
+</script>
 
 </html>
