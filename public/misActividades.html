@@ -2,15 +2,12 @@
 
 <head>
     <title>.:: PyC - Reportes ::.</title>
-    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
         crossorigin="anonymous">
-    <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
         crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
-    <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
 </head>
@@ -28,6 +25,7 @@
                     <li><a href="/registrarReporte">Registrar reporte</a></li>
                     <li><a href="/registrarReporteOtro">Registrar reporte otro</a></li>
                     <li><a href="/misActividades">Mis actividades</a></li>
+                    <li><a href="/transferirActividades">Transferir actividades</a></li>
                     <li><a href="/revisarDatos">Revisar datos</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -62,44 +60,24 @@
             </div>
         </div>
     </div>
-    <!-- <div id="myModal" class="modal fade">
-        <div class="modal-dialog modal-confirm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="icon-box">
-                        <i class="material-icons">&#xE5CD;</i>
-                    </div>
-                    <h4 class="modal-title">¿Está completamente seguro?</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p>Realmente desea eliminar esta actividad, esta acción no se puede deshacer.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-info" data-dismiss="modal">Me arrepiento</button>
-                    <button type="button" class="btn btn-danger">Eliminar</button>
-                </div>
-            </div>
-        </div>
-    </div> -->
 </body>
 <script>
     function EliminarRegistro(id) {
         var x = confirm("¿Está completamente seguro?, esta acción no se puede deshacer.");
         if (x) {
-            data = { id_actividad: id };
-            $.post("/eliminar/actividad", data, function (response) {
+            data = {
+                id_actividad: id
+            };
+            $.post("/actividad/eliminar", data, function (response) {
                 if (response.resultado == 1) {
                     $("#id_actividad_" + id).remove();
-                } else {
-
                 }
             });
         }
     }
     $(document).ready(function () {
-        $.get("/fullname/get", function (response) {
-            $("#fullname").append("<a href='#'> " + response + "</a>");
+        $.get("/get/fullname", function (response) {
+            $("#fullname").append("<a href='#'>" + response + "</a>");
         });
         $.get("/get/miActividad", function (response) {
             $("#registroActidad_lista").html();
@@ -107,30 +85,39 @@
                 tr = "<tr id = id_actividad_" + response[i].id_actividad + ">";
                 tr += "<td>" + response[i].id_actividad + "</td>";
                 tr += "<td>" + response[i].nombre_cliente + "</td>";
-                tr += "<td>" + response[i].nombre + "</td>";
+                tr += "<td>" + response[i].nombre_actividad + "</td>";
                 tr += "<td>" + response[i].nombre_frecuencia + "</td>";
-                tr += "<td>" + response[i].usuario_red + "</td>";
+                tr += "<td>" + response[i].analista_responsable_red + "</td>";
                 tr += "<td>" + response[i].tiempo_ejecucion + "</td>";
                 tr += "<td>" + response[i].ans_hora + "</td>";
                 tr += "<td>" + response[i].ans_dias + "</td>";
                 tr += "<td>" + response[i].fecha_hora + "</td>";
                 if (response[i].estado == 1) {
                     tr += "<td>Activo</td>";
-                } else {
+                } else if (response[i].estado == 2) {
                     tr += "<td>Eliminado</td>";
+                } else if (response[i].estado == 3) {
+                    tr += "<td>Transferido</td>";
                 }
                 if (response[i].fecha_hora_eliminacion == null) {
                     tr += "<td>-</td><td>-</td>";
                 } else {
                     tr += "<td>" + response[i].fecha_hora_eliminacion + "</td>";
-                    tr += "<td>" + response[i].usuario_eliminacion + "</td>";
+                    tr += "<td>" + response[i].analista_elimina_red + "</td>";
                 }
                 if (response[i].estado == 1) {
-                    tr += "<td><button onclick='EliminarRegistro(" + response[i].id_actividad + ");' type='button' class='btn btn-default' aria-label='Left Align'>";
+                    tr += "<td><button onclick='EliminarRegistro(" + response[i].id_actividad +
+                        ");' type='button' class='btn btn-default' aria-label='Left Align'>";
                     tr += "<span class='glyphicon glyphicon-trash' aria-hidden='true'></span>";
                     tr += "</button ></td > ";
-                } else {
-                    tr += "<td><button disabled type='button' class='btn btn-default' aria-label='Left Align'>";
+                } else if (response[i].estado == 2) {
+                    tr +=
+                        "<td><button disabled type='button' class='btn btn-default' aria-label='Left Align'>";
+                    tr += "<span class='glyphicon glyphicon-trash' aria-hidden='true'></span>";
+                    tr += "</button ></td > ";
+                } else if (response[i].estado == 3) {
+                    tr +=
+                        "<td><button disabled type='button' class='btn btn-default' aria-label='Left Align'>";
                     tr += "<span class='glyphicon glyphicon-trash' aria-hidden='true'></span>";
                     tr += "</button ></td > ";
                 }

@@ -1,0 +1,197 @@
+<html>
+
+<head>
+    <title>.:: PyC - Reportes ::.</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+</head>
+
+<body class="container-fluid">
+    <div class="page-header">
+        <h1 id="titulo">Programación y Control - Reportes</h1>
+    </div>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Inicio</a></li>
+                    <li><a href="/registrarActividad">Crear Actividad</a></li>
+                    <li><a href="/registrarReporte">Registrar reporte</a></li>
+                    <li><a href="/registrarReporteOtro">Registrar reporte otro</a></li>
+                    <li><a href="/misActividades">Mis actividades</a></li>
+                    <li><a href="/transferirActividades">Transferir actividades</a></li>
+                    <li><a href="/revisarDatos">Revisar datos</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li id="fullname"></li>
+                    <li id="rol" style="display:none;"></li>
+                    <li><a href="/logout">Cerrar sesión</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container row" id="Guardado">
+        <div class="container">
+            <div class="alert alert-success" id="GuardadoTexto">
+                <strong>Exito!</strong> Actividades transferidas satisfactoriamente.
+            </div>
+        </div>
+    </div>
+    <div class="container row" id="NoGuardado">
+        <div class="container">
+            <div class="alert alert-danger" id="NoGuardadoTexto">
+                <strong>Error!</strong> Las actividades no se pudieron transferir.
+            </div>
+        </div>
+    </div>
+    <div class="container row">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    Origen: <select class="form-control" id="analista_origen" onchange="getActividades();"></select>
+                    Destino: <select class="form-control" id="analista_destino" onchange="getActividades();"></select>
+                    <br>
+                    <button id="btnTransferir" class="btn btn-success" onclick="TransferirActividad();">Transferir</button>
+                </div>
+            </div>
+            <div class="col-md-offset-1" id="Tabla">
+                <table class="table table-striped table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th>Seleccionar</th>
+                            <th>#</th>
+                            <th>Cliente</th>
+                            <th>Nombre Actividad</th>
+                        </tr>
+                    </thead>
+                    <tbody id="Actividad_lista"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    function TransferirActividad() {
+        id_actividad = 0;
+        transferidos = 0;
+        no_transferidos = 0;
+        no_transferidost = "";
+        if ($('#analista_origen')[0].disabled) {
+            analista_origen = $("#fullname").text().substring($("#fullname").text().indexOf("(") + 1, $("#fullname").text()
+                .indexOf(")"));;
+        } else {
+            analista_origen = $('#analista_origen').val();;
+        }
+        analista_destino = $('#analista_destino').val();
+        $('#Actividad_lista > tr').each(function () {
+            $this = $(this);
+            if ($this[0].childNodes[0].childNodes[0].checked) {
+                id_actividad = $this[0].childNodes[1].innerHTML;
+                data = {
+                    id_actividad: id_actividad,
+                    analista_origen: analista_origen,
+                    analista_destino: analista_destino
+                };
+                $.post("/actividad/transferir", data, function (response) {
+                    if (response.resultado == 1) {
+                        transferidos++;
+                        $("#Guardado").show();
+                    } else {
+                        no_transferidos++;
+                        no_transferidost += "," + id_actividad;
+                    }
+                });
+            }
+        });
+        if (no_transferidos > 0) {
+            $("#NoGuardado").show();
+        }
+    }
+    $(document).ready(function () {
+        $("#NoGuardado").hide();
+        $("#Guardado").hide();
+        $("#Tabla").hide();
+        $("#btnTransferir").attr("disabled", true);
+        $.get("/get/fullname", function (response) {
+            $("#fullname").append("<a href='#'>" + response + "</a>");
+        });
+        $.get("/get/rol", function (response) {
+            $("#rol").append("<a href='#'>" + response + "</a>");
+        });
+        $.get("/get/analistas", function (response) {
+            $("#analista_origen").empty();
+            var texto = $("#fullname").text().substring(0, $("#fullname").text().indexOf("("));
+            if ($("#rol").text() == "0") {
+                $("#analista_origen").append("<option value='0'>" + texto + "</option>");
+                $("#analista_origen").attr("disabled", true);
+            } else {
+                $("#analista_origen").append("<option value='0'>Seleccione</option>");
+                for (i = 0; i < response.length; i++) {
+                    $("#analista_origen").append("<option value='" + response[i].id_analista + "'>" +
+                        response[i].usuario_red + ":" + response[i].nombres_completos + "</option>"
+                    );
+                }
+            }
+        });
+        $.get("/get/analistas", function (response) {
+            $("#analista_destino").empty();
+            $("#analista_destino").append("<option value='0'>Seleccione</option>");
+            for (i = 0; i < response.length; i++) {
+                $("#analista_destino").append("<option value='" + response[i].id_analista + "'>" +
+                    response[i].usuario_red + ":" + response[i].nombres_completos + "</option>");
+            }
+        });
+    });
+
+    function Marcacion() {
+        var x = 0;
+        $('#Actividad_lista > tr').each(function () {
+            $this = $(this);
+            if ($this[0].childNodes[0].childNodes[0].checked) {
+                x++;
+            }
+        });
+        $("#btnTransferir").attr("disabled", false);
+        if (x == 0) {
+            $('#btnTransferir').text("Transferir");
+            $("#btnTransferir").attr("disabled", true);
+        } else if (x == 1) {
+            $('#btnTransferir').text("Transferir " + x + " actividad");
+        } else if (x > 1) {
+            $('#btnTransferir').text("Transferir " + x + " actividades");
+        }
+    }
+
+    function getActividades() {
+        $("#Tabla").show();
+        $("#btnTransferir").attr("disabled", true);
+        $('#btnTransferir').text("Transferir");
+        otroUsuarioRed = $('#analista_origen').val();
+        if ($("#analista_origen").is(':disabled')) {
+            url = "/get/actividades/";
+        } else {
+            url = "/get/actividades/idusuario/" + otroUsuarioRed;
+        }
+        $.get(url, function (response) {
+            $("#Actividad_lista").empty();
+            for (i = 0; i < response.length; i++) {
+                tr = "<tr>";
+                tr += "<td><input type='checkbox' onchange='Marcacion()'> </td>";
+                tr += "<td>" + response[i].id_actividad + "</td>";
+                tr += "<td>" + response[i].cliente + "</td>";
+                tr += "<td>" + response[i].actividad + "</td>";
+                tr += "</tr>";
+                $("#Actividad_lista").append(tr);
+            }
+        });
+    }
+</script>
+
+</html>

@@ -2,15 +2,12 @@
 
 <head>
     <title>.:: PyC - Reportes ::.</title>
-    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
         crossorigin="anonymous">
-    <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
         crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
-    <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
 </head>
@@ -20,23 +17,24 @@
         <h1 id="titulo">Programación y Control - Reportes</h1>
     </div>
     <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li><a href="/">Inicio</a></li>
-                        <li><a href="/registrarActividad">Crear Actividad</a></li>
-                        <li><a href="/registrarReporte">Registrar reporte</a></li>
-                        <li><a href="/registrarReporteOtro">Registrar reporte otro</a></li>
-                        <li><a href="/misActividades">Mis actividades</a></li>
-                        <li><a href="/revisarDatos">Revisar datos</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li id="fullname"></li>
-                        <li><a href="/logout">Cerrar sesión</a></li>
-                    </ul>
-                </div>
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Inicio</a></li>
+                    <li><a href="/registrarActividad">Crear Actividad</a></li>
+                    <li><a href="/registrarReporte">Registrar reporte</a></li>
+                    <li><a href="/registrarReporteOtro">Registrar reporte otro</a></li>
+                    <li><a href="/misActividades">Mis actividades</a></li>
+                    <li><a href="/transferirActividades">Transferir actividades</a></li>
+                    <li><a href="/revisarDatos">Revisar datos</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li id="fullname"></li>
+                    <li><a href="/logout">Cerrar sesión</a></li>
+                </ul>
             </div>
-        </nav>
+        </div>
+    </nav>
     <div class="container row" id="Guardado">
         <div class="container">
             <div class="alert alert-success">
@@ -70,7 +68,6 @@
 </body>
 
 <script>
-
     function guardarActividad() {
         id_cliente = $("#cliente").val();
         id_frecuencia = $("#frecuencia").val();
@@ -84,7 +81,7 @@
         } else {
             if (duracion > 0 && duracion < 8 * 60) {
                 switch (id_frecuencia) {
-                    case "1"://Diario
+                    case "1": //Diario
                         if (hora_ans !== "" && esHora(hora_ans)) {
                             GuardarDato(id_cliente, id_frecuencia, nombre, duracion, hora_ans, dia_ans);
                         } else if (hora_ans == "") {
@@ -94,7 +91,7 @@
                             alert("Neh, confirme la hora de publicación");
                         }
                         break;
-                    case "2"://Mensual
+                    case "2": //Mensual
                         if (dia_ans !== "" && (dia_ans > 0 && dia_ans < 20)) {
                             GuardarDato(id_cliente, id_frecuencia, nombre, duracion, hora_ans, dia_ans);
                         } else if (dia_ans == "") {
@@ -121,8 +118,15 @@
     }
 
     function GuardarDato(id_cliente, id_frecuencia, nombre, duracion, hora_ans, dia_ans) {
-        data = { id_cliente: id_cliente, id_frecuencia: id_frecuencia, nombre: nombre, duracion: duracion, hora_ans: hora_ans, dia_ans: dia_ans };
-        $.post("/crear/actividad", data, function (response) {
+        data = {
+            id_cliente: id_cliente,
+            id_frecuencia: id_frecuencia,
+            nombre: nombre,
+            duracion: duracion,
+            hora_ans: hora_ans,
+            dia_ans: dia_ans
+        };
+        $.post("/actividad/crear", data, function (response) {
             if (response.resultado == 1) {
                 $("#Guardado").show();
                 $("#NoGuardado").hide();
@@ -138,21 +142,23 @@
     $(document).ready(function () {
         $("#NoGuardado").hide();
         $("#Guardado").hide();
-        $.get("/fullname/get", function (response) {
-            $("#fullname").append("<a href='#'> " + response + "</a>");
+        $.get("/get/fullname", function (response) {
+            $("#fullname").append("<a href='#'>" + response + "</a>");
         });
-        $.get("/cliente/get", function (response) {
+        $.get("/get/cliente", function (response) {
             $("#cliente").empty();
             $("#cliente").append("<option value='0'>Seleccione</option>");
             for (i = 0; i < response.length; i++) {
-                $("#cliente").append("<option value='" + response[i].id_cliente + "'>" + response[i].nombre + "</option>");
+                $("#cliente").append("<option value='" + response[i].id_cliente + "'>" + response[i].nombre +
+                    "</option>");
             }
         });
-        $.get("/frecuencia/get", function (response) {
+        $.get("/get/frecuencia", function (response) {
             $("#frecuencia").empty();
             $("#frecuencia").append("<option value='0'>Seleccione</option>");
             for (i = 0; i < response.length; i++) {
-                $("#frecuencia").append("<option value='" + response[i].id_frecuencia + "'>" + response[i].nombre + "</option>");
+                $("#frecuencia").append("<option value='" + response[i].id_frecuencia + "'>" + response[
+                    i].nombre + "</option>");
             }
         });
     });
