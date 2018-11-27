@@ -86,6 +86,7 @@
         $.get("/get/analistas", function (response) {
             $("#analista_respaldo_" + j).empty();
             for (i = 0; i < response.length; i++) {
+                $("#analista_respaldo_" + j).append("<option value='0'>Seleccione</option>");
                 $("#analista_respaldo_" + j).append("<option value='" + response[i].id_analista + "'>" +
                     response[i].usuario_red + ":" + response[i].nombres_completos + "</option>"
                 );
@@ -99,7 +100,7 @@
             respaldo_nuevo = $("#analista_respaldo_" + j + " option:selected").text();
             $.post("/actividad/modificarrespaldo", data, function (response) {
                 if (response.resultado == 1) {
-                    $("#span_" + j).text(respaldo_nuevo.substring(0,respaldo_nuevo.indexOf(":")));
+                    $("#span_" + j).text(respaldo_nuevo.substring(0, respaldo_nuevo.indexOf(":")));
                     $("#span_" + j).show();
                     $("#analista_respaldo_" + j).hide();
                 } else {
@@ -118,6 +119,7 @@
         $.get("/get/miActividad", function (response) {
             $("#registroActidad_lista").html();
             for (i = 0; i < response.length; i++) {
+                debugger;
                 tr = "<tr id = id_actividad_" + response[i].id_actividad + ">";
                 tr += "<td>" + response[i].id_actividad + "</td>";
                 tr += "<td>" + response[i].nombre_cliente + "</td>";
@@ -132,6 +134,8 @@
                         i +
                         "'></select></td>";
                 } else if (response[i].estado == 2) {
+                    tr += "<td>" + response[i].analista_respaldo_red + "</td>";
+                } else if (response[i].estado == 3) {
                     tr += "<td>" + response[i].analista_respaldo_red + "</td>";
                 }
                 tr += "<td>" + response[i].tiempo_ejecucion + "</td>";
