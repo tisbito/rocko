@@ -82,7 +82,6 @@ function registrarUso(usuario, pagina, an_ip) {
     }
 }
 handleDisconnect();
-
 app.use(bodyParser.urlencoded({
     extended: true
 }));
