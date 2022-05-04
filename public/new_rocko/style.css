@@ -1,0 +1,24 @@
+body{
+    padding: 0%;
+    margin: 0%;
+    background-color: #FFFFFF;
+}
+.banner-log{
+    
+    height: 49.63px;
+    width: 100%;
+    background-color: #005D9C;
+    display: inline-flex;
+    align-content: center;
+}
+.img-banner{
+    height: 49px;
+    width: 254px;
+    border-color: black 1px;
+    background-color: aliceblue;
+}
+.title-banner{
+    padding-top: 15px;
+    margin-left: 100px;
+    font-size: larger;
+}

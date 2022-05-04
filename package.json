@@ -1,0 +1,33 @@
+{
+  "name": "rocko",
+  "version": "3.0.0",
+  "description": "Aplicacion para crear y registrar la realización de actividades",
+  "dependencies": {
+    "cookie-parser": "^1.4.4",
+    "express": "^4.17.1",
+    "express-session": "^1.16.2",
+    "install": "^0.13.0",
+    "moment-timezone": "^0.5.26",
+    "mysql": "^2.17.1",
+    "needle": "^2.4.0",
+    "pg": "^8.3.3",
+    "pg-hstore": "^2.3.3",
+    "progressbar.js": "^1.1.0",
+    "uuid": "^3.3.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WalterRestrepo/reporteria.git"
+  },
+  "author": "Walter Restrepo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WalterRestrepo/reporteria/issues"
+  },
+  "homepage": "https://github.com/WalterRestrepo/reporteria#readme"
+}
