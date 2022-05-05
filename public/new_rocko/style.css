@@ -2,6 +2,7 @@ body{
     padding: 0%;
     margin: 0%;
     background-color: #FFFFFF;
+    font-family: Arial;
 }
 .banner-log{
     
@@ -20,10 +21,73 @@ body{
 }
 
 .title-banner{
-    padding-top: 15px;
+    padding-top: 20px;
     margin-left: 30px;
-    font-size: larger;
+    font-size:small;
+    font-style: normal;
+    
 }
 
+.login-form{
+    width: 400px;
+    height: 340px;
+    position: absolute;
+    left: 40%;
+    right: 32%;
+    top: 26.46%;
+    bottom: 22.52%;
+    background: #E7E6EA;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 27px;
+        
+}
 
+.login-form h4{
+    position: center;
+    left: 42.9%;
+    right: 42.99%;
+    top: 30.87%;
+    bottom: 65.35%;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 24px;
+    text-align: center;
+    color: #303087;
+}
+
+.login-form h5{
+    left: 50%;
+    right: 55.9%;
+    top: 48.82%;
+    bottom: 48.54%;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 15px;
+    text-align: flex-start;
+
+}
+
+.controls{
+    left: 30px;
+    
+    left: 150px;
+    top: 0px;
+    flex-direction: column;
+    
+}
+.buttons{ 
+    position: absolute;
+    left: 150px;
+    top: 280px;
+    background: #D3D924;
+    border:none;
+    border-radius: 4px;
+    width: 100px;
+    height: 35px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+       
+    
+}
 
