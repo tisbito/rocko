@@ -17,6 +17,11 @@ body{
     border-color: black 1px;
     background-color: aliceblue;
 }
+.img-banner img{
+    width: fit-content;
+    height: fit-content;
+
+}
 .title-banner{
     padding-top: 15px;
     margin-left: 100px;
