@@ -29,11 +29,11 @@ body{
 
 /*formulario login*/
 .login-form{
-    width: 400px;
-    height: 390px;
+    width: 500px;
+    height: 400px;
     position: absolute;
-    left: 40%;
-    right: 32%;
+    left: 530px;
+    right: 500px;
     top: 26.46%;
     bottom: 22.52%;
     background: #E7E6EA;
@@ -46,16 +46,17 @@ body{
     position: center;
     margin-top: 10px;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 550;
     font-size: 22px;
     line-height: 24px;
     text-align: center;
     color: #303087;
+    
 }
 
 .img-form{
     position: relative;
-    margin-left: 140px;
+    margin-left: 210px;
     
 }
 
@@ -70,22 +71,23 @@ label {
     display: inline-block;
     width: 90px;
     text-align: right;
-    margin-top: 20px;
-    margin-left: 50px;
+    margin-top: 30px;
+    margin-left: 60px;
     position: relative;
     top: 10px;
     
 }
 
 .controls{
-    margin-top: 20px;
+
     /* Alinear los campos de texto multilínea con sus etiquetas */
     vertical-align: top;  
     /* Proporcionar espacio para escribir texto */
-    height: 20px;
+    height: 25px;
     /* Tamaño uniforme del campo de texto */
-    width: 200px;
-    box-sizing: border-box;   
+    width: 250px;
+    box-sizing: border-box;
+    margin-top: 30px;
     position: relative;
     top: 10px; 
         
@@ -93,7 +95,7 @@ label {
 
 .button{ 
     position: absolute;
-    left: 150px;
+    left: 200px;
     top: 320px;
     background: #D3D924;
     border:none;
