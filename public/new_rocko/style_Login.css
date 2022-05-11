@@ -32,8 +32,8 @@ body{
 /*formulario login*/
 .login-form{
     position: absolute;
-    left: 32.73%;
-    right: 32.73%;
+    left: 40.44%;
+    right: 40.44%;
     top: 26.77%;
     bottom: 22.2%;
     
@@ -101,7 +101,7 @@ label {
     left: 200px;
     top: 340px;
     background: #D3D924;
-    border:none;
+    border:#D3D924;
     border-radius: 4px;
     width: 100px;
     height: 35px;

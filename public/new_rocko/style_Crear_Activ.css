@@ -26,5 +26,60 @@ body{
     margin-left: 30px;
     font-size:medium;
     font-style: normal;
-      
+
+}
+
+.boton{
+    align-items: stretch;
+    align-self: center;
+    height: 2.7em;
+    width:11em;
+    margin-left: 1em;
+    background: #C3C5CA;
+    border-radius: 4px;
+    border: #C3C5CA;
+
+}
+
+
+
+/*container de datos*/
+.container-datos{
+    position: absolute;
+    left: 26.5%;
+    right: 26.42%;
+    top: 16.54%;
+    bottom: 16.54%;
+
+    background: #E7E6EA;
+    
+}
+
+
+.title2{
+    background-color: #005D9C;
+    font-size:larger;
+    font-style: normal;
+    font-weight: 600;
+    padding-bottom: 1em;
+    padding-top: 1em;
+    text-align:center;
+    
+}
+
+.container-datos label{
+    flex-direction: column;
+}
+
+.container button{
+    position: absolute;
+    left: 45.61%;
+    right: 45.61%;
+    top: 87.09%;
+    bottom: 7.87%;
+
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    background: #D3D924;
+    border-radius: 4px;
+    border:#D3D924;
 }
