@@ -74,33 +74,110 @@ body{
 
 }
 
-
+/*Container con gráficos e información*/
 .container-graficos{
     position: absolute;
     left: 6.79%;
     right: 6.79%;
     top: 21.58%;
     bottom: 50.67%;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding-top: 1em;
 
     background: #FFFFFF;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 28px;
+
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 16px;
+    text-align: center;
+
+    color: #303087; /*si dejo este color aquí, se van a aplicar a las letras de los gráficos luego*/
 }
 
 
-.container-btns {
+
+
+
+.container-info label{
+    position: absolute;
+    left: 41.26%;
+    right: 41.37%;
+    top: 60.61%;
+    bottom: 10.67%;
+    text-align: center;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 19px;
+    text-align: center;
+    color: #000000;
+}
+
+/*-----------Botones------------*/
+
+.container-info .boton_RA{
     position: absolute;
     left: 23.05%;
     right: 65.6%;
     top: 76.22%;
     bottom: 18.85%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-
+    align-items: stretch;
+    align-self: center;
+    height: 2.7em;
+    width:11em;
+    background: #D3D924;
+    border-radius: 4px;
+    border: #D3D924;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
-
-.container-info .titulo2{
+.container-info .boton_CA{
     position: absolute;
-    margin-top: 10px;
+    left: 37.98%;
+    right: 51.64%;
+    top: 76.22%;
+    bottom: 18.85%;
+    align-items: stretch;
+    align-self: center;
+    height: 2.7em;
+    width:11em;
+    background: #D3D924;
+    border-radius: 4px;
+    border: #D3D924;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
+.container-info .boton_TA{
+    position: absolute;
+    left: 52.01%;
+    right: 35.48%;
+    top: 76.22%;
+    bottom: 18.85%;
+    align-items: stretch;
+    align-self: center;
+    height: 2.7em;
+    width:11em;
+    background: #D3D924;
+    border-radius: 4px;
+    border: #D3D924;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+.container-info .boton_RD{
+    position: absolute;
+    left: 68.17%;
+    right: 21.45%;
+    top: 76.22%;
+    bottom: 18.85%;
+    align-items: stretch;
+    align-self: center;
+    height: 2.7em;
+    width:11em;
+    background: #D3D924;
+    border-radius: 4px;
+    border: #D3D924;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
