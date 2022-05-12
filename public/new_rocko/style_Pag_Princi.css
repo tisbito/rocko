@@ -103,6 +103,84 @@ body{
 
 
 
+
+/*Cuadros grises de los gráficos*/
+.container-hora{
+    position: absolute;
+    left: 10.75%;
+    right: 78.75%;
+    top: 3em;
+    bottom:1em;
+
+    background: rgba(195, 197, 202, 0.38);
+    border-radius: 28px;
+
+    padding-top: 3em;
+    padding-bottom: 3em;
+
+    
+
+    
+}
+
+.container-porc-ocup{
+    position: absolute;
+    left: 27.48%;
+    right: 62.02%;
+    top: 3em;
+    bottom:1em;
+
+    background: rgba(195, 197, 202, 0.38);
+    border-radius: 28px;
+
+    padding-top: 3em;
+    padding-bottom: 3em;
+    
+}
+
+.container-canti{
+    position: absolute;
+    left: 44.71%;
+    right: 44.79%;
+    top: 3em;
+    bottom:1em;
+
+    background: rgba(195, 197, 202, 0.38);
+    border-radius: 28px;
+
+    padding-top: 3em;
+    padding-bottom: 3em;
+}
+
+.container-resumen{
+    position: absolute;
+    left: 60.46%;
+    right: 29.04%;
+    top: 3em;
+    bottom:1em;
+
+    background: rgba(195, 197, 202, 0.38);
+    border-radius: 28px;
+
+    padding-top: 3em;
+    padding-bottom: 3em;
+}
+
+.container-porc-cumpli{
+    position: absolute;
+    left: 77.19%;
+    right: 12.31%;
+    top: 3em;
+    bottom:1em;
+
+    background: rgba(195, 197, 202, 0.38);
+    border-radius: 28px;
+
+    padding-top: 3em;
+    padding-bottom: 3em;
+}
+
+
 .container-info label{
     position: absolute;
     left: 41.26%;
