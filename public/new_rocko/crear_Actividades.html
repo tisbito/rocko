@@ -29,29 +29,75 @@
             <input class= "boton" type="submit" value="Transferir actividades">
             <input class= "boton" type="submit" value="Revisar datos">
 
-            <section class="container-datos">
+            <section class="container-titulo">
                 <div class="title2">
                     <span style="color: white;";>Crear Actividad</span>
                 </div>
+                
+                <section class="container-datos">
+                    <div class="form-group">
+                        <label for="cliente">Cliente</label>
+                        <form action="select"> 
+                            <select name="opc-cliente" id="opc-cliente"><!--cambiar nombre del select-->
+                                <option value="ejemplo">ejemplo 1</option>
+                                <option value="ejemplo">ejemplo 2</option>
+                                <option value="ejemplo">ejemplo 3</option>
+                                <option value="ejemplo" disabled>Seleccione uno</option>
+                            </select>
+                        </form>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="frecuencia">Frecuencia</label>
+                        <form action="select"> 
+                            <select name="opc-frecuencia" id="opc-frecuencia"><!--cambiar nombre del select-->
+                                <option value="ejemplo">ejemplo 1</option>
+                                <option value="ejemplo">ejemplo 2</option>
+                                <option value="ejemplo">ejemplo 3</option>
+                                <option value="ejemplo" disabled>Seleccione uno</option>
+                                
+                            </select>
+                        </form>
+                    </div>
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" placeholder="prueba">
+                    </div>
+                    <div class="form-group">
+                        <label for="duracion_min">Duración en minutos</label>
+                        <input type="text" placeholder="prueba">
+                    </div>
+                    <div class="form-group">
+                        <label for="hora_ans">Hora ANS</label>
+                        <input type="text" placeholder="prueba">
+                    </div>
+                    <div class="form-group">
+                        <label for="dia_ans">Día ANS</label>
+                        <input type="text" placeholder="prueba">
+                    </div>
+                    <div class="form-group"> 
+                        <label for="analista_respal">Analista de respaldo</label>
+                        <form action="select"> <!--select normal-->
+                            <select name="opc-analistaResp" id="opc-analistaResp"><!--cambiar nombre del select-->
+                                <option value="ejemplo">ejemplo 1</option>
+                                <option value="ejemplo">ejemplo 2</option>
+                                <option value="ejemplo">ejemplo 3</option>
+                                <option value="ejemplo" disabled>Seleccione uno</option>
+                            </select>
+                        </form>
+                    </div>
 
-                <label for="cliente">Cliente</label>
-                <form action="select">Seleccione uno
-                    <select name="opciones" id="opciones">
-                        <option value="ejemplo">ejemplo 1</option>
-                        <option value="ejemplo">ejemplo 2</option>
-                        <option value="ejemplo">ejemplo 3</option>
-                    </select>
-                </form>
-                <label for="frecuencia">Frecuencia</label>
-                <label for="nombre">Nombre</label>
-                <label for="duracion_min">Duración en minutos</label>
-                <label for="hora_ans">Hora ANS</label>
-                <label for="dia_ans">Día ANS</label>
-                <label for="analista_respal">Analista de respaldo</label>
+                </section>
 
+                <section class="container-button">
+                    <button type="submit">Crear</button>
+                </section>
             </section>
+                
+            
+           
 
-            <button type="submit">Crear</button>
+            
 
         </div>
     </div>

@@ -44,20 +44,20 @@ body{
 
 
 /*container de datos*/
-.container-datos{
+.container-titulo{
     position: absolute;
-    left: 26.5%;
-    right: 26.42%;
-    top: 16.54%;
-    bottom: 16.54%;
-
+    right: 20%;
+    left: 20%;
+    margin-top: 110px;
+    margin-bottom: 110px;
     background: #E7E6EA;
+
     
 }
 
 
 .title2{
-    background-color: #005D9C;
+    background-color: #252e71;
     font-size:larger;
     font-style: normal;
     font-weight: 600;
@@ -67,19 +67,65 @@ body{
     
 }
 
-.container-datos label{
+.container-datos {
+    display: flex;
     flex-direction: column;
+    text-align: center;
+    align-items: center;
+    margin-bottom: 3em;
+    
 }
 
-.container button{
-    position: absolute;
-    left: 45.61%;
-    right: 45.61%;
-    top: 87.09%;
-    bottom: 7.87%;
+.form-group{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5em;
+    
+    
+}
+
+.container-datos input{
+    width: 395px;
+    background: #F3F3F3;
+    border: 0.2px solid #000;
+    border-radius: 3px;
+    height: 2em;
+    margin-top: 7px;
+
+}
+
+.container-datos select{
+    width: 400px;
+    height: 2em;
+    background: #F3F3F3;
+    border: 0.2px solid #000;
+    border-radius: 3px;
+    margin-top: 7px;
+
+}
+
+.container-button{
+    display: flex;
+    background-color: #fff;
+    padding-bottom: 3em;
+    justify-content: center;
+    width: 100%;
+
+    
+}
+
+
+.container-button button{
+    align-items: stretch;
+    align-self: center;
+    height: 2.7em;
+    width:11em;
+    margin-top: 3em;
 
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     background: #D3D924;
     border-radius: 4px;
     border:#D3D924;
+    
 }
+
