@@ -23,8 +23,53 @@
             <div class="title-banner">
                 <span style = "color: white;";>Rocko - Administrador de actividades </span>
             </div>
+            
+            <input class= "boton" type="submit" value="Registrar actividad">
+            <input class= "boton" type="submit" value="Crear actividad">
+            <input class= "boton" type="submit" value="Transferir actividades">
+            <input class= "boton" type="submit" value="Revisar datos">
 
         </div>
+
+        <section class="container-transferir">
+            <div class="title2">
+                <span style="color: white;">Transferir actividades</span>
+            </div>
+
+            <section class="container-llenar">
+                <div>
+                    <label for="origen">Origen</label>
+                
+                    <form action="select"> 
+                        <select name="opc-origen" id="opc-origen"><!--cambiar nombre del select-->
+                            <option value="ejemplo">ejemplo 1</option>
+                            <option value="ejemplo">ejemplo 2</option>
+                            <option value="ejemplo">ejemplo 3</option>
+                            <option value="ejemplo" disabled>Seleccione uno</option>
+                        </select>
+                    </form>
+                </div>
+
+                <div>
+                    <label for="destino">Destino</label>
+                
+                    <form action="select"> 
+                        <select name="opc-destino" id="opc-destino"><!--cambiar nombre del select-->
+                            <option value="ejemplo">ejemplo 1</option>
+                            <option value="ejemplo">ejemplo 2</option>
+                            <option value="ejemplo">ejemplo 3</option>
+                            <option value="ejemplo" disabled>Seleccione uno</option>
+                        </select>
+                    </form>
+                </div>
+
+                
+
+            </section>
+            <section class="container-button">
+                    <button type="submit">Crear</button>
+            </section>
+        </section>
     </div>
     
 

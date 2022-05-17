@@ -28,3 +28,82 @@ body{
     font-style: normal;
       
 }
+
+.boton{
+    align-items: stretch;
+    align-self: center;
+    height: 2.7em;
+    width:11em;
+    margin-left: 1em;
+    background: #C3C5CA;
+    border-radius: 4px;
+    border: #C3C5CA;
+
+}
+
+
+
+
+/*Container para poner datos*/
+
+.container-transferir{
+    position: absolute;
+    right: 20%;
+    left: 20%;
+    margin-top: 110px;
+    margin-bottom: 110px;
+    background: #E7E6EA;
+}
+
+.title2{
+    background-color: #252e71;
+    font-size:larger;
+    font-style: normal;
+    font-weight: 600;
+    padding-bottom: 1em;
+    padding-top: 1em;
+    text-align:center;
+}
+
+.container-llenar{
+    margin-top: 2em;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    margin-bottom: 3em;
+}
+
+.container-llenar select{ 
+    width: 400px;
+    height: 2em;
+    background: #F3F3F3;
+    border: 0.2px solid #000;
+    border-radius: 3px;
+    margin-top: 10px;
+    margin-bottom: 6px;
+}
+
+.container-button{
+    display: flex;
+    background-color: #fff;
+    padding-bottom: 3em;
+    justify-content: center;
+    width: 100%;
+
+    
+}
+
+.container-button button{
+    align-items: stretch;
+    align-self: center;
+    height: 2.7em;
+    width:11em;
+    margin-top: 3em;
+
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    background: #D3D924;
+    border-radius: 4px;
+    border:#D3D924;
+    
+}
