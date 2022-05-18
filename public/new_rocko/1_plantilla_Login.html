@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style_Login.css">
+    <link rel="stylesheet" href="./style_1_Login.css">
 
     <title></title>
-    <link rel="styltesheet" href="style_Login.css">
+    <link rel="styltesheet" href="style_1_Login.css">
 </head>
 
 <body>
@@ -29,17 +29,15 @@
                 <div class="img-form">
                     <img src="./img/icono1.png" width="80px" height="80px"  alt="icono1">
                 </div>
-                <ul>
-                    <li>
-                        <label for = "usuario"> Usuario:</label>
-                        <input class="controls" type="text" name="usuario" value="">
-                    </li>
-                    <li>
-                        <label for = "contrasena">Clave:</label>
-                        <input class="controls" type="password" name="contrasena" value="">
-                    </li>
-                    <input class="button" type="submit" name="" value="Ingresar"> 
-                </ul>    
+
+                <form action="iniciar-sesion">
+                    <label for = "usuario"> Usuario:</label>
+                    <input class="controls" type="text" name="usuario" value="" required>
+                    <label for = "contrasena">Clave:</label>
+                    <input class="controls" type="password" name="contrasena" value="" required>
+                    <input class="boton-submit" type="submit" value="Ingresar"> 
+                </form>
+
             </section>
 
         </div>

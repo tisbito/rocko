@@ -29,6 +29,7 @@ body{
 
 }
 
+/*Botones*/
 .boton{
     align-items: stretch;
     align-self: center;
@@ -38,6 +39,7 @@ body{
     background: #C3C5CA;
     border-radius: 4px;
     border: #C3C5CA;
+    cursor: pointer;
 
 }
 
@@ -126,6 +128,7 @@ body{
     background: #D3D924;
     border-radius: 4px;
     border:#D3D924;
+    cursor: pointer;
     
 }
 
