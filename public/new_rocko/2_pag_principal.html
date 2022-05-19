@@ -29,32 +29,57 @@
 
             <section class="container-info">
                 <h1>Información de mi perfil.</h1>
+                
                 <section class="container-graficos">
 
-                    <div class="hora">Hora de ocupación</div>
-                    <div class="porc_ocup">Porcentaje de ocupación</div>
-                    <div class="cantidad">Cantidad de informes por hora</div>
-                    <div class="resumen">Resumen de informes por hora</div>
-                    <div class="porc_cumpli">Porcentaje de cumplimiento</div>
+                    <div class="titulo">Hora de ocupación
+                        <div class="cuadros-grises">
+                            <section class="container-hora"></section>
+                        </div>
+                    </div>
                     
+                    <div class="titulo">Porcentaje de ocupación
+                        <div class="cuadros-grises">
+                            <section class="container-porc-ocup"></section>
+                        </div>
+                    </div>
                     
-                    <section class="container-hora"></section>
-                    <section class="container-porc-ocup"></section>
-                    <section class="container-canti"></section>
-                    <section class="container-resumen"></section>
-                    <section class="container-porc-cumpli"></section>
-                   
+                    <div class="titulo">Cantidad de informes por hora
+                        <div class="cuadros-grises">
+                            <section class="container-canti"></section>
+                        </div>
+                    </div>
                     
-
+                    <div class="titulo">Resumen de informes por hora
+                        <div class="cuadros-grises">
+                            <section class="container-resumen"></section>
+                        </div>
+                    </div>
+                    
+                    <div class="titulo">Porcentaje de cumplimiento
+                        <div class="cuadros-grises"> 
+                            <section class="container-porc-cumpli"></section>
+                        </div>
+                    </div>
+                    
                 </section>
 
-                <label for="pregunta">¿Qué desea hacer hoy?</label>
                 
-                <input class= "boton_RA" type="submit" value="Registrar actividad">
-                <input class= "boton_CA" type="submit" value="Crear actividad">
-                <input class= "boton_TA" type="submit" value="Transferir actividades">
-                <input class= "boton_RD" type="submit" value="Revisar datos">
+                    
+                    
+                    
+                    
+                    
+                
+                
+                <label for="pregunta">¿Qué desea hacer hoy?</label>
 
+                <div class="botones-opcs">
+                    <input class= "boton-opcs" type="submit" onclick="window.location.href='./3_registrar_Actividad.html'" value="Registrar actividad"><!--prueba de boton con js onclick-->
+                    <input class= "boton-opcs" type="submit" onclick="window.location.href='./4_crear_Actividades.html'"value="Crear actividad">
+                    <input class= "boton-opcs" type="submit" onclick="window.location.href='./5_transf_Actividades.html'"value="Transferir actividades">
+                    <input class= "boton-opcs" type="submit" onclick="window.location.href='./6_revisar_Datos.html'"value="Revisar datos"> 
+                </div>
                 
                               
                 

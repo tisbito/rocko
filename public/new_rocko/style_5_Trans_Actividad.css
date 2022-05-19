@@ -29,7 +29,8 @@ body{
       
 }
 
-.boton{
+/*Botones superiores*/
+.boton-sup{
     align-items: stretch;
     align-self: center;
     height: 2.7em;
@@ -39,10 +40,12 @@ body{
     border-radius: 4px;
     border: #C3C5CA;
     cursor: pointer;
+    transition: background-color 0.7s;
 
 }
-
-
+.boton-sup:hover{
+    background-color: #D3D924;
+}
 
 
 /*Container para poner datos*/
@@ -66,6 +69,10 @@ body{
     text-align:center;
 }
 
+.container-llenar label{
+    color: black;
+
+}
 .container-llenar{
     margin-top: 2em;
     display: flex;
@@ -85,17 +92,16 @@ body{
     margin-bottom: 6px;
 }
 
+/*Botón Crear*/
 .container-button{
     display: flex;
     background-color: #fff;
     padding-bottom: 3em;
     justify-content: center;
     width: 100%;
-
-    
 }
 
-.container-button button{
+.boton-trans{
     align-items: stretch;
     align-self: center;
     height: 2.7em;
@@ -107,5 +113,8 @@ body{
     border-radius: 4px;
     border:#D3D924;
     cursor: pointer;
-    
+    transition: background-color 0.7s;
+}
+.boton-trans:hover{
+    background-color: #E8BA20;
 }

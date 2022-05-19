@@ -30,7 +30,8 @@ body{
 }
 
 
-/*formulario pagina inicial*/
+/*-----------formulario pagina inicial gris----------*/
+
 .container h2{
     position: absolute;
     left: 40.11%;
@@ -41,7 +42,6 @@ body{
     font-size: 38px;
     line-height: 39px;
     text-align: center;
-
     color: #303087;
     
 }
@@ -52,7 +52,6 @@ body{
     right: 4.17%;
     top: 21.69%;
     bottom: 7.97%;
-
     background: #E7E6EA;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
@@ -69,117 +68,50 @@ body{
     font-size: 22px;
     line-height: 19px;
     text-align: center;
-
     color: #000000;
 
 }
 
-/*Container con gráficos e información*/
+/*-------Container con gráficos e información blanco-------*/
 .container-graficos{
+    /*barra en sí*/
     position: absolute;
     left: 6.79%;
     right: 6.79%;
     top: 21.58%;
     bottom: 50.67%;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 28px;
+
+    /*texto*/
     text-align: center;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     padding-top: 1em;
-
-    background: #FFFFFF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 28px;
-
     font-weight: 500;
     font-size: 18px;
     line-height: 16px;
-    text-align: center;
 
     color: #303087; /*si dejo este color aquí, se van a aplicar a las letras de los gráficos luego*/
 }
 
-
-
-
-
-
-/*Cuadros grises de los gráficos*/
-.container-hora{
-    position: absolute;
-    left: 10.75%;
-    right: 78.75%;
-    top: 3em;
-    bottom:1em;
-
-    background: rgba(195, 197, 202, 0.38);
-    border-radius: 28px;
-
-    padding-top: 3em;
-    padding-bottom: 3em;
-
-    
-
-    
+/*PRUEBA DIV TITULO*/
+.titulo{
+    height: 150px ;
+    width: 250px;
 }
 
-.container-porc-ocup{
-    position: absolute;
-    left: 27.48%;
-    right: 62.02%;
-    top: 3em;
-    bottom:1em;
-
+/*PRUEBA DE CUADROS----------------------*/
+.cuadros-grises{
+    position: relative;   
+    top: 15px; 
+    height: 80%;
     background: rgba(195, 197, 202, 0.38);
     border-radius: 28px;
-
-    padding-top: 3em;
-    padding-bottom: 3em;
-    
 }
-
-.container-canti{
-    position: absolute;
-    left: 44.71%;
-    right: 44.79%;
-    top: 3em;
-    bottom:1em;
-
-    background: rgba(195, 197, 202, 0.38);
-    border-radius: 28px;
-
-    padding-top: 3em;
-    padding-bottom: 3em;
-}
-
-.container-resumen{
-    position: absolute;
-    left: 60.46%;
-    right: 29.04%;
-    top: 3em;
-    bottom:1em;
-
-    background: rgba(195, 197, 202, 0.38);
-    border-radius: 28px;
-
-    padding-top: 3em;
-    padding-bottom: 3em;
-}
-
-.container-porc-cumpli{
-    position: absolute;
-    left: 77.19%;
-    right: 12.31%;
-    top: 3em;
-    bottom:1em;
-
-    background: rgba(195, 197, 202, 0.38);
-    border-radius: 28px;
-
-    padding-top: 3em;
-    padding-bottom: 3em;
-}
-
+/*-------------------------------*/
 
 .container-info label{
     position: absolute;
@@ -192,18 +124,22 @@ body{
     font-weight: 400;
     font-size: 22px;
     line-height: 19px;
-    text-align: center;
     color: #000000;
 }
 
+
+
 /*-----------Botones------------*/
 
-.container-info .boton_RA{
-    position: absolute;
-    left: 23.05%;
-    right: 65.6%;
-    top: 76.22%;
-    bottom: 18.85%;
+.botones-opcs{
+    position: relative;
+    top: 500px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.boton-opcs{
     align-items: stretch;
     align-self: center;
     height: 2.7em;
@@ -213,53 +149,12 @@ body{
     border: #D3D924;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     cursor: pointer;
+    transition: background-color 0.7s;
 }
-.container-info .boton_CA{
-    position: absolute;
-    left: 37.98%;
-    right: 51.64%;
-    top: 76.22%;
-    bottom: 18.85%;
-    align-items: stretch;
-    align-self: center;
-    height: 2.7em;
-    width:11em;
-    background: #D3D924;
-    border-radius: 4px;
-    border: #D3D924;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-    cursor: pointer;
+.boton-opcs:hover{
+    background-color:#E8BA20;
 }
-.container-info .boton_TA{
-    position: absolute;
-    left: 52.01%;
-    right: 35.48%;
-    top: 76.22%;
-    bottom: 18.85%;
-    align-items: stretch;
-    align-self: center;
-    height: 2.7em;
-    width:11em;
-    background: #D3D924;
-    border-radius: 4px;
-    border: #D3D924;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-    cursor: pointer;
-}
-.container-info .boton_RD{
-    position: absolute;
-    left: 68.17%;
-    right: 21.45%;
-    top: 76.22%;
-    bottom: 18.85%;
-    align-items: stretch;
-    align-self: center;
-    height: 2.7em;
-    width:11em;
-    background: #D3D924;
-    border-radius: 4px;
-    border: #D3D924;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-    cursor: pointer;
-}
+
+
+
 
