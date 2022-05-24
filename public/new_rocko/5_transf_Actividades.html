@@ -6,9 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style_5_Trans_Actividad.css">
-
-    <title></title>
-    <link rel="styltesheet" href="style_5_Trans_Actividad.css">
+    <title>Transferir actividades</title>
 </head>
 
 <body>
@@ -24,10 +22,10 @@
                 <span style = "color: white;";>Rocko - Administrador de actividades </span>
             </div>
             
-            <input class= "boton-sup" type="submit" value="Registrar actividad">
-            <input class= "boton-sup" type="submit" value="Crear actividad">
-            <input class= "boton-sup" type="submit" value="Transferir actividades">
-            <input class= "boton-sup" type="submit" value="Revisar datos">
+            <input class= "boton-sup" type="submit" onclick="window.location.href='./3_registrar_Actividad.html'" value="Registrar actividad">
+            <input class= "boton-sup" type="submit" onclick="window.location.href='./4_crear_Actividades.html'" value="Crear actividad">
+            <input class= "boton-sup" type="submit" onclick="window.location.href='./5_transf_Actividades.html'" value="Transferir actividades">
+            <input class= "boton-sup" type="submit" onclick="window.location.href='./6_revisar_Datos.html'" value="Revisar datos">
 
         </div>
 
@@ -42,10 +40,10 @@
                 
                     <form action="select"> 
                         <select name="opc-origen" id="opc-origen"><!--cambiar nombre del select-->
+                            <option selected disabled>Seleccione uno</option>
                             <option value="ejemplo">ejemplo 1</option>
                             <option value="ejemplo">ejemplo 2</option>
-                            <option value="ejemplo">ejemplo 3</option>
-                            <option value="ejemplo" disabled>Seleccione uno</option>
+                            <option value="ejemplo">ejemplo 3</option>   
                         </select>
                     </form>
                 </div>
@@ -55,10 +53,10 @@
                 
                     <form action="select"> 
                         <select name="opc-destino" id="opc-destino"><!--cambiar nombre del select-->
+                            <option selected disabled>Seleccione uno</option>
                             <option value="ejemplo">ejemplo 1</option>
                             <option value="ejemplo">ejemplo 2</option>
                             <option value="ejemplo">ejemplo 3</option>
-                            <option value="ejemplo" disabled>Seleccione uno</option>
                         </select>
                     </form>
                 </div>

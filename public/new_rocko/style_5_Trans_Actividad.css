@@ -54,7 +54,7 @@ body{
     position: absolute;
     right: 20%;
     left: 20%;
-    margin-top: 110px;
+    margin-top: 130px;
     margin-bottom: 110px;
     background: #E7E6EA;
 }
@@ -68,11 +68,10 @@ body{
     padding-top: 1em;
     text-align:center;
 }
-
-.container-llenar label{
-    color: black;
-
+.container-llenar div{
+    padding-top: 20px;
 }
+
 .container-llenar{
     margin-top: 2em;
     display: flex;
@@ -80,6 +79,7 @@ body{
     text-align: center;
     align-items: center;
     margin-bottom: 3em;
+    color: #000;
 }
 
 .container-llenar select{ 

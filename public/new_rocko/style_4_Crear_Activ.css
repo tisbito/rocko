@@ -82,6 +82,10 @@ body{
     
 }
 
+.container-datos label{
+    color: #000;
+}
+
 .form-group{
     display: flex;
     flex-direction: column;
