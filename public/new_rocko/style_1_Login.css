@@ -1,15 +1,13 @@
-/*--------Prueba del responsive---------*/
 *{
     margin: 0%;
     font-family: Arial, Helvetica, sans-serif;
-    
 }
 
 .container{
     display: grid;
     height: 100vh;
     grid-template-columns: 1fr;
-    grid-template-rows: 0.1fr 0.25fr 1fr;
+    grid-template-rows: 0.01fr 0.25fr 1fr;
 }
 
 .seccion-banner{
@@ -17,26 +15,21 @@
     align-content: center;
     align-items: center;
     background-color: #005D9C;
-
 }
 
 .title-banner{
     margin-left: 30px;
     font-size:medium;
-    font-style: normal;
-      
 }
 
 .espacio{
     background-color: #fff;
 }
 
-/*------------FORMULARIO-------------*/
 .area-form{
     background-color: #fff;
     display: flex;
     justify-content: center;
-    
 }
 
 form{
@@ -65,16 +58,15 @@ form{
     margin-top: 1.5em;
 }
 
-label {
-    /* Tamaño y alineación uniforme */            
+label {            
     text-align: right;
     margin-top: 30px;
     position: relative;
     top: 10px;
     color: black;
     margin-right: 1em;
-    
 }
+
 .clave{
     display: flex;
     align-self: flex-end;
@@ -87,11 +79,8 @@ label {
     box-sizing: border-box;
     margin-top: 30px;
     position: relative;
-    top: 10px; 
-        
+    top: 10px;    
 }
-
-/*--------Botón---------*/
 
 .org-boton{
     display: flex;

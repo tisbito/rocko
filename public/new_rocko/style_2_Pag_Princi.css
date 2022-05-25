@@ -1,147 +1,129 @@
-/*banner*/
-body{
-    padding: 0;
-    margin: 0;
-    background-color: #FFFFFF;
-    font-family: Arial;
-    
+*{
+   margin: 0%; 
+   font-family: Arial, Helvetica, sans-serif;
 }
 
-.banner-log{
-    height: 60px;
-    width: 100%;
-    background-color: #005D9C;
+.container{
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.01fr 0.25fr 1.4fr 0.5fr;
+    background-color: #fff;
+}
+/*banner*/
+.seccion-banner{
     display: inline-flex;
     align-content: center;
-    
+    align-items: center;
+    background-color: #005D9C;
 }
-
-.img-banner{    
-    border-color:white 1px;
-    background-color: aliceblue;
-}
-
 .title-banner{
-    padding-top: 20px;
     margin-left: 30px;
     font-size:medium;
-    font-style: normal;
-      
 }
 
-
-/*-----------formulario pagina inicial gris----------*/
-
-.container h2{
-    position: absolute;
-    left: 40.11%;
-    right: 40.2%;
-    top: 2em;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 38px;
-    line-height: 39px;
-    text-align: center;
+.seccion-titulo-inicial{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
     color: #303087;
-    
+    font-size: 30px;
 }
 
 .container-info{
-    position: absolute;
-    left: 4.07%;
-    right: 4.17%;
-    top: 21.69%;
-    bottom: 7.97%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 30px;
     background: #E7E6EA;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
-}
-
-.container-info h1{
-    position: absolute;
-    left: 40.44%;
-    right: 40.44%;
-    top: 4.57%;
-    bottom: 92.76%;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 22px;
-    line-height: 19px;
-    text-align: center;
     color: #000000;
-
+    margin: 20px;
 }
-
-/*-------Container con gráficos e información blanco-------*/
 .container-graficos{
-    /*barra en sí*/
-    position: absolute;
-    left: 6.79%;
-    right: 6.79%;
-    top: 21.58%;
-    bottom: 50.67%;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 0.4fr 1fr;    
+    width: 95%;
+    height: 60%;
+    margin: 30px;
     background: #FFFFFF;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 28px;
-
-    /*texto*/
-    text-align: center;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    padding-top: 1em;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 16px;
-
-    color: #303087; /*si dejo este color aquí, se van a aplicar a las letras de los gráficos luego*/
+    justify-items: center;
+    margin-bottom: 40px;
+    
 }
-
-/*PRUEBA DIV TITULO*/
 .titulo{
-    height: 150px ;
-    width: 250px;
-}
-
-/*PRUEBA DE CUADROS----------------------*/
-.cuadros-grises{
-    position: relative;   
-    top: 15px; 
-    height: 80%;
-    background: rgba(195, 197, 202, 0.38);
-    border-radius: 28px;
-}
-/*-------------------------------*/
-
-.container-info label{
-    position: absolute;
-    left: 41.26%;
-    right: 41.37%;
-    top: 60.61%;
-    bottom: 10.67%;
     text-align: center;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 22px;
-    line-height: 19px;
-    color: #000000;
+    font-size: 18px;
+    color: #303087; 
+    font-weight: bold;
 }
 
-
-
-/*-----------Botones------------*/
+.cuadro-hora-ocup{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(195, 197, 202, 0.38);
+    border-radius: 30px;
+    width: 90%; 
+    height: 80%;
+    
+}
+.cuadro-porc-ocup{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(195, 197, 202, 0.38);
+    border-radius: 30px;
+    width: 90%; 
+    height: 80%;
+    
+}
+.cuadro-cant-inform{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(195, 197, 202, 0.38);
+    border-radius: 30px;
+    width: 90%; 
+    height: 80%;
+    
+}
+.cuadro-resum-informes{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(195, 197, 202, 0.38);
+    border-radius: 30px;
+    width: 90%; 
+    height: 80%;
+    
+}
+.cuadro-porc-cumpl{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(195, 197, 202, 0.38);
+    border-radius: 30px;
+    width: 90%; 
+    height: 80%;
+    
+}
 
 .botones-opcs{
-    position: relative;
-    top: 500px;
+    margin-top: 50px;
+    background: #E7E6EA;
     display: flex;
-    flex-direction: row;
     justify-content: space-evenly;
+    width: 100%;
+    margin-bottom: 30px;
 }
-
 .boton-opcs{
-    align-items: stretch;
-    align-self: center;
     height: 2.7em;
     width:11em;
     background: #D3D924;
@@ -154,7 +136,4 @@ body{
 .boton-opcs:hover{
     background-color:#E8BA20;
 }
-
-
-
 
