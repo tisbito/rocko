@@ -12,96 +12,103 @@
 <body>
 
     <div class="container">
-        <div class="banner-log">
 
+        <div class="seccion-banner">
             <div class="img-banner">
-                <img src="./img/logo_banner.jpg" width="250" height="60" alt="Emtelco SAS"> 
+                <img src="./img/logo_banner.jpg" width="250" height="60" alt="Emtelco SAS">
             </div>
-
             <div class="title-banner">
-                <span style = "color: white;";>Rocko - Administrador de actividades </span>
+                <span>Rocko - Administrador de actividades </span>
             </div>
-            
-            <input class= "boton-sup" type="submit" onclick="window.location.href='./3_registrar_Actividad.html'" value="Registrar actividad">
-            <input class= "boton-sup" type="submit" onclick="window.location.href='./4_crear_Actividades.html'" value="Crear actividad">
-            <input class= "boton-sup" type="submit" onclick="window.location.href='./5_transf_Actividades.html'" value="Transferir actividades">
-            <input class= "boton-sup" type="submit" onclick="window.location.href='./6_revisar_Datos.html'" value="Revisar datos">
-
-            <section class="container-titulo">
-                <div class="title2">
-                    <span style="color: white;";>Crear Actividad</span>
-                </div>
-                
-                <section class="container-datos">
-                    <div class="form-group">
-                        <label for="cliente">Cliente</label>
-                        <form action="select"> 
-                            <select name="opc-cliente" id="opc-cliente">
-                                <option selected disabled>Seleccione uno</option><!--funciona--> 
-                                <option value="ejemplo">ejemplo 1</option>
-                                <option value="ejemplo">ejemplo 2</option>
-                                <option value="ejemplo">ejemplo 3</option>
-                                
-                            </select>
-                        </form>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="frecuencia">Frecuencia</label>
-                        <form action="select"> 
-                            <select name="opc-frecuencia" id="opc-frecuencia">
-                                <option selected disabled>Seleccione uno</option>
-                                <option value="ejemplo">ejemplo 1</option>
-                                <option value="ejemplo">ejemplo 2</option>
-                                <option value="ejemplo">ejemplo 3</option>
-                                
-                                
-                            </select>
-                        </form>
-                    </div>
-                    <div class="form-group">
-                        <label for="nombre">Nombre</label>
-                        <input type="text" placeholder="prueba">
-                    </div>
-                    <div class="form-group">
-                        <label for="duracion_min">Duración en minutos</label>
-                        <input type="text" placeholder="prueba">
-                    </div>
-                    <div class="form-group">
-                        <label for="hora_ans">Hora ANS</label>
-                        <input type="text" placeholder="prueba">
-                    </div>
-                    <div class="form-group">
-                        <label for="dia_ans">Día ANS</label>
-                        <input type="text" placeholder="prueba">
-                    </div>
-                    <div class="form-group"> 
-                        <label for="analista_respal">Analista de respaldo</label>
-                        <form action="select"> <!--select normal-->
-                            <select name="opc-analistaResp" id="opc-analistaResp">
-                                <option selected disabled>Seleccione uno</option>
-                                <option value="ejemplo">ejemplo 1</option>
-                                <option value="ejemplo">ejemplo 2</option>
-                                <option value="ejemplo">ejemplo 3</option>
-                            </select>
-                        </form>
-                    </div>
-
-                </section>
-
-                <section class="container-button">
-                    <button class="boton-crear"type="submit">Crear</button>
-                </section>
-            </section>
-                
-            
-           
-
-            
-
+            <div class="seccion-btns-sup">
+                <input class="boton-sup" type="submit" onclick="window.location.href='./3_registrar_Actividad.html'"
+                    value="Registrar actividad">
+                <input class="boton-sup" type="submit" onclick="window.location.href='./4_crear_Actividades.html'"
+                    value="Crear actividad">
+                <input class="boton-sup" type="submit" onclick="window.location.href='./5_transf_Actividades.html'"
+                    value="Transferir actividades">
+                <input class="boton-sup" type="submit" onclick="window.location.href='./6_revisar_Datos.html'"
+                    value="Revisar datos">
+            </div>
+            <div class="seccion-perfil">
+                <label for="perfil">Perfil</label>
+            </div>
+            <div class="cerrar-sesion">
+                <label for="cerrar-sesion">Cerrar sesión</label>
+            </div>
         </div>
+
+        <section class="container-datos">
+            <div class="title2">
+                <span>Crear Actividad</span>
+            </div>
+
+            <section class="container-formulario">
+                <div class="form-group">
+                    <label for="cliente">Cliente</label>
+                    <form action="select">
+                        <select name="opc-cliente" id="opc-cliente">
+                            <option selected disabled>Seleccione uno</option>
+                            <!--funciona-->
+                            <option value="ejemplo">ejemplo 1</option>
+                            <option value="ejemplo">ejemplo 2</option>
+                            <option value="ejemplo">ejemplo 3</option>
+
+                        </select>
+                    </form>
+                </div>
+
+                <div class="form-group">
+                    <label for="frecuencia">Frecuencia</label>
+                    <form action="select">
+                        <select name="opc-frecuencia" id="opc-frecuencia">
+                            <option selected disabled>Seleccione uno</option>
+                            <option value="ejemplo">ejemplo 1</option>
+                            <option value="ejemplo">ejemplo 2</option>
+                            <option value="ejemplo">ejemplo 3</option>
+
+
+                        </select>
+                    </form>
+                </div>
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" placeholder="prueba">
+                </div>
+                <div class="form-group">
+                    <label for="duracion_min">Duración en minutos</label>
+                    <input type="text" placeholder="prueba">
+                </div>
+                <div class="form-group">
+                    <label for="hora_ans">Hora ANS</label>
+                    <input type="text" placeholder="prueba">
+                </div>
+                <div class="form-group">
+                    <label for="dia_ans">Día ANS</label>
+                    <input type="text" placeholder="prueba">
+                </div>
+                <div class="form-group">
+                    <label for="analista_respal">Analista de respaldo</label>
+                    <form action="select">
+                        <!--select normal-->
+                        <select name="opc-analistaResp" id="opc-analistaResp">
+                            <option selected disabled>Seleccione uno</option>
+                            <option value="ejemplo">ejemplo 1</option>
+                            <option value="ejemplo">ejemplo 2</option>
+                            <option value="ejemplo">ejemplo 3</option>
+                        </select>
+                    </form>
+                </div>
+
+            </section>
+        </section>
+
+        <section class="container-button">
+            <button class="boton-crear" type="submit">Crear</button>
+        </section>
+
     </div>
-    
+
 
 </body>
 
