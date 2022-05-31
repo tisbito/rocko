@@ -12,34 +12,41 @@
 <body>
 
     <div class="container">
-        <div class="banner-log">
+
+        <div class="seccion-banner">
 
             <div class="img-banner">
                 <img src="./img/logo_banner.jpg" width="250" height="60" alt="Emtelco SAS"> 
             </div>
 
             <div class="title-banner">
-                <span style = "color: white;";>Rocko - Administrador de actividades </span>
+                <span>Rocko - Administrador de actividades </span>
             </div>
-            
-            <input class= "boton-sup" type="submit" onclick="window.location.href='./3_registrar_Actividad.html'" value="Registrar actividad">
-            <input class= "boton-sup" type="submit" onclick="window.location.href='./4_crear_Actividades.html'" value="Crear actividad">
-            <input class= "boton-sup" type="submit" onclick="window.location.href='./5_transf_Actividades.html'" value="Transferir actividades">
-            <input class= "boton-sup" type="submit" onclick="window.location.href='./6_revisar_Datos.html'" value="Revisar datos">
+            <div class="seccion-btns-sup">
+                <input class= "boton-sup" type="submit" onclick="window.location.href='./3_registrar_Actividad.html'" value="Registrar actividad">
+                <input class= "boton-sup" type="submit" onclick="window.location.href='./4_crear_Actividades.html'" value="Crear actividad">
+                <input class= "boton-sup" type="submit" onclick="window.location.href='./5_transf_Actividades.html'" value="Transferir actividades">
+                <input class= "boton-sup" type="submit" onclick="window.location.href='./6_revisar_Datos.html'" value="Revisar datos">
+            </div>
+            <div class="seccion-perfil">
+                <label for="perfil">Perfil</label>
+            </div>
+            <div class="cerrar-sesion">
+                <label for="cerrar-sesion">Cerrar sesión</label>
+            </div>
 
         </div>
 
         <section class="container-transferir">
             <div class="title2">
-                <span style="color: white;">Transferir actividades</span>
+                <span>Transferir actividades</span>
             </div>
 
-            <section class="container-llenar">
-                <div>
+            <section class="container-form">
+                <div class="form-group">
                     <label>Origen</label>
-                
                     <form action="select"> 
-                        <select name="opc-origen" id="opc-origen"><!--cambiar nombre del select-->
+                        <select name="opc-origen" id="opc-origen">
                             <option selected disabled>Seleccione uno</option>
                             <option value="ejemplo">ejemplo 1</option>
                             <option value="ejemplo">ejemplo 2</option>
@@ -48,11 +55,10 @@
                     </form>
                 </div>
 
-                <div>
+                <div class="form-group">
                     <label>Destino</label>
-                
                     <form action="select"> 
-                        <select name="opc-destino" id="opc-destino"><!--cambiar nombre del select-->
+                        <select name="opc-destino" id="opc-destino">
                             <option selected disabled>Seleccione uno</option>
                             <option value="ejemplo">ejemplo 1</option>
                             <option value="ejemplo">ejemplo 2</option>
@@ -60,10 +66,8 @@
                         </select>
                     </form>
                 </div>
-
-                
-
             </section>
+
             <section class="container-button">
                     <button class ="boton-trans" type="submit">Transferir</button>
             </section>

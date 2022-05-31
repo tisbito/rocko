@@ -1,37 +1,33 @@
-/*banner*/
-body{
-    padding: 0;
-    margin: 0;
-    background-color: #FFFFFF;
-    font-family: Arial;
-    
+*{
+    margin: 0%;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-.banner-log{
-    height: 60px;
-    width: 100%;
+.container{
+    display: grid;
+    background-color: #fff;
+    height: 100vh;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.1fr 0.5fr 1fr;
+}
+.seccion-banner{
+    display: grid;
+    grid-template-columns: 0.1fr 0.6fr 1.5fr 0.3fr 0.3fr;
+    grid-template-rows: 1fr;
     background-color: #005D9C;
-    display: inline-flex;
-    align-content: center;
-    
+    color: #fff;
 }
-
-.img-banner{    
-    border-color:white 1px;
-    background-color: aliceblue;
-}
-
 .title-banner{
-    padding-top: 20px;
+    display: flex;
+    align-items: center;
     margin-left: 30px;
     font-size:medium;
-    font-style: normal;
-      
 }
-
-/*Botones superiores*/
+.seccion-btns-sup{
+    display: flex;
+    flex-direction: row;
+}
 .boton-sup{
-    align-items: stretch;
     align-self: center;
     height: 2.7em;
     width:11em;
@@ -41,73 +37,88 @@ body{
     border: #C3C5CA;
     cursor: pointer;
     transition: background-color 0.7s;
-
 }
 .boton-sup:hover{
     background-color: #D3D924;
 }
-
-
-/*Container para poner datos*/
-
-.container-transferir{
-    position: absolute;
-    right: 20%;
-    left: 20%;
-    margin-top: 130px;
-    margin-bottom: 110px;
-    background: #E7E6EA;
+.seccion-perfil{
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+.cerrar-sesion{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+@media (max-width:1160px){
+    .boton-sup{
+        height: 2.7em;
+        width:9em;
+        margin-left: 0.5em;
+    }
+    .seccion-perfil{
+        padding-left: 10px;
+    }
+    .cerrar-sesion{
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+    }
 }
 
+.container-transferir{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-self: center;
+    margin-top: 200px;
+    width: 50%;
+    background: #E7E6EA;
+    color: #fff;
+    padding-bottom: 4em;
+}
 .title2{
     background-color: #252e71;
     font-size:larger;
-    font-style: normal;
     font-weight: 600;
     padding-bottom: 1em;
     padding-top: 1em;
     text-align:center;
+    width: 100%;
 }
-.container-llenar div{
-    padding-top: 20px;
-}
-
-.container-llenar{
-    margin-top: 2em;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-    margin-bottom: 3em;
+.container-form{
+    width: 60%;
+    margin-top: 20px;
     color: #000;
 }
-
-.container-llenar select{ 
+.form-group{
+    align-items: center;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.3em;
+    font-size: large;
+}
+.container-transferir select{
     width: 400px;
     height: 2em;
+    color:rgb(95, 95, 95);
     background: #F3F3F3;
     border: 0.2px solid #000;
     border-radius: 3px;
-    margin-top: 10px;
-    margin-bottom: 6px;
+    margin-top: 7px;
 }
-
-/*Botón Crear*/
 .container-button{
     display: flex;
-    background-color: #fff;
-    padding-bottom: 3em;
     justify-content: center;
-    width: 100%;
+    padding: 10px;
 }
-
 .boton-trans{
-    align-items: stretch;
-    align-self: center;
     height: 2.7em;
     width:11em;
     margin-top: 3em;
-
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     background: #D3D924;
     border-radius: 4px;
@@ -116,5 +127,5 @@ body{
     transition: background-color 0.7s;
 }
 .boton-trans:hover{
-    background-color: #E8BA20;
+    background-color:#E8BA20;
 }

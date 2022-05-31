@@ -22,11 +22,13 @@
     align-items: center;
     margin-left: 30px;
     font-size:medium;
+    
 }
 .seccion-btns-sup{
     display: flex;
     flex-direction: row;
 }
+
 .boton-sup{
     align-self: center;
     height: 2.7em;
@@ -41,11 +43,10 @@
 .boton-sup:hover{
     background-color: #D3D924;
 }
-
 .seccion-perfil{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center; 
 }
 .cerrar-sesion{
     display: flex;
@@ -53,6 +54,21 @@
     justify-content: center;
     padding-left: 1em;
     padding-right: 1em;
+}
+
+@media (max-width:1160px){
+    .boton-sup{
+        height: 2.7em;
+        width:9em;
+        margin-left: 0.5em;
+    }
+    .seccion-perfil{
+        padding-left: 10px;
+    }
+    .cerrar-sesion{
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+    }
 }
 
 .container-datos{
