@@ -1,30 +1,107 @@
-/*banner*/
-body{
-    padding: 0;
-    margin: 0;
-    background-color: #FFFFFF;
-    font-family: Arial;
-    
+*{
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-.banner-log{
-    height: 60px;
-    width: 100%;
+.container{
+    background-color: #fff;
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.1fr 2fr 0.5fr;
+}
+.seccion-banner{
+    display: grid;
+    grid-template-columns: 0.1fr 0.6fr 1.5fr 0.3fr 0.3fr;
+    grid-template-rows: 1fr;
     background-color: #005D9C;
-    display: inline-flex;
-    align-content: center;
-    
+    color: #fff;
 }
-
-.img-banner{    
-    border-color:white 1px;
-    background-color: aliceblue;
-}
-
 .title-banner{
-    padding-top: 20px;
+    display: flex;
+    align-items: center;
     margin-left: 30px;
     font-size:medium;
-    font-style: normal;
-      
+}
+.seccion-btns-sup{
+    display: flex;
+    flex-direction: row;
+}
+.boton-sup{
+    align-self: center;
+    height: 2.7em;
+    width:11em;
+    margin-left: 1em;
+    background: #C3C5CA;
+    border-radius: 4px;
+    border: #C3C5CA;
+    cursor: pointer;
+    transition: background-color 0.7s;
+}
+.boton-sup:hover{
+    background-color: #D3D924;
+}
+.seccion-perfil{
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+.cerrar-sesion{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+@media (max-width:1160px){
+    .boton-sup{
+        height: 2.7em;
+        width:9em;
+        margin-left: 0.5em;
+    }
+    .seccion-perfil{
+        padding-left: 10px;
+    }
+    .cerrar-sesion{
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+    }
+}
+
+.seccion-datos{
+    background-color: lightpink;
+    display: grid;
+    grid-template-columns: 2fr 0.5fr;
+    margin-top: 40px;
+    font-size: large;
+}
+.seccion-tabla{
+    background-color: darksalmon;
+    margin: 2em;
+}
+
+.seccion-btnsYfiltro{
+    background-color: darkslateblue;
+    display: grid;
+    grid-template-rows: 2fr 2fr;
+}
+.seccion-btns-der{
+    background-color: lightseagreen;
+    margin: 2em;
+}
+.seccion-filtro{
+    background-color: deepskyblue;
+    justify-self: center;
+    text-align: center;
+    margin-top: 2em;
+}
+
+.seccion-filtro select{
+    width: 250px;
+    height: 2em;
+    color:rgb(95, 95, 95);
+    background: #F3F3F3;
+    border: 0.2px solid #000;
+    border-radius: 3px;
+    margin-top: 10px;
 }
