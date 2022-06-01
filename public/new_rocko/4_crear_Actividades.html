@@ -10,9 +10,7 @@
 </head>
 
 <body>
-
     <div class="container">
-
         <div class="seccion-banner">
             <div class="img-banner">
                 <img src="./img/logo_banner.jpg" width="250" height="60" alt="Emtelco SAS">
@@ -21,20 +19,16 @@
                 <span>Rocko - Administrador de actividades </span>
             </div>
             <div class="seccion-btns-sup">
-                <input class="boton-sup" type="submit" onclick="window.location.href='./3_registrar_Actividad.html'"
-                    value="Registrar actividad">
-                <input class="boton-sup" type="submit" onclick="window.location.href='./4_crear_Actividades.html'"
-                    value="Crear actividad">
-                <input class="boton-sup" type="submit" onclick="window.location.href='./5_transf_Actividades.html'"
-                    value="Transferir actividades">
-                <input class="boton-sup" type="submit" onclick="window.location.href='./6_revisar_Datos.html'"
-                    value="Revisar datos">
+                <input class="boton-sup" type="submit" onclick="window.location.href='./3_registrar_Actividad.html'"value="Registrar actividad">
+                <input class="boton-sup" type="submit" onclick="window.location.href='./4_crear_Actividades.html'"value="Crear actividad">
+                <input class="boton-sup" type="submit" onclick="window.location.href='./5_transf_Actividades.html'"value="Transferir actividades">
+                <input class="boton-sup" type="submit" onclick="window.location.href='./6_revisar_Datos.html'"value="Revisar datos">
             </div>
             <div class="seccion-perfil">
                 <label for="perfil">Perfil</label>
             </div>
             <div class="cerrar-sesion">
-                <label for="cerrar-sesion">Cerrar sesión</label>
+                <label for="cerrar-sesion">Cerrar sesión</label> <!--href="/logout"-->
             </div>
         </div>
 
@@ -49,11 +43,6 @@
                     <form action="select">
                         <select name="opc-cliente" id="opc-cliente">
                             <option selected disabled>Seleccione uno</option>
-                            <!--funciona-->
-                            <option value="ejemplo">ejemplo 1</option>
-                            <option value="ejemplo">ejemplo 2</option>
-                            <option value="ejemplo">ejemplo 3</option>
-
                         </select>
                     </form>
                 </div>
@@ -63,39 +52,31 @@
                     <form action="select">
                         <select name="opc-frecuencia" id="opc-frecuencia">
                             <option selected disabled>Seleccione uno</option>
-                            <option value="ejemplo">ejemplo 1</option>
-                            <option value="ejemplo">ejemplo 2</option>
-                            <option value="ejemplo">ejemplo 3</option>
-
-
                         </select>
                     </form>
                 </div>
+
                 <div class="form-group">
                     <label for="nombre">Nombre</label>
-                    <input type="text" placeholder="prueba">
+                    <input type="text" placeholder="prueba" id="nombre">
                 </div>
                 <div class="form-group">
                     <label for="duracion_min">Duración en minutos</label>
-                    <input type="text" placeholder="prueba">
+                    <input type="text" placeholder="prueba" id="duracion">
                 </div>
                 <div class="form-group">
                     <label for="hora_ans">Hora ANS</label>
-                    <input type="text" placeholder="prueba">
+                    <input type="text" placeholder="prueba" id="hora_ans">
                 </div>
                 <div class="form-group">
                     <label for="dia_ans">Día ANS</label>
-                    <input type="text" placeholder="prueba">
+                    <input type="text" placeholder="prueba" id="dia_ans">
                 </div>
                 <div class="form-group">
                     <label for="analista_respal">Analista de respaldo</label>
                     <form action="select">
-                        <!--select normal-->
                         <select name="opc-analistaResp" id="opc-analistaResp">
                             <option selected disabled>Seleccione uno</option>
-                            <option value="ejemplo">ejemplo 1</option>
-                            <option value="ejemplo">ejemplo 2</option>
-                            <option value="ejemplo">ejemplo 3</option>
                         </select>
                     </form>
                 </div>
@@ -104,12 +85,139 @@
         </section>
 
         <section class="container-button">
-            <button class="boton-crear" type="submit">Crear</button>
+            <button class="boton-crear" type="submit" onclick="guardarActividad();">Crear</button>
         </section>
-
     </div>
-
-
+    <!--OJO MENSAJES-->
+    <div class="container row" id="Guardado">
+        <div class="container">
+            <div class="alert alert-success">
+                <strong>Exito!</strong> Registro guardado satisfactoriamente.
+            </div>
+        </div>
+    </div>
+    <div class="container row" id="NoGuardado">
+        <div class="container">
+            <div class="alert alert-danger">
+                <strong>Error!</strong> El registro no pudo ser guardado.
+            </div>
+        </div>
+    </div>
 </body>
+
+<script>
+    function guardarActividad() {
+        id_cliente = $("#opc-cliente").val();
+        id_frecuencia = $("#opc-frecuencia").val();
+        nombre = $("#nombre").val();
+        duracion = $("#duracion").val();
+        hora_ans = $("#hora_ans").val();
+        dia_ans = $("#dia_ans").val();
+        analista_respaldo = $("#opc-analistaResp").val();
+        if (id_cliente == "0" || id_frecuencia == "0" || nombre == "" || duracion == "" || analista_respaldo == "0") {
+            alert("Los datos no deberían estar vacíos, por favor ingresalos.");
+            return false;
+        } else {
+            if (duracion > 0 && duracion < 8 * 60) {
+                switch (id_frecuencia) {
+                    case "1": //Diario
+                        if (hora_ans !== "" && esHora(hora_ans)) {
+                            GuardarDato(id_cliente, id_frecuencia, nombre, duracion, hora_ans, dia_ans, analista_respaldo);
+                        } else if (hora_ans == "") {
+                            alert("Falta la hora de publicación");
+                            return false;
+                        } else if (!esHora(hora_ans)) {
+                            alert("Por favor, confirme la hora de publicación");
+                        }
+                        break;
+                    case "2": //Mensual
+                        if (dia_ans !== "" && (dia_ans > 0 && dia_ans < 20)) {
+                            GuardarDato(id_cliente, id_frecuencia, nombre, duracion, hora_ans, dia_ans, analista_respaldo);
+                        } else if (dia_ans == "") {
+                            alert("Falta la cantidad de días hábiles");
+                            return false;
+                        } else if (dia_ans < 0) {
+                            alert("La cantidad de días debe estar entre 1 y 20");
+                        }
+                        break;
+                    default:
+                        GuardarDato(id_cliente, id_frecuencia, nombre, duracion, hora_ans, dia_ans, analista_respaldo);
+                        break;
+                }
+            } else {
+                alert("Por favor, confirme la duración de la actividad.");
+                return false;
+            }
+        }
+   
+    }
+
+    function esHora(valor){
+        var isValid = /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/.test(valor);
+        return isValid;
+    }
+
+    function GuardarDato(id_cliente, id_frecuencia, nombre, duracion, hora_ans, dia_ans, analista_respaldo){
+        data = {
+            id_cliente: id_cliente,
+            id_frecuencia: id_frecuencia,
+            nombre: nombre,
+            duracion: duracion,
+            hora_ans: hora_ans,
+            dia_ans: dia_ans, 
+            analista_respaldo: analista_respaldo 
+        };
+        $.post("/actividad/crear", data, function (response) {
+            if (response.resultado == 1) {
+                $("#Guardado").show();
+                $("#NoGuardado").hide();
+                $("#actividades").val(0);
+                $("#observaciones").val("");
+            } else {
+                $("#NoGuardado").show();
+                $("#Guardado").hide();
+            }
+        });
+    }
+//-------------OJO REVISAR - NO TERMINADO -----------
+    $(document).ready(function () {
+        $("#NoGuardado").hide();
+        $("#Guardado").hide();
+        $.get("/get/fullname", function (response) {
+            $("#fullname").append("<a href='#'>" + response + "</a>");
+        });
+        $.get("/get/cliente", function (response) {
+            $("#cliente").empty();
+            $("#cliente").append("<option value='0'>Seleccione</option>");
+            for (i = 0; i < response.length; i++) {
+                $("#cliente").append("<option value='" + response[i].id_cliente + "'>" + response[i].nombre +
+                    "</option>");
+            }
+        });
+        $.get("/get/frecuencia", function (response) {
+            $("#frecuencia").empty();
+            $("#frecuencia").append("<option value='0'>Seleccione</option>");
+            for (i = 0; i < response.length; i++) {
+                $("#frecuencia").append("<option value='" + response[i].id_frecuencia + "'>" + response[
+                    i].nombre + "</option>");
+            }
+        });
+        $.get("/get/analistas", function (response) {
+            $("#analista_respaldo").empty();
+            var texto = $("#fullname").text().substring(0, $("#fullname").text().indexOf("("));
+            if ($("#rol").text() == "0") {
+                $("#analista_respaldo").append("<option value='0'>" + texto + "</option>");
+                $("#analista_respaldo").attr("disabled", true);
+            } else {
+                $("#analista_respaldo").append("<option value='0'>Seleccione</option>");
+                for (i = 0; i < response.length; i++) {
+                    $("#analista_respaldo").append("<option value='" + response[i].id_analista + "'>" +
+                        response[i].usuario_red + ":" + response[i].nombres_completos + "</option>"
+                    );
+                }
+            }
+        });
+    });
+</script>
 
 </html>

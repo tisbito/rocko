@@ -14,16 +14,20 @@
     <div class="container">
         <div class="seccion-banner">
             <div class="img-banner">
-                <img src="./img/logo_banner.jpg" width="250" height="60" alt="Emtelco SAS"> 
+                <img src="./img/logo_banner.jpg" width="250" height="60" alt="Emtelco SAS">
             </div>
             <div class="title-banner">
                 <span>Rocko - Administrador de actividades </span>
             </div>
             <div class="seccion-btns-sup">
-                <input class= "boton-sup" type="submit" onclick="window.location.href='./3_registrar_Actividad.html'" value="Registrar actividad">
-                <input class= "boton-sup" type="submit" onclick="window.location.href='./4_crear_Actividades.html'" value="Crear actividad">
-                <input class= "boton-sup" type="submit" onclick="window.location.href='./5_transf_Actividades.html'" value="Transferir actividades">
-                <input class= "boton-sup" type="submit" onclick="window.location.href='./6_revisar_Datos.html'" value="Revisar datos">
+                <input class="boton-sup" type="submit" onclick="window.location.href='./3_registrar_Actividad.html'"
+                    value="Registrar actividad">
+                <input class="boton-sup" type="submit" onclick="window.location.href='./4_crear_Actividades.html'"
+                    value="Crear actividad">
+                <input class="boton-sup" type="submit" onclick="window.location.href='./5_transf_Actividades.html'"
+                    value="Transferir actividades">
+                <input class="boton-sup" type="submit" onclick="window.location.href='./6_revisar_Datos.html'"
+                    value="Revisar datos">
             </div>
             <div class="seccion-perfil">
                 <label for="perfil">Perfil</label>
@@ -34,22 +38,48 @@
 
         </div>
 
-        <div class="seccion-tabla">
-            <table>
-                <thead>
+        <div class="container_2">
+            <div class="seccion-tabla">
+                <table class="tabla-revision">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Cliente</th>
+                            <th>Nombre Actividad</th>
+                            <th>Tiempo de ejecución</th>
+                            <th>Hora ANS</th>
+                            <th>Días ANS</th>
+                            <th>Frecuencia</th>
+                            <th>Analista responsable</th>
+                            <th>Observaciones</th>
+                            <th>Fecha y hora de registro</th>
+                        </tr>
+                    </thead>
+
                     <tr>
-                        <th>Ejemplo titulo</th><th>Titulo 2</th><th>titulo 3</th>
+                        <td>Agua</td>
+                        <td>Enero</td>
+                        <td>Hola</td>
                     </tr>
-                </thead>
+                </table>
 
-                <tr>
-                    <td>Agua</td><td>Enero</td><td>Hola</td>
-                </tr>
-            </table>
+            </div>
 
+            <div class="seccion-filtro">
+                <label>Filtrar por cliente:</label>
+                <form action="select">
+                    <select name="filtro-cliente" id="filtro-cliente">
+                        <option selected disabled>Seleccione uno</option>
+                        <option value="ejemplo">ejemplo 1</option>
+                        <option value="ejemplo">ejemplo 2</option>
+                        <option value="ejemplo">ejemplo 3</option>
+                    </select>
+                </form>
+            </div>
         </div>
+
     </div>
-    
+
 
 </body>
 
