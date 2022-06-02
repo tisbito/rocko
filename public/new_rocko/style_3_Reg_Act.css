@@ -1,4 +1,5 @@
 *{
+    margin: 0%;
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -7,7 +8,7 @@
     display: grid;
     height: 100vh;
     grid-template-columns: 1fr;
-    grid-template-rows: 0.1fr 2fr 0.5fr;
+    grid-template-rows: 0.1fr 0.1fr 2fr 0.1fr;
 }
 .seccion-banner{
     display: grid;
@@ -43,7 +44,12 @@
 .seccion-perfil{
     display: flex;
     align-items: center;
-    justify-content: center; 
+    justify-content: center;
+    cursor: pointer;   
+}
+.seccion-perfil:hover{
+    background-color:#303087;
+    opacity: 0.8; 
 }
 .cerrar-sesion{
     display: flex;
@@ -67,37 +73,133 @@
         padding-right: 0.5em;
     }
 }
-
+/*-------------------------------------*/
+.seccion-titulo-inicial{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #303087;
+    font-size: 15px;
+    margin-top: 2em;
+}
 .seccion-datos{
-    background-color: lightpink;
+    color: #000;
     display: grid;
-    grid-template-columns: 2fr 0.5fr;
-    margin-top: 40px;
+    grid-template-columns: 2fr 0.3fr;
     font-size: large;
 }
 .seccion-tabla{
     background-color: darksalmon;
     margin: 2em;
 }
+.tabla-registrar-act th{
+    color: #fff;
+    border-bottom: 4px solid #9ea7af;
+    padding: 15px;
+    background-color: #252E71;
+}
+.tabla-registrar-act{
+    border-collapse: collapse;
+    background-color: #C3C5CA;
+    width:100%;
+    text-align: center;
+    border-bottom:1px solid rgb(95, 95, 95);
+}
+.tabla-registrar-act td{
+    border-right: 1px solid rgb(95, 95, 95);
+}
+/*-------------------------------------*/
+
 
 .seccion-btnsYfiltro{
-    background-color: darkslateblue;
     display: grid;
-    grid-template-rows: 2fr 2fr;
+    grid-template-rows: 0.5fr 1fr;
 }
 .seccion-btns-der{
-    background-color: lightseagreen;
     margin: 2em;
+    display: flex;
+    flex-direction: column;
 }
+/*-----------------botones--------------------*/
+.btn-todos{
+    align-self: center;
+    height: 2.7em;
+    width:11em;
+    margin-top: 10px;
+    background: #E8BA20;
+    border-radius: 4px;
+    border: #C3C5CA;
+    cursor: pointer;
+    transition: background-color 0.7s;
+}
+.btn-todos:hover{
+    background-color: #D3D924;
+}
+.btn-ajenos{
+    align-self: center;
+    height: 2.7em;
+    width:11em;
+    margin-top: 10px;
+    background: #E8BA20;
+    border-radius: 4px;
+    border: #C3C5CA;
+    cursor: pointer;
+    transition: background-color 0.7s;
+}
+.btn-ajenos:hover{
+    background-color: #D3D924;
+}
+.btn-propios{
+    align-self: center;
+    height: 2.7em;
+    width:11em;
+    margin-top: 10px;
+    background: #E8BA20;
+    border-radius: 4px;
+    border: #C3C5CA;
+    cursor: pointer;
+    transition: background-color 0.7s;
+}
+.btn-propios:hover{
+    background-color: #D3D924;
+}
+.btn-noRealizados{
+    align-self: center;
+    height: 2.7em;
+    width:11em;
+    margin-top: 10px;
+    background: #E8BA20;
+    border-radius: 4px;
+    border: #C3C5CA;
+    cursor: pointer;
+    transition: background-color 0.7s;
+}
+.btn-noRealizados:hover{
+    background-color: #D3D924;
+}
+.btn-realizados{
+    align-self: center;
+    height: 2.7em;
+    width:11em;
+    margin-top: 10px;
+    background: #E8BA20;
+    border-radius: 4px;
+    border: #C3C5CA;
+    cursor: pointer;
+    transition: background-color 0.7s;
+}
+.btn-realizados:hover{
+    background-color: #D3D924;
+}
+/*-------------------------------------*/
 .seccion-filtro{
-    background-color: deepskyblue;
     justify-self: center;
     text-align: center;
-    margin-top: 2em;
+    margin-top: 1em;
 }
 
 .seccion-filtro select{
-    width: 250px;
+    width: 200px;
     height: 2em;
     color:rgb(95, 95, 95);
     background: #F3F3F3;

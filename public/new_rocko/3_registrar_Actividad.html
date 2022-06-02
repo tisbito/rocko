@@ -25,21 +25,38 @@
                 <input class="boton-sup" type="submit" onclick="window.location.href='./5_transf_Actividades.html'"value="Transferir actividades">
                 <input class="boton-sup" type="submit" onclick="window.location.href='./6_revisar_Datos.html'"value="Revisar datos">
             </div>
-            <div class="seccion-perfil">
-                <label for="perfil">Perfil</label>
+            <div class="seccion-perfil" onclick="window.location.href='./2_pag_principal.html'">
+                <label for="perfil" onclick="window.location.href='./2_pag_principal.html'">Perfil</label>
             </div>
             <div class="cerrar-sesion">
                 <label for="cerrar-sesion">Cerrar sesión</label> <!--href="/logout"-->
             </div>
-
+        </div>
+        <div class="seccion-titulo-inicial">
+            <h2>Información general</h2>
         </div>
         <div class="seccion-datos">
             <div class="seccion-tabla">
-                <label for="prueba">Hola</label>
+                <table class="tabla-registrar-act">
+                        <thead>
+                            <tr>
+                                <th>Hora ANS</th>
+                                <th>Cliente</th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td>14:59</td>
+                            <td>Emtelco</td> <!--Habría que convertirlo a botones?-->
+                        </tr>
+                    </table>
             </div>
             <div class="seccion-btnsYfiltro">
                 <div class="seccion-btns-der">
-                    <label for="prueba">Hola</label>
+                    <input class="btn-todos" type="submit" value="Todos">
+                    <input class="btn-ajenos" type="submit" value="Ajenos">
+                    <input class="btn-propios" type="submit" value="Propios">
+                    <input class="btn-noRealizados" type="submit" value="No realizados">
+                    <input class="btn-realizados" type="submit" value="Realizados">
                 </div>
                 <div class="seccion-filtro">
                     <label>Filtrar por cliente:</label>

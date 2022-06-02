@@ -44,7 +44,12 @@
 .seccion-perfil{
     display: flex;
     align-items: center;
-    justify-content: center; 
+    justify-content: center;
+    cursor: pointer;   
+}
+.seccion-perfil:hover{
+    background-color:#303087;
+    opacity: 0.8; 
 }
 .cerrar-sesion{
     display: flex;

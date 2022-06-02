@@ -24,8 +24,8 @@
                 <input class="boton-sup" type="submit" onclick="window.location.href='./5_transf_Actividades.html'"value="Transferir actividades">
                 <input class="boton-sup" type="submit" onclick="window.location.href='./6_revisar_Datos.html'"value="Revisar datos">
             </div>
-            <div class="seccion-perfil">
-                <label for="perfil">Perfil</label>
+            <div class="seccion-perfil" onclick="window.location.href='./2_pag_principal.html'">
+                <label for="perfil" onclick="window.location.href='./2_pag_principal.html'">Perfil</label>
             </div>
             <div class="cerrar-sesion">
                 <label for="cerrar-sesion">Cerrar sesión</label> <!--href="/logout"-->
@@ -179,39 +179,38 @@
             }
         });
     }
-//-------------OJO REVISAR - NO TERMINADO -----------
     $(document).ready(function () {
         $("#NoGuardado").hide();
         $("#Guardado").hide();
         $.get("/get/fullname", function (response) {
-            $("#fullname").append("<a href='#'>" + response + "</a>");
+            $("#fullname").append("<a href='#'>" + response + "</a>"); //fullname está arriba, no sé para qué es
         });
         $.get("/get/cliente", function (response) {
-            $("#cliente").empty();
-            $("#cliente").append("<option value='0'>Seleccione</option>");
+            $("#opc-cliente").empty();
+            $("#opc-cliente").append("<option value='0'>Seleccione</option>");
             for (i = 0; i < response.length; i++) {
-                $("#cliente").append("<option value='" + response[i].id_cliente + "'>" + response[i].nombre +
+                $("#opc-cliente").append("<option value='" + response[i].id_cliente + "'>" + response[i].nombre +
                     "</option>");
             }
         });
         $.get("/get/frecuencia", function (response) {
-            $("#frecuencia").empty();
-            $("#frecuencia").append("<option value='0'>Seleccione</option>");
+            $("#opc-frecuencia").empty();
+            $("#opc-frecuencia").append("<option value='0'>Seleccione</option>");
             for (i = 0; i < response.length; i++) {
-                $("#frecuencia").append("<option value='" + response[i].id_frecuencia + "'>" + response[
+                $("#opc-frecuencia").append("<option value='" + response[i].id_frecuencia + "'>" + response[
                     i].nombre + "</option>");
             }
         });
         $.get("/get/analistas", function (response) {
-            $("#analista_respaldo").empty();
+            $("#opc-analistaResp").empty();
             var texto = $("#fullname").text().substring(0, $("#fullname").text().indexOf("("));
             if ($("#rol").text() == "0") {
-                $("#analista_respaldo").append("<option value='0'>" + texto + "</option>");
-                $("#analista_respaldo").attr("disabled", true);
+                $("#opc-analistaResp").append("<option value='0'>" + texto + "</option>");
+                $("#opc-analistaResp").attr("disabled", true);
             } else {
-                $("#analista_respaldo").append("<option value='0'>Seleccione</option>");
+                $("#opc-analistaResp").append("<option value='0'>Seleccione</option>");
                 for (i = 0; i < response.length; i++) {
-                    $("#analista_respaldo").append("<option value='" + response[i].id_analista + "'>" +
+                    $("#opc-analistaResp").append("<option value='" + response[i].id_analista + "'>" +
                         response[i].usuario_red + ":" + response[i].nombres_completos + "</option>"
                     );
                 }
