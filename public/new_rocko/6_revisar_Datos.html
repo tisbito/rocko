@@ -33,7 +33,7 @@
                 <label for="perfil" onclick="window.location.href='./2_pag_principal.html'">Perfil</label>
             </div>
             <div class="cerrar-sesion">
-                <label for="cerrar-sesion">Cerrar sesión</label>
+                <label href="/logout">Cerrar sesión</label>
             </div>
 
         </div>
@@ -55,14 +55,8 @@
                             <th>Fecha y hora de registro</th>
                         </tr>
                     </thead>
-
-                    <tr>
-                        <td>Agua</td>
-                        <td>Enero</td>
-                        <td>Hola</td>
-                    </tr>
+                    <tbody id="registroActidad_lista"></tbody>
                 </table>
-
             </div>
 
             <div class="seccion-filtro">
@@ -74,11 +68,42 @@
                 </form>
             </div>
         </div>
-
     </div>
-
-
 </body>
+
+<script>
+    $(document).ready(function () {
+        $.get("/get/fullname", function (response) {
+            $("#fullname").append("<a href='#'>" + response + "</a>");
+        });
+        $.get("/get/registroActividad", function (response) {
+            $("#registroActidad_lista").html();
+            for (i = 0; i < response.length; i++) {
+                tr = "<tr>";
+                tr += "<td>" + response[i].id_registro + "</td>";
+                tr += "<td>" + response[i].nombre_cliente + "</td>";
+                tr += "<td>" + response[i].nombre_actividad + "</td>";
+                tr += "<td>" + response[i].tiempo_ejecucion + "</td>";
+                tr += "<td>" + response[i].ans_hora + "</td>";
+                tr += "<td>" + response[i].ans_dias + "</td>";
+                tr += "<td>" + response[i].frecuencia_nombre + "</td>";
+                if (response[i].responsable == response[i].reporte) {
+                    tr += "<td>" + response[i].responsable + "</td>";
+                } else {
+                    tr += "<td>" + response[i].responsable + "(" + response[i].reporte + ")" + "</td>";
+                }
+                if (response[i].observaciones == null) {
+                    tr += "<td></td>";
+                } else {
+                    tr += "<td>" + response[i].observaciones + "</td>";
+                }
+                tr += "<td>" + response[i].fecha_hora + "</td>";
+                tr += "</tr>";
+                $("#registroActidad_lista").append(tr);
+            }
+        });
+    });
+</script>
 
 
 </html>

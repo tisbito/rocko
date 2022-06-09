@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style_4_Crear_Activ.css">
     <title>Crear actividades</title>
+    <!--NUEVA PRUEBA CON SWEET ALERT-->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 
 <body>
@@ -28,7 +30,7 @@
                 <label for="perfil" onclick="window.location.href='./2_pag_principal.html'">Perfil</label>
             </div>
             <div class="cerrar-sesion">
-                <label for="cerrar-sesion">Cerrar sesión</label> <!--href="/logout"-->
+                <label href="/logout">Cerrar sesión</label>
             </div>
         </div>
 
@@ -87,21 +89,6 @@
         <section class="container-button">
             <button class="boton-crear" type="submit" onclick="guardarActividad();">Crear</button>
         </section>
-    </div>
-    <!--OJO MENSAJES-->
-    <div class="container row" id="Guardado">
-        <div class="container">
-            <div class="alert alert-success">
-                <strong>Exito!</strong> Registro guardado satisfactoriamente.
-            </div>
-        </div>
-    </div>
-    <div class="container row" id="NoGuardado">
-        <div class="container">
-            <div class="alert alert-danger">
-                <strong>Error!</strong> El registro no pudo ser guardado.
-            </div>
-        </div>
     </div>
 </body>
 
@@ -169,21 +156,21 @@
         };
         $.post("/actividad/crear", data, function (response) {
             if (response.resultado == 1) {
-                $("#Guardado").show();
-                $("#NoGuardado").hide();
+                swal("Exito!", "Registro guardado satisfactoriamente.", "success");//Ojo, función cambiada
+                swal("Error!", "El registro no pudo ser guardado.", "error"); //Ojo, función cambiada
                 $("#actividades").val(0);
                 $("#observaciones").val("");
             } else {
-                $("#NoGuardado").show();
-                $("#Guardado").hide();
+                swal("Error!", "El registro no pudo ser guardado.", "error"); //Ojo, función cambiada
+                swal("Exito!", "Registro guardado satisfactoriamente.", "success");//Ojo, función cambiada
             }
         });
     }
     $(document).ready(function () {
-        $("#NoGuardado").hide();
-        $("#Guardado").hide();
+        swal("Error!", "El registro no pudo ser guardado.", "error"); //Ojo, función cambiada
+        swal("Exito!", "Registro guardado satisfactoriamente.", "success");//Ojo, función cambiada
         $.get("/get/fullname", function (response) {
-            $("#fullname").append("<a href='#'>" + response + "</a>"); //fullname está arriba, no sé para qué es
+            $("#fullname").append("<a href='#'>" + response + "</a>"); 
         });
         $.get("/get/cliente", function (response) {
             $("#opc-cliente").empty();

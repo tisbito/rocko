@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style_3_Reg_Act.css">
     <title>Registrar actividad</title>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 
 <body>
@@ -14,22 +15,26 @@
     <div class="container">
         <div class="seccion-banner">
             <div class="img-banner">
-                <img src="./img/logo_banner.jpg" width="250" height="60" alt="Emtelco SAS"> 
+                <img src="./img/logo_banner.jpg" width="250" height="60" alt="Emtelco SAS">
             </div>
             <div class="title-banner">
                 <span>Rocko - Administrador de actividades </span>
             </div>
             <div class="seccion-btns-sup">
-                <input class="boton-sup" type="submit" onclick="window.location.href='./3_registrar_Actividad.html'"value="Registrar actividad">
-                <input class="boton-sup" type="submit" onclick="window.location.href='./4_crear_Actividades.html'"value="Crear actividad">
-                <input class="boton-sup" type="submit" onclick="window.location.href='./5_transf_Actividades.html'"value="Transferir actividades">
-                <input class="boton-sup" type="submit" onclick="window.location.href='./6_revisar_Datos.html'"value="Revisar datos">
+                <input class="boton-sup" type="submit" onclick="window.location.href='./3_registrar_Actividad.html'"
+                    value="Registrar actividad">
+                <input class="boton-sup" type="submit" onclick="window.location.href='./4_crear_Actividades.html'"
+                    value="Crear actividad">
+                <input class="boton-sup" type="submit" onclick="window.location.href='./5_transf_Actividades.html'"
+                    value="Transferir actividades">
+                <input class="boton-sup" type="submit" onclick="window.location.href='./6_revisar_Datos.html'"
+                    value="Revisar datos">
             </div>
             <div class="seccion-perfil" onclick="window.location.href='./2_pag_principal.html'">
                 <label for="perfil" onclick="window.location.href='./2_pag_principal.html'">Perfil</label>
             </div>
             <div class="cerrar-sesion">
-                <label for="cerrar-sesion">Cerrar sesión</label> <!--href="/logout"-->
+                <label href="/logout">Cerrar sesión</label>
             </div>
         </div>
         <div class="seccion-titulo-inicial">
@@ -38,17 +43,19 @@
         <div class="seccion-datos">
             <div class="seccion-tabla">
                 <table class="tabla-registrar-act">
-                        <thead>
-                            <tr>
-                                <th>Hora ANS</th>
-                                <th>Cliente</th>
-                            </tr>
-                        </thead>
+                    <thead>
                         <tr>
-                            <td>14:59</td>
-                            <td>Emtelco</td> <!--Habría que convertirlo a botones?-->
+                            <th scope="col" width="100px">Hora ANS</th>
+                            <th scope="col">Cliente</th>
                         </tr>
-                    </table>
+                    </thead>
+                    <tr>
+                        <td>14:59</td>
+                        <td><button onclick="mostrar();">Emtelco</button></td>
+                        <!--href con n cantidad de clientes-->
+                        <!--prueba botón-->
+                    </tr>
+                </table>
             </div>
             <div class="seccion-btnsYfiltro">
                 <div class="seccion-btns-der">
@@ -67,12 +74,88 @@
                     </form>
                 </div>
             </div>
-            
+
 
         </div>
     </div>
-    
+
 
 </body>
+<script>
+    /*NOTA:vamos a traer cada hora, y por cada hora, cada cliente (cuando la hora coincida, aparece el cliente)
+    luego los registros por cada cliente. "for log de clientes se juntan los 3href"*/
+
+    function mostrar() {
+        const { value: fruit } = await Swal.fire({
+            title: 'Select field validation',
+            input: 'select',
+            inputOptions: {
+                'Fruits': {
+                    apples: 'Apples',
+                    bananas: 'Bananas',
+                    grapes: 'Grapes',
+                    oranges: 'Oranges'
+                },
+                'Vegetables': {
+                    potato: 'Potato',
+                    broccoli: 'Broccoli',
+                    carrot: 'Carrot'
+                },
+                'icecream': 'Ice cream'
+            },
+            inputPlaceholder: 'Select a fruit',
+            showCancelButton: true,
+            inputValidator: (value) => {
+                return new Promise((resolve) => {
+                    if (value === 'oranges') {
+                        resolve()
+                    } else {
+                        resolve('You need to select oranges :)')
+                    }
+                })
+            }
+        })
+
+        if (fruit) {
+            Swal.fire(`You selected: ${fruit}`)
+        }
+    }
+</script>
+
+<!--útil = MUESTRA POP UP DE SELECT
+const { value: fruit } = await Swal.fire({
+  title: 'Select field validation',
+  input: 'select',
+  inputOptions: {
+    'Fruits': {
+      apples: 'Apples',
+      bananas: 'Bananas',
+      grapes: 'Grapes',
+      oranges: 'Oranges'
+    },
+    'Vegetables': {
+      potato: 'Potato',
+      broccoli: 'Broccoli',
+      carrot: 'Carrot'
+    },
+    'icecream': 'Ice cream'
+  },
+  inputPlaceholder: 'Select a fruit',
+  showCancelButton: true,
+  inputValidator: (value) => {
+    return new Promise((resolve) => {
+      if (value === 'oranges') {
+        resolve()
+      } else {
+        resolve('You need to select oranges :)')
+      }
+    })
+  }
+})
+
+if (fruit) {
+  Swal.fire(`You selected: ${fruit}`)
+}
+-->
 
 </html>

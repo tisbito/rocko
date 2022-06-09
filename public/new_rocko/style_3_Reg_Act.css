@@ -57,8 +57,12 @@
     justify-content: center;
     padding-left: 1em;
     padding-right: 1em;
+    cursor: pointer;
 }
-
+.cerrar-sesion:hover{
+    background-color:#303087;
+    opacity: 0.8; 
+}
 @media (max-width:1160px){
     .boton-sup{
         height: 2.7em;
@@ -105,9 +109,10 @@
     text-align: center;
     border-bottom:1px solid rgb(95, 95, 95);
 }
-.tabla-registrar-act td{
+.tabla-registrar-act td{  
     border-right: 1px solid rgb(95, 95, 95);
 }
+/*TENER EN CUENTA HASTA DONDE SE PUEDE LLENAR, DONDE VA A SER EL LÍMITE DE LOS DATOS = INCONCLUSO*/
 /*-------------------------------------*/
 
 

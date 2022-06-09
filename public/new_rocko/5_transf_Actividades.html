@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style_5_Trans_Actividad.css">
     <title>Transferir actividades</title>
+    <!--NUEVA PRUEBA CON SWEET ALERT-->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    
 </head>
 
 <body>
@@ -14,11 +17,9 @@
     <div class="container">
 
         <div class="seccion-banner">
-
             <div class="img-banner">
                 <img src="./img/logo_banner.jpg" width="250" height="60" alt="Emtelco SAS"> 
             </div>
-
             <div class="title-banner">
                 <span>Rocko - Administrador de actividades </span>
             </div>
@@ -32,49 +33,165 @@
                 <label for="perfil" onclick="window.location.href='./2_pag_principal.html'">Perfil</label>
             </div>
             <div class="cerrar-sesion">
-                <label for="cerrar-sesion">Cerrar sesión</label>
+                <label href="/logout">Cerrar sesión</label>
             </div>
-
         </div>
 
         <section class="container-transferir">
             <div class="title2">
                 <span>Transferir actividades</span>
             </div>
-
             <section class="container-form">
                 <div class="form-group">
                     <label>Origen</label>
                     <form action="select"> 
-                        <select name="opc-origen" id="opc-origen">
-                            <option selected disabled>Seleccione uno</option>
-                            <option value="ejemplo">ejemplo 1</option>
-                            <option value="ejemplo">ejemplo 2</option>
-                            <option value="ejemplo">ejemplo 3</option>   
+                        <select name="opc-origen" id="opc-origen" onchange="getActividades();">
+                            <option selected disabled>Seleccione uno</option>   
                         </select>
                     </form>
                 </div>
-
                 <div class="form-group">
                     <label>Destino</label>
                     <form action="select"> 
-                        <select name="opc-destino" id="opc-destino">
+                        <select name="opc-destino" id="opc-destino" onchange="getActividades();">
                             <option selected disabled>Seleccione uno</option>
-                            <option value="ejemplo">ejemplo 1</option>
-                            <option value="ejemplo">ejemplo 2</option>
-                            <option value="ejemplo">ejemplo 3</option>
                         </select>
                     </form>
                 </div>
             </section>
-
             <section class="container-button">
-                    <button class ="boton-trans" type="submit">Transferir</button>
+                    <button id="btn-tranferir"class ="boton-trans" type="submit" onclick="TransferirActividad();">Transferir</button>
             </section>
         </section>
+        <div class="col-md-offset-1" id="Tabla">
+            <table class="table table-striped table-hover table-sm">
+                <thead>
+                    <tr>
+                        <th>Seleccionar</th>
+                        <th>#</th>
+                        <th>Cliente</th>
+                        <th>Nombre Actividad</th>
+                    </tr>
+                </thead>
+                <tbody id="Actividad_lista"></tbody>
+            </table>
+        </div>
     </div>
-    
-
 </body>
 
+<script>
+    function TransferirActividad() {
+        id_actividad = 0;
+        transferidos = 0;
+        no_transferidos = 0;
+        no_transferidost = "";
+        if ($('#opc-origen')[0].disabled) {
+            analista_origen = $("#fullname").text().substring($("#fullname").text().indexOf("(") + 1, $("#fullname").text()
+                .indexOf(")"));;
+        } else {
+            analista_origen = $('#opc-origen').val();;
+        }
+        analista_destino = $('#opc-destino').val();
+
+        $('#Actividad_lista > tr').each(function () {
+            $this = $(this);
+            if ($this[0].childNodes[0].childNodes[0].checked) {
+                id_actividad = $this[0].childNodes[1].innerHTML;
+                data = {
+                    id_actividad: id_actividad,
+                    analista_origen: analista_origen,
+                    analista_destino: analista_destino
+                };
+                $.post("/actividad/transferir", data, function (response) {
+                    if (response.resultado == 1) {
+                        transferidos++;
+                        swal("Exito!", "Actividades transferidas satisfactoriamente.", "success");//Ojo, función cambiada
+                    } else {
+                        no_transferidos++;
+                        no_transferidost += "," + id_actividad;
+                    }
+                });
+            }
+        });
+        if (no_transferidos > 0) {
+            swal("Error!", "Las actividades no se pudieron transferir.", "error"); //Ojo, función cambiada
+        }
+    }
+    $(document).ready(function () {
+        $("#Tabla").hide();
+        $("#btn-tranferir").attr("disabled", true);
+        $.get("/get/fullname", function (response) {
+            $("#fullname").append("<a href='#'>" + response + "</a>");
+        });
+        $.get("/get/rol", function (response) {
+            $("#rol").append("<a href='#'>" + response + "</a>");
+        });
+        $.get("/get/analistas", function (response) {
+            $("#opc-origen").empty();
+            var texto = $("#fullname").text().substring(0, $("#fullname").text().indexOf("("));
+            if ($("#rol").text() == "0") {
+                $("#opc-origen").append("<option value='0'>" + texto + "</option>");
+                $("#opc-origen").attr("disabled", true);
+            } else {
+                $("#opc-origen").append("<option value='0'>Seleccione</option>");
+                for (i = 0; i < response.length; i++) {
+                    $("#opc-origen").append("<option value='" + response[i].id_analista + "'>" +
+                        response[i].usuario_red + ":" + response[i].nombres_completos + "</option>"
+                    );
+                }
+            }
+        });
+        $.get("/get/analistas", function (response) {
+            $("#opc-destino").empty();
+            $("#opc-destino").append("<option value='0'>Seleccione</option>");
+            for (i = 0; i < response.length; i++) {
+                $("#opc-destino").append("<option value='" + response[i].id_analista + "'>" +
+                    response[i].usuario_red + ":" + response[i].nombres_completos + "</option>");
+            }
+        });
+    });
+
+    function Marcacion() {
+        var x = 0;
+        $('#Actividad_lista > tr').each(function () {
+            $this = $(this);
+            if ($this[0].childNodes[0].childNodes[0].checked) {
+                x++;
+            }
+        });
+        $("#btn-tranferir").attr("disabled", false);
+        if (x == 0) {
+            $('#btn-tranferir').text("Transferir");
+            $("#btn-tranferir").attr("disabled", true);
+        } else if (x == 1) {
+            $('#btn-tranferir').text("Transferir " + x + " actividad");
+        } else if (x > 1) {
+            $('#btn-tranferir').text("Transferir " + x + " actividades");
+        }
+    }
+
+    function getActividades() {
+        $("#Tabla").show();
+        $("#btn-tranferir").attr("disabled", true);
+        $('#btn-tranferir').text("Transferir");
+        otroUsuarioRed = $('#opc-origen').val();
+        if ($("#opc-origen").is(':disabled')) {
+            url = "/get/actividades/";
+        } else {
+            url = "/get/actividades/idusuario/" + otroUsuarioRed;
+        }
+        $.get(url, function (response) {
+            $("#Actividad_lista").empty();
+            for (i = 0; i < response.length; i++) {
+                tr = "<tr>";
+                tr += "<td><input type='checkbox' onchange='Marcacion()'> </td>";
+                tr += "<td>" + response[i].id_actividad + "</td>";
+                tr += "<td>" + response[i].cliente + "</td>";
+                tr += "<td>" + response[i].actividad + "</td>";
+                tr += "</tr>";
+                $("#Actividad_lista").append(tr);
+            }
+        });
+    }
+</script>
 </html>
