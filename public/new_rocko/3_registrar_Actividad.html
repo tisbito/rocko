@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style_3_Reg_Act.css">
     <title>Registrar actividad</title>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!--<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>  
 </head>
 
 <body>
@@ -37,6 +38,16 @@
                 <label href="/logout">Cerrar sesión</label>
             </div>
         </div>
+        <div class="container_modal"><!--prueba modal-->
+            <div class="modal">
+                <h1>prueba</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                    Soluta, veritatis dolor. Ut tempora ducimus incidunt!
+                    Exercitationem et, sequi similique obcaecati amet dicta cupiditate
+                    ducimus dolore. Est veritatis repellendus adipisci autem!</p>
+                <button id="close">close me</button>
+            </div>
+        </div>
         <div class="seccion-titulo-inicial">
             <h2>Información general</h2>
         </div>
@@ -51,13 +62,16 @@
                     </thead>
                     <tr>
                         <td>14:59</td>
-                        <td><button onclick="mostrar();">Emtelco</button></td>
-                        <td><button onclick="hola();">prueba</button></td>
+                        <td class="botones-tabl">
+                            <button onclick="mostrar();">Emtelco</button>
+                            <button id="open">prueba</button><!--prueba botón-->
+                        </td>
                         <!--href con n cantidad de clientes-->
-                        <!--prueba botón-->
+                        
                     </tr>
                 </table>
             </div>
+            
             <div class="seccion-btnsYfiltro">
                 <div class="seccion-btns-der">
                     <input class="btn-todos" type="submit" value="Todos">
@@ -82,63 +96,53 @@
 
 
 </body>
+<!--script de prueba del modal-->
 <script>
     function mostrar(){
-    Swal.fire({
-    position: 'top-end',
-    icon: 'success',
-    title: 'Your work has been saved',
-    showConfirmButton: false,
-    timer: 1500
-})
-}
+        swal("Exito!", "Actividades transferidas satisfactoriamente.", "success");
+    }
+/*
+    function hola(){
+        swal({  
+            title: "Add input!",  
+            text: "Some text add:",  
+            type: "input",  
+            showCancelButton: true,  
+            closeOnConfirm: false,  
+            inputPlaceholder: "Write text"  
+            }, function (inputValue) {  
+            if (inputValue === false) return false;  
+            if (inputValue === "") {  
+                swal.showInputError("Some need to write!");  
+                return false  
+            }  
+            swal("GOOD!", "You wrote: " + inputValue, "confirm success");  
+        }); 
 
-function hola(){
-    swal("Exito!", "Actividades transferidas satisfactoriamente.", "success");
-}
-</script>
+    
+    }
+*/
 
+//if (typeof container_modal !== 'undefined'){
+  //  
+//}
 
-<script>
-    /*NOTA:vamos a traer cada hora, y por cada hora, cada cliente (cuando la hora coincida, aparece el cliente)
+    const open = document.getElementById('open');
+    const container_modal = document.getElementById('container_modal');
+    const close = document.getElementById('close');
+
+    open.addEventListener('click', () =>{
+        container_modal.classList.add('show');
+    });
+
+    close.addEventListener('click', () =>{
+        container_modal.classList.remove('show');
+    });
+
+/*NOTA:vamos a traer cada hora, y por cada hora, cada cliente (cuando la hora coincida, aparece el cliente)
     luego los registros por cada cliente. "for log de clientes se juntan los 3href"*/
 
+
 </script>
-
-<!--útil = MUESTRA POP UP DE SELECT
-const { value: fruit } = await Swal.fire({
-  title: 'Select field validation',
-  input: 'select',
-  inputOptions: {
-    'Fruits': {
-      apples: 'Apples',
-      bananas: 'Bananas',
-      grapes: 'Grapes',
-      oranges: 'Oranges'
-    },
-    'Vegetables': {
-      potato: 'Potato',
-      broccoli: 'Broccoli',
-      carrot: 'Carrot'
-    },
-    'icecream': 'Ice cream'
-  },
-  inputPlaceholder: 'Select a fruit',
-  showCancelButton: true,
-  inputValidator: (value) => {
-    return new Promise((resolve) => {
-      if (value === 'oranges') {
-        resolve()
-      } else {
-        resolve('You need to select oranges :)')
-      }
-    })
-  }
-})
-
-if (fruit) {
-  Swal.fire(`You selected: ${fruit}`)
-}
--->
 
 </html>

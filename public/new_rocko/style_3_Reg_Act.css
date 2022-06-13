@@ -26,6 +26,7 @@
 .seccion-btns-sup{
     display: flex;
     flex-direction: row;
+    margin-right: 8px;
 }
 .boton-sup{
     align-self: center;
@@ -54,7 +55,7 @@
 .cerrar-sesion{
     display: flex;
     align-items: center;
-    justify-content: center;
+    text-align: center;
     padding-left: 1em;
     padding-right: 1em;
     cursor: pointer;
@@ -99,7 +100,7 @@
 .tabla-registrar-act th{
     color: #fff;
     border-bottom: 4px solid #9ea7af;
-    padding: 15px;
+    padding: 10px;
     background-color: #252E71;
 }
 .tabla-registrar-act{
@@ -110,10 +111,25 @@
     border-bottom:1px solid rgb(95, 95, 95);
 }
 .tabla-registrar-act td{  
-    border-right: 1px solid rgb(95, 95, 95);
+    border-right: 1px solid rgb(95, 95, 95);    
+}
+.tabla-registrar-act td.botones-tabl{
+    align-items: flex-start;
+    display: flex;
+}
+.tabla-registrar-act td button{
+    background: #D3D924;
+    border-radius: 4px;
+    border: #D3D924;
+    margin: 5px;
+    cursor: pointer;
+    padding: 5px;
+    text-align: center;
 }
 /*TENER EN CUENTA HASTA DONDE SE PUEDE LLENAR, DONDE VA A SER EL LÍMITE DE LOS DATOS = INCONCLUSO*/
-/*-------------------------------------*/
+
+/*cada vez que se cree un dato debe crearse con el diseño del botón
+el dato viene de la pag crear actividad*/
 
 
 .seccion-btnsYfiltro{
@@ -211,4 +227,34 @@
     border: 0.2px solid #000;
     border-radius: 3px;
     margin-top: 10px;
+}
+
+/*-----------prueba-----------*/
+.container_modal{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top:0;
+    left: 0;
+    background-color: rgba(0, 0,0,0.3);
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    pointer-events: none;
+    
+}
+
+.container_modal.show{
+    pointer-events: auto;
+    opacity: 1;
+}
+
+.modal{
+    background-color:#fff;
+    width: 50%;
+    padding: 20px 30px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 27px;
+    text-align: center;
 }
