@@ -49,7 +49,6 @@
     cursor: pointer;   
 }
 .seccion-perfil:hover{
-    background-color:#303087;
     opacity: 0.8; 
 }
 .cerrar-sesion{
@@ -57,11 +56,10 @@
     align-items: center;
     text-align: center;
     padding-left: 1em;
-    padding-right: 1em;
+    padding-right: 2em;
     cursor: pointer;
 }
 .cerrar-sesion:hover{
-    background-color:#303087;
     opacity: 0.8; 
 }
 @media (max-width:1160px){
@@ -78,7 +76,7 @@
         padding-right: 0.5em;
     }
 }
-/*-------------------------------------*/
+/*------------------------------------------------------------------------*/
 .seccion-titulo-inicial{
     display: flex;
     justify-content: center;
@@ -126,7 +124,6 @@
     padding: 5px;
     text-align: center;
 }
-/*TENER EN CUENTA HASTA DONDE SE PUEDE LLENAR, DONDE VA A SER EL LÍMITE DE LOS DATOS = INCONCLUSO*/
 
 /*cada vez que se cree un dato debe crearse con el diseño del botón
 el dato viene de la pag crear actividad*/
@@ -141,7 +138,7 @@ el dato viene de la pag crear actividad*/
     display: flex;
     flex-direction: column;
 }
-/*-----------------botones--------------------*/
+/*-----------------botones seccion derecha--------------------*/
 .btn-todos{
     align-self: center;
     height: 2.7em;
@@ -212,7 +209,7 @@ el dato viene de la pag crear actividad*/
 .btn-realizados:hover{
     background-color: #D3D924;
 }
-/*-------------------------------------*/
+/*------------------------------filtro-------------------------------------------*/
 .seccion-filtro{
     justify-self: center;
     text-align: center;
@@ -229,7 +226,8 @@ el dato viene de la pag crear actividad*/
     margin-top: 10px;
 }
 
-/*-----------prueba-----------*/
+/*-------------------------------PRUEBA MODAL------------------------------------------------*/
+
 .container_modal{
     display: flex;
     align-items: center;
@@ -240,16 +238,14 @@ el dato viene de la pag crear actividad*/
     background-color: rgba(0, 0,0,0.3);
     height: 100%;
     width: 100%;
-    opacity: 0;
+    opacity: 0;                                         /*OJOOO-------------*/
     pointer-events: none;
-    
+    transition: opacity 0.3s ease;
 }
-
 .container_modal.show{
     pointer-events: auto;
     opacity: 1;
 }
-
 .modal{
     background-color:#fff;
     width: 50%;
@@ -257,4 +253,119 @@ el dato viene de la pag crear actividad*/
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 27px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.modal h2{
+    color: #303087;
+    font-size: large;
+    margin-right: 15px;    
+}
+.sec-titulo-lupa{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+/*-----------------------------INFORMACIÓN EN SECCIÓN GRIS----------------------------*/
+.sec-info-indv{
+    background-color: #E4E3E3;
+    display: flex;
+    justify-content:space-evenly;
+    align-items: center;
+    width: 80%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.sec-btns-act{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+.sec-tabla-info{
+    background-color: #E4E3E3;
+    width: 60%;
+    border-radius: 5px;
+    border: 1px #000;
+}
+.tabla-inf-act{
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+.tabla-inf-act th{
+    border: 1px solid #000;
+}
+.tabla-inf-act td{
+    border: 1px solid #000;
+}
+
+/*BOTONES INFO ACTIVIDAD-----------------------------------------------------------*/
+.btn-observaciones{
+    align-self: center;
+    height: 2.7em;
+    width:10em;
+    margin-top: 20px;
+    background:#E8BA20;
+    border-radius: 4px;
+    border: #C3C5CA;
+    cursor: pointer;
+    transition: background-color 0.7s;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-size: medium;
+}
+.btn-observaciones:hover{
+    background-color: #15C0F2;
+}
+.btn-editar-inf{
+    align-self: center;
+    height: 2.7em;
+    width:10em;
+    margin-top: 20px;
+    background:#E8BA20;
+    border-radius: 4px;
+    border: #C3C5CA;
+    cursor: pointer;
+    transition: background-color 0.7s;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-size: medium;
+}
+.btn-editar-inf:hover{
+    background-color: #15C0F2;
+}
+.btn-marcar-re{
+    align-self: center;
+    height: 3em;
+    width:10em;
+    margin-top: 20px;
+    background:#D3D924;
+    border-radius: 4px;
+    border: #C3C5CA;
+    cursor: pointer;
+    transition: background-color 0.7s;
+    white-space: normal;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-size: medium;
+}
+.btn-marcar-re:hover{
+    background-color: #15C0F2;
+}
+
+/*BOTON CONFIRMAR--------------------------*/
+.btn-modal{
+    align-self: center;
+    height: 2.7em;
+    width:8em;
+    margin-top: 30px;
+    background:#D3D924;
+    border-radius: 4px;
+    border: #C3C5CA;
+    cursor: pointer;
+    transition: background-color 0.7s;
+}
+.btn-modal:hover{
+    background-color: #15C0F2;
 }

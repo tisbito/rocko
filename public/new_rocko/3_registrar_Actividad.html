@@ -38,16 +38,6 @@
                 <label href="/logout">Cerrar sesión</label>
             </div>
         </div>
-        <div class="container_modal"><!--prueba modal-->
-            <div class="modal">
-                <h1>prueba</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                    Soluta, veritatis dolor. Ut tempora ducimus incidunt!
-                    Exercitationem et, sequi similique obcaecati amet dicta cupiditate
-                    ducimus dolore. Est veritatis repellendus adipisci autem!</p>
-                <button id="close">close me</button>
-            </div>
-        </div>
         <div class="seccion-titulo-inicial">
             <h2>Información general</h2>
         </div>
@@ -67,7 +57,6 @@
                             <button id="open">prueba</button><!--prueba botón-->
                         </td>
                         <!--href con n cantidad de clientes-->
-                        
                     </tr>
                 </table>
             </div>
@@ -90,43 +79,75 @@
                 </div>
             </div>
 
+            <div class="container_modal" id="container_modal"><!--prueba modal-->
+                <div class="modal">
+                    <div class="sec-titulo-lupa">
+                        <h2>Información de la actividad</h2>
+                        <img src="./img/icono4.jpeg" alt="lupa" width="40">
+                    </div>
+                    <div class="sec-info-indv">
+                        <div class="sec-btns-act">
+                            <input class="btn-observaciones" type="submit" value="Observaciones" id="abrir_obs">
+                            <input class="btn-editar-inf" type="submit" value="Editar informe">
+                            <input class="btn-marcar-re" type="submit" value="Marcar como realizado">
+                        </div>
+                        <div class="sec-tabla-info">
+                            <table class="tabla-inf-act">
+                                <tr>
+                                    <th>Cliente</th>
+                                    <td>EDEQ</td>
+                                </tr>
+                                <tr>
+                                    <th>Nombre de la actividad</th>
+                                    <td>Informe de gestión EDEQ</td>
+                                </tr>
+                                <tr>
+                                    <th>Tiempo de ejecución</th>
+                                    <td>15</td>
+                                </tr>
+                                <tr>
+                                    <th>Hora ANS</th>
+                                    <td>10:00</td>
+                                </tr>
+                                <tr>
+                                    <th>Frecuencia</th>
+                                    <td>Diario</td>
+                                </tr>
+                                <tr>
+                                    <th>Responsable</th>
+                                    <td>ccastri</td>
+                                </tr>
+                                <tr>
+                                    <th>Backup</th>
+                                    <td>ccastri</td>
+                                </tr>
+                                <tr>
+                                    <th>Realizado</th>
+                                    <td>Si</td>
+                                </tr>
+                                <tr>
+                                    <th>Observación</th>
+                                    <td>observación aquí</td>
+                                </tr>
+                            </table>
+                        </div>                        
+                    </div>
+                    <button class="btn-modal" id="close">Confirmar</button>
+                </div>
+            </div>
+
 
         </div>
     </div>
 
 
 </body>
-<!--script de prueba del modal-->
+
 <script>
     function mostrar(){
         swal("Exito!", "Actividades transferidas satisfactoriamente.", "success");
     }
-/*
-    function hola(){
-        swal({  
-            title: "Add input!",  
-            text: "Some text add:",  
-            type: "input",  
-            showCancelButton: true,  
-            closeOnConfirm: false,  
-            inputPlaceholder: "Write text"  
-            }, function (inputValue) {  
-            if (inputValue === false) return false;  
-            if (inputValue === "") {  
-                swal.showInputError("Some need to write!");  
-                return false  
-            }  
-            swal("GOOD!", "You wrote: " + inputValue, "confirm success");  
-        }); 
-
-    
-    }
-*/
-
-//if (typeof container_modal !== 'undefined'){
-  //  
-//}
-
+    // script del modal información de la actividad
     const open = document.getElementById('open');
     const container_modal = document.getElementById('container_modal');
     const close = document.getElementById('close');
@@ -142,6 +163,7 @@
 /*NOTA:vamos a traer cada hora, y por cada hora, cada cliente (cuando la hora coincida, aparece el cliente)
     luego los registros por cada cliente. "for log de clientes se juntan los 3href"*/
 
+    
 
 </script>
 
