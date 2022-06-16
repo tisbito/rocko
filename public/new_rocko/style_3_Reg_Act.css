@@ -209,7 +209,7 @@ el dato viene de la pag crear actividad*/
 .btn-realizados:hover{
     background-color: #D3D924;
 }
-/*------------------------------filtro-------------------------------------------*/
+/*------------------------------filtro-----------------------------*/
 .seccion-filtro{
     justify-self: center;
     text-align: center;
@@ -226,9 +226,9 @@ el dato viene de la pag crear actividad*/
     margin-top: 10px;
 }
 
-/*-------------------------------PRUEBA MODAL------------------------------------------------*/
+/*-------------------------------PRUEBA MODAL INFORMACIÓN ACTIVIDAD------------------------------------------------*/
 
-.container_modal{
+.modal_info_act{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -242,11 +242,16 @@ el dato viene de la pag crear actividad*/
     pointer-events: none;
     transition: opacity 0.3s ease;
 }
-.container_modal.show{
+.modal_info_act.show{
     pointer-events: auto;
     opacity: 1;
 }
-.modal{
+
+.modal_info_act.hide{
+    pointer-events:none;                         /*OJOOO-------------*/
+    opacity: 0;
+}
+.modal-info{
     background-color:#fff;
     width: 50%;
     padding: 20px 30px;
@@ -257,7 +262,7 @@ el dato viene de la pag crear actividad*/
     flex-direction: column;
     align-items: center;
 }
-.modal h2{
+.modal-info h2{
     color: #303087;
     font-size: large;
     margin-right: 15px;    
@@ -276,8 +281,7 @@ el dato viene de la pag crear actividad*/
     justify-content:space-evenly;
     align-items: center;
     width: 80%;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding:10px;
 }
 .sec-btns-act{
     display: flex;
@@ -367,5 +371,82 @@ el dato viene de la pag crear actividad*/
     transition: background-color 0.7s;
 }
 .btn-modal:hover{
+    background-color: #15C0F2;
+}
+
+/*-------------------------------PRUEBA MODAL OBSERVACIÓN------------------------------------------------*/
+.modal_hacer_obsr{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top:0;
+    left: 0;
+    background-color: rgba(0, 0,0,0.3);
+    height: 100%;
+    width: 100%;
+    opacity: 0;                                         /*OJOOO-------------*/
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+.modal_hacer_obsr.show{
+    pointer-events: auto;
+    opacity: 1;
+}
+.modal-obser{
+    background-color:#fff;
+    width: 30%;
+    padding: 20px 30px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 27px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.modal-obser h2{
+    color: #303087;
+    font-size: large;
+    margin-right: 15px;    
+}
+
+.sec-titulo-obser{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+.sec-filtro-obs{
+    justify-self: center;
+    text-align: center;
+    margin: 1em;
+}
+
+.sec-filtro-obs select{
+    width: 100%;
+    height: 2em;
+    color:rgb(95, 95, 95);
+    background: #F3F3F3;
+    border: 0.2px solid #000;
+    border-radius: 3px;
+    margin-top: 10px;
+    
+}
+
+
+/*botón*/
+.btn-guardar{
+    align-self: center;
+    height: 2.7em;
+    width:8em;
+    margin-top: 30px;
+    background:#D3D924;
+    border-radius: 4px;
+    border: #C3C5CA;
+    cursor: pointer;
+    transition: background-color 0.7s;
+}
+.btn-guardar:hover{
     background-color: #15C0F2;
 }
