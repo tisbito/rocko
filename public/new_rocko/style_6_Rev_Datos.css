@@ -49,20 +49,16 @@
     cursor: pointer;   
 }
 .seccion-perfil:hover{
-    background-color:#303087;
-    opacity: 0.8; 
+    opacity: 0.9; 
 }
 .cerrar-sesion{
     display: flex;
     align-items: center;
-    text-align: center;
-    padding-left: 1em;
-    padding-right: 1em;
     cursor: pointer;
+    justify-content: center;
 }
 .cerrar-sesion:hover{
-    background-color:#303087;
-    opacity: 0.8; 
+    opacity: 0.9; 
 }
 @media (max-width:1160px){
     .boton-sup{
@@ -85,8 +81,7 @@
     margin-top: 50px;
     font-size: large;
 }
-.seccion-tabla{
-    background-color: lightcoral; /*para ver donde va la tabla*/
+.seccion-tabla{ 
     margin-left: 15px;
 }
 

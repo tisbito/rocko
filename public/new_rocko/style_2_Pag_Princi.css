@@ -32,21 +32,17 @@
     cursor: pointer;   
 }
 .seccion-perfil:hover{
-    background-color:#303087;
-    opacity: 0.8; 
+    opacity: 0.9; 
 }
 
 .cerrar-sesion{
     display: flex;
     align-items: center;
-    text-align: center;
-    padding-left: 1em;
-    padding-right: 1em;
     cursor: pointer;
+    justify-content: center;
 }
 .cerrar-sesion:hover{
-    background-color:#303087;
-    opacity: 0.8; 
+    opacity: 0.9; 
 }
 
 .seccion-titulo-inicial{

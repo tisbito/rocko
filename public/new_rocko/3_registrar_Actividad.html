@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style_3_Reg_Act.css">
     <title>Registrar actividad</title>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>  
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
 </head>
 
 <body>
@@ -21,10 +21,14 @@
                 <span>Rocko - Administrador de actividades </span>
             </div>
             <div class="seccion-btns-sup">
-                <input class="boton-sup" type="submit" onclick="window.location.href='./3_registrar_Actividad.html'"value="Registrar actividad">
-                <input class="boton-sup" type="submit" onclick="window.location.href='./4_crear_Actividades.html'"value="Crear actividad">
-                <input class="boton-sup" type="submit" onclick="window.location.href='./5_transf_Actividades.html'"value="Transferir actividades">
-                <input class="boton-sup" type="submit" onclick="window.location.href='./6_revisar_Datos.html'"value="Revisar datos">
+                <input class="boton-sup" type="submit" onclick="window.location.href='./3_registrar_Actividad.html'"
+                    value="Registrar actividad">
+                <input class="boton-sup" type="submit" onclick="window.location.href='./4_crear_Actividades.html'"
+                    value="Crear actividad">
+                <input class="boton-sup" type="submit" onclick="window.location.href='./5_transf_Actividades.html'"
+                    value="Transferir actividades">
+                <input class="boton-sup" type="submit" onclick="window.location.href='./6_revisar_Datos.html'"
+                    value="Revisar datos">
             </div>
             <div class="seccion-perfil" onclick="window.location.href='./2_pag_principal.html'">
                 <label for="perfil" onclick="window.location.href='./2_pag_principal.html'">Perfil</label>
@@ -49,13 +53,14 @@
                         <td>14:59</td>
                         <td class="botones-tabl">
                             <button onclick="mostrar();">Emtelco</button>
-                            <button id="open">prueba</button><!--prueba botón-->
+                            <button id="open">prueba</button>
+                            <!--prueba botón-->
                         </td>
                         <!--href con n cantidad de clientes-->
                     </tr>
                 </table>
             </div>
-            
+
             <div class="seccion-btnsYfiltro">
                 <div class="seccion-btns-der">
                     <input class="btn-todos" type="submit" value="Todos">
@@ -73,7 +78,7 @@
                     </form>
                 </div>
             </div>
-<!--modal información de la actividad------------------------------------------------------>
+            <!--modal información de la actividad------------------------------------------------------>
             <div class="modal_info_act" id="modal_info_act">
                 <div class="modal-info">
                     <div class="sec-titulo-lupa">
@@ -82,7 +87,8 @@
                     </div>
                     <div class="sec-info-indv">
                         <div class="sec-btns-act">
-                            <input class="btn-observaciones" type="submit" value="Observaciones" id="abrir_obs">
+                            <input class="btn-observaciones" type="submit" value="Observaciones" id="abrir_obs"
+                                onclick="abrirObsr();">
                             <input class="btn-editar-inf" type="submit" value="Editar informe">
                             <input class="btn-marcar-re" type="submit" value="Marcar como realizado">
                         </div>
@@ -125,12 +131,12 @@
                                     <td>observación aquí</td>
                                 </tr>
                             </table>
-                        </div>                        
+                        </div>
                     </div>
                     <button class="btn-modal" id="close">Confirmar</button>
                 </div>
             </div>
-<!--modal observación------------------------------------------------------>
+            <!--modal observación------------------------------------------------------>
             <div class="modal_hacer_obsr" id="modal_hacer_obsr">
                 <div class="modal-obser">
                     <div class="sec-titulo-obser">
@@ -162,6 +168,8 @@
                 </div>
             </div>
 
+            <!--modal editar informe------------------------------------------------------>
+
 
         </div>
     </div>
@@ -170,7 +178,7 @@
 </body>
 
 <script>
-    function mostrar(){
+    function mostrar() {
         swal("Exito!", "Actividades transferidas satisfactoriamente.", "success");
     }
     // ------script del modal información de la actividad------
@@ -178,11 +186,11 @@
     const modal_info_act = document.getElementById('modal_info_act');
     const close = document.getElementById('close');
 
-    open.addEventListener('click', () =>{
+    open.addEventListener('click', () => {
         modal_info_act.classList.add('show');
     });
 
-    close.addEventListener('click', () =>{
+    close.addEventListener('click', () => {
         modal_info_act.classList.remove('show');
     });
 
@@ -191,24 +199,26 @@
     const modal_hacer_obsr = document.getElementById('modal_hacer_obsr');
     const guardar = document.getElementById('guardar');
 
-    abrir_obs.addEventListener('click',()=>{
+    abrir_obs.addEventListener('click', () => {
         modal_hacer_obsr.classList.add('show');
     })
 
-    abrir_obs.addEventListener('click',()=>{
-        modal_info_act.classList.add('hide'); //con esto, cuando se cierra el cuadro, lo demás queda sin pointer
+    abrir_obs.addEventListener('click', () => {
+        modal_info_act.classList.remove('show');
     })
 
-    guardar.addEventListener('click', () =>{
+    guardar.addEventListener('click', () => {
         modal_hacer_obsr.classList.remove('show');
     });
-
-
-
-/*NOTA:vamos a traer cada hora, y por cada hora, cada cliente (cuando la hora coincida, aparece el cliente)
-    luego los registros por cada cliente. "for log de clientes se juntan los 3href"*/
-
+    guardar.addEventListener('click', () => {
+        modal_info_act.classList.add('show');
+    });
     
+
+    /*NOTA:vamos a traer cada hora, y por cada hora, cada cliente (cuando la hora coincida, aparece el cliente)
+        luego los registros por cada cliente. "for log de clientes se juntan los 3href"*/
+
+
 
 </script>
 

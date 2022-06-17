@@ -49,18 +49,16 @@
     cursor: pointer;   
 }
 .seccion-perfil:hover{
-    opacity: 0.8; 
+    opacity: 0.9; 
 }
 .cerrar-sesion{
     display: flex;
     align-items: center;
-    text-align: center;
-    padding-left: 1em;
-    padding-right: 2em;
     cursor: pointer;
+    justify-content: center;
 }
 .cerrar-sesion:hover{
-    opacity: 0.8; 
+    opacity: 0.9; 
 }
 @media (max-width:1160px){
     .boton-sup{
@@ -247,10 +245,7 @@ el dato viene de la pag crear actividad*/
     opacity: 1;
 }
 
-.modal_info_act.hide{
-    pointer-events:none;                         /*OJOOO-------------*/
-    opacity: 0;
-}
+
 .modal-info{
     background-color:#fff;
     width: 50%;
@@ -261,6 +256,7 @@ el dato viene de la pag crear actividad*/
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-y: scroll;
 }
 .modal-info h2{
     color: #303087;
@@ -282,6 +278,7 @@ el dato viene de la pag crear actividad*/
     align-items: center;
     width: 80%;
     padding:10px;
+    
 }
 .sec-btns-act{
     display: flex;
@@ -433,7 +430,6 @@ el dato viene de la pag crear actividad*/
     margin-top: 10px;
     
 }
-
 
 /*botón*/
 .btn-guardar{
