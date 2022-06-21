@@ -89,7 +89,8 @@
                         <div class="sec-btns-act">
                             <input class="btn-observaciones" type="submit" value="Observaciones" id="abrir_obs"
                                 onclick="abrirObsr();">
-                            <input class="btn-editar-inf" type="submit" value="Editar informe">
+                            <input class="btn-editar-inf" type="submit" value="Editar informe" id="edit_informe"
+                                onclick="editarInforme();">
                             <input class="btn-marcar-re" type="submit" value="Marcar como realizado">
                         </div>
                         <div class="sec-tabla-info">
@@ -164,12 +165,67 @@
                             </select>
                         </form>
                     </div>
-                    <button class="btn-guardar" id="guardar">Guardar</button>
+                    <button class="btn-guardar-obser" id="guardar_obs">Guardar</button>
                 </div>
             </div>
 
             <!--modal editar informe------------------------------------------------------>
-
+            <div class="modal_edit_inf" id="modal_edit_inf">
+                <div class="modal-editar">
+                    <div class="sec-titulo-edit">
+                        <h2>Editar informe</h2>
+                        <img src="./img/icono3.png" alt="lapiz" width="40">
+                    </div>
+                    <div class="sec-datos-editar">
+                        <section class="container-formulario-edit">
+                            <div class="form-group-edit">
+                                <label for="cliente">Cliente</label>
+                                <form action="select">
+                                    <select name="opc-cliente" id="opc-cliente">
+                                        <option selected disabled>Seleccione uno</option>
+                                    </select>
+                                </form>
+                            </div>
+            
+                            <div class="form-group-edit">
+                                <label for="frecuencia">Frecuencia</label>
+                                <form action="select">
+                                    <select name="opc-frecuencia" id="opc-frecuencia">
+                                        <option selected disabled>Seleccione uno</option>
+                                    </select>
+                                </form>
+                            </div>
+            
+                            <div class="form-group-edit">
+                                <label for="nombre">Nombre</label>
+                                <input type="text" placeholder="prueba" id="nombre">
+                            </div>
+                            <div class="form-group-edit">
+                                <label for="duracion_min">Duración en minutos</label>
+                                <input type="text" placeholder="prueba" id="duracion">
+                            </div>
+                            <div class="form-group-edit">
+                                <label for="hora_ans">Hora ANS</label>
+                                <input type="text" placeholder="prueba" id="hora_ans">
+                            </div>
+                            <div class="form-group-edit">
+                                <label for="dia_ans">Día ANS</label>
+                                <input type="text" placeholder="prueba" id="dia_ans">
+                            </div>
+                            <div class="form-group-edit">
+                                <label for="analista_respal">Analista de respaldo</label>
+                                <form action="select">
+                                    <select name="opc-analistaResp" id="opc-analistaResp">
+                                        <option selected disabled>Seleccione uno</option>
+                                    </select>
+                                </form>
+                            </div>
+            
+                        </section>
+                    </div>
+                    <button class="btn-guardar-edit" id="guardar_edit">Guardar</button>
+                </div>
+            </div>
 
         </div>
     </div>
@@ -197,7 +253,7 @@
     // ------srcipt del modal de hacer una observación-------
     const abrir_obs = document.getElementById('abrir_obs');
     const modal_hacer_obsr = document.getElementById('modal_hacer_obsr');
-    const guardar = document.getElementById('guardar');
+    const guardar_obs = document.getElementById('guardar_obs');
 
     abrir_obs.addEventListener('click', () => {
         modal_hacer_obsr.classList.add('show');
@@ -207,13 +263,32 @@
         modal_info_act.classList.remove('show');
     })
 
-    guardar.addEventListener('click', () => {
+    guardar_obs.addEventListener('click', () => {
         modal_hacer_obsr.classList.remove('show');
     });
-    guardar.addEventListener('click', () => {
+    guardar_obs.addEventListener('click', () => {
         modal_info_act.classList.add('show');
     });
     
+    // ------srcipt del modal de editar informe-------
+    const edit_informe = document.getElementById('edit_informe');
+    const modal_edit_inf = document.getElementById('modal_edit_inf');
+    const guardar_edit = document.getElementById('guardar_edit');
+
+    edit_informe.addEventListener('click', () => {
+        modal_edit_inf.classList.add('show');
+    })
+
+    edit_informe.addEventListener('click', () => {
+        modal_info_act.classList.remove('show');
+    })
+
+    guardar_edit.addEventListener('click', () => {
+        modal_edit_inf.classList.remove('show');
+    });
+    guardar_edit.addEventListener('click', () => {
+        modal_info_act.classList.add('show');
+    });
 
     /*NOTA:vamos a traer cada hora, y por cada hora, cada cliente (cuando la hora coincida, aparece el cliente)
         luego los registros por cada cliente. "for log de clientes se juntan los 3href"*/
