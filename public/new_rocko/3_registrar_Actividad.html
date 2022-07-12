@@ -41,19 +41,22 @@
             <h2>Información general</h2>
         </div>
         <div class="seccion-datos">
-            <div class="seccion-tabla">
-                <table class="tabla-registrar-act">
+            <div class="seccion-tabla"><!--Tabla principal con botones de clientes-->
+                <table class="tabla-registrar-act" id="tbl_registrar_act">
                     <thead>
                         <tr>
                             <th scope="col" width="100px">Hora ANS</th>
                             <th scope="col">Cliente</th>
                         </tr>
                     </thead>
+                    <tbody id="registrarAvtividad"></tbody>
+                    
                     <tr>
                         <td>14:59</td>
                         <td class="botones-tabl">
                             <button onclick="mostrar();">Emtelco</button>
                             <button id="open">prueba</button>
+                            <tbody id="prueba_btn"></tbody>
                             <!--prueba botón-->
                         </td>
                         <!--href con n cantidad de clientes-->
@@ -94,7 +97,7 @@
                             <input class="btn-marcar-re" type="submit" value="Marcar como realizado">
                         </div>
                         <div class="sec-tabla-info">
-                            <table class="tabla-inf-act">
+                            <table class="tabla-inf-act" id="tbl_info_actividad">
                                 <tr>
                                     <th>Cliente</th>
                                     <td>EDEQ</td>
@@ -134,7 +137,11 @@
                             </table>
                         </div>
                     </div>
-                    <button class="btn-modal" id="close">Confirmar</button>
+                    
+                    <div class="boton-modal">
+                        <button class="btn-modal" id="close">Confirmar</button>
+                    </div>
+                    
                 </div>
             </div>
             <!--modal observación------------------------------------------------------>
@@ -292,7 +299,11 @@
 
     /*NOTA:vamos a traer cada hora, y por cada hora, cada cliente (cuando la hora coincida, aparece el cliente)
         luego los registros por cada cliente. "for log de clientes se juntan los 3href"*/
+    
 
+    function abrir_btn(){
+        
+    }
 
 
 </script>
