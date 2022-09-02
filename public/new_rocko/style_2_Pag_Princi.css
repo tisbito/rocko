@@ -7,7 +7,7 @@
     display: grid;
     height: 100vh;
     grid-template-columns: 1fr;
-    grid-template-rows: 0.01fr 0.25fr 1.8fr 0.2fr;
+    grid-template-rows: 0.01fr 0.25fr 0.4fr 0.5fr;
     background-color: #fff;
 }
 
@@ -58,28 +58,16 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 30px;
+    padding-top: 50px;
     background: #E7E6EA;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
     color: #000000;
     margin: 20px;
+    margin-right: 15%;
+    margin-left: 15%;
 }
-.container-graficos{
-    align-items: center;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 0.4fr 1fr;    
-    width: 95%;
-    height: 50%;
-    margin: 30px;
-    background: #FFFFFF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 28px;
-    justify-items: center;
-    margin-bottom: 60px;
-    
-}
+
 .titulo{
     text-align: center;
     font-size: 18px;
@@ -87,64 +75,12 @@
     font-weight: bold;
 }
 
-.cuadro-hora-ocup{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(195, 197, 202, 0.38);
-    border-radius: 30px;
-    width: 80%; 
-    height: 80%;
-    
-}
-.cuadro-porc-ocup{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(195, 197, 202, 0.38);
-    border-radius: 30px;
-    width: 80%; 
-    height: 80%;
-    
-}
-.cuadro-cant-inform{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(195, 197, 202, 0.38);
-    border-radius: 30px;
-    width: 80%; 
-    height: 80%;
-    
-}
-.cuadro-resum-informes{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(195, 197, 202, 0.38);
-    border-radius: 30px;
-    width: 80%; 
-    height: 80%;
-    
-}
-.cuadro-porc-cumpl{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(195, 197, 202, 0.38);
-    border-radius: 30px;
-    width: 80%; 
-    height: 80%;
-    
-}
-
 .botones-opcs{
-    margin-top: 70px;
+    margin-top: 80px;
     background: #E7E6EA;
     display: flex;
     justify-content: space-evenly;
     width: 100%;
-    margin-bottom: 30px;
 }
 .boton-opcs{
     height: 2.7em;
