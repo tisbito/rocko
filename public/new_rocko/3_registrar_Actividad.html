@@ -41,7 +41,8 @@
             <h2>Información general</h2>
         </div>
         <div class="seccion-datos">
-            <div class="seccion-tabla"><!--Tabla principal con botones de clientes-->
+            <!--
+            <div class="seccion-tabla"><!--Tabla principal con botones de clientes--><!--
                 <table class="tabla-registrar-act" id="tbl_registrar_act">
                     <thead>
                         <tr>
@@ -49,7 +50,7 @@
                             <th scope="col">Cliente</th>
                         </tr>
                     </thead>
-                    <tbody id="registrarAvtividad"></tbody>
+                    <tbody id="registrarActividad"></tbody>
                     
                     <tr>
                         <td>14:59</td>
@@ -57,10 +58,23 @@
                             <button onclick="mostrar();">Emtelco</button>
                             <button id="open">prueba</button>
                             <tbody id="prueba_btn"></tbody>
-                            <!--prueba botón-->
+                            <!--prueba botón--> <!--
                         </td>
-                        <!--href con n cantidad de clientes-->
+                        <!--href con n cantidad de clientes--> <!--
                     </tr>
+                </table>
+            </div>-->
+
+            <!------------PRUEBA NUEVA TABLA POR JS--------------------->
+            <div class="seccion_tabla">
+                <table class="tabla-registrar-act" id="tbl_registrar_act">
+                    <thead class="tb_regAct_head">
+                        <tr class="tb_regAct_row">
+                            <th class="hora_ans" scope="col" width="100px">Hora ANS</th>
+                            <th class="nombre_cliente"scope="col" >Cliente</th>
+                        </tr>
+                    </thead>
+                    <tbody class="regAct_body" id="registrarActividad"></tbody>
                 </table>
             </div>
 
@@ -246,6 +260,7 @@
         swal("Exito!", "Actividades transferidas satisfactoriamente.", "success");
     }
     // ------script del modal información de la actividad------
+    /*
     const open = document.getElementById('open');
     const modal_info_act = document.getElementById('modal_info_act');
     const close = document.getElementById('close');
@@ -265,11 +280,11 @@
 
     abrir_obs.addEventListener('click', () => {
         modal_hacer_obsr.classList.add('show');
-    })
+    });
 
     abrir_obs.addEventListener('click', () => {
         modal_info_act.classList.remove('show');
-    })
+    });
 
     guardar_obs.addEventListener('click', () => {
         modal_hacer_obsr.classList.remove('show');
@@ -285,11 +300,11 @@
 
     edit_informe.addEventListener('click', () => {
         modal_edit_inf.classList.add('show');
-    })
+    });
 
     edit_informe.addEventListener('click', () => {
         modal_info_act.classList.remove('show');
-    })
+    });
 
     guardar_edit.addEventListener('click', () => {
         modal_edit_inf.classList.remove('show');
@@ -302,10 +317,38 @@
         luego los registros por cada cliente. "for log de clientes se juntan los 3href"*/
     
 
-    function abrir_btn(){
-        
-    }
+    //-----------PRUEBA PARA LLENAR LA TABLA-----------
+    const secTabla = document.querySelector("div.seccion_tabla")
+    let tableHeaders = document.getElementsByClassName("hora_ans","nombre_cliente");
 
+    const crearTablaRegistroAC = () =>{
+        while (secTabla.firstChild) secTabla.removeChild(secTabla.firstChild) // borra todos los children en secTabla, en caso de que hayan 
+
+        let tablaRegistrarAct = document.createElement("table") //crea la tabla como tal
+        tablaRegistrarAct.className = 'tabla-registrar-act'
+
+        let tbRegActHead = document.createElement("thead") //crea el grupo de head
+        tbRegActHead.className ='tb_regAct_head'
+
+        let tbRegActRow = document.createElement("tr") // crea el row que tendrá los headers
+        tbRegActHead.className = 'tb_regAct_row'
+
+        tableHeaders.forEach(header => {
+            let tablaHeader = document.createElement("th")
+            tablaHeader.innerText = header
+            tbRegActRow.append(tablaHeader)
+        });
+
+        tbRegActHead.append(tbRegActRow)
+        tablaRegistrarAct.append(tbRegActHead)
+
+        let tbRegActBody = document.createElement("tbody")
+        tbRegActBody.className = "regAct_body"
+        tablaRegistrarAct.append(tbRegActBody)
+
+        crearTablaRegistroAC.append(tablaRegistrarAct)
+
+    };
 
 </script>
 

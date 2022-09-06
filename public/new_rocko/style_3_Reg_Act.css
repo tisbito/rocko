@@ -89,7 +89,7 @@
     grid-template-columns: 2fr 0.3fr;
     font-size: large;
 }
-.seccion-tabla{
+.seccion_tabla{
     background-color: darksalmon;
     margin: 2em;
 }
