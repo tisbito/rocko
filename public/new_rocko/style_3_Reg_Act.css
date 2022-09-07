@@ -129,7 +129,7 @@ el dato viene de la pag crear actividad*/
 
 .seccion-btnsYfiltro{
     display: grid;
-    grid-template-rows: 0.5fr 1fr;
+    grid-template-rows: 0.5fr 0.3fr 1fr;
 }
 .seccion-btns-der{
     margin: 2em;
@@ -219,9 +219,28 @@ el dato viene de la pag crear actividad*/
     height: 2em;
     color:rgb(95, 95, 95);
     background: #F3F3F3;
-    border: 0.2px solid #000;
+    border: 0.1px solid;
     border-radius: 3px;
     margin-top: 10px;
+    border-color: #9ea7af;
+}
+.filtrar-cliente{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.btn-filtrar{
+    height: 2.7em;
+    width:11em;
+    margin-top: 10px;
+    background: #D3D924;
+    border-radius: 4px;
+    border: #C3C5CA;
+    cursor: pointer;
+    transition: background-color 0.7s;
+}
+.btn-filtrar:hover{
+    background-color:#15C0F2
 }
 
 /*-------------------------------PRUEBA MODAL INFORMACIÓN ACTIVIDAD------------------------------------------------*/
@@ -277,7 +296,7 @@ el dato viene de la pag crear actividad*/
     justify-content: center;
     margin-bottom: 15px;
 }
-/*-----------------------------INFORMACIÓN EN SECCIÓN GRIS----------------------------*/
+/*-----------------------------INFORMACIÓN EN SECCIÓN GRIS del modal----------------------------*/
 .sec-info-indv{
     background-color: #E4E3E3;
     display: flex;
@@ -362,6 +381,7 @@ el dato viene de la pag crear actividad*/
     background-color: #15C0F2;
 }
 
+
 /*BOTON CONFIRMAR--------------------------*/
 .btn-modal{
     align-self: center;
@@ -379,6 +399,14 @@ el dato viene de la pag crear actividad*/
 }
 
 /*-------------------------------PRUEBA MODAL OBSERVACIÓN------------------------------------------------*/
+/*
+.cerrar-modal h3{
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+    color: #005D9C;
+    margin-bottom: 10px;
+}*/
 .modal_hacer_obsr{
     display: flex;
     align-items: center;
@@ -404,10 +432,8 @@ el dato viene de la pag crear actividad*/
     padding: 20px 30px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 27px;
-    text-align: center;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: column;    
 }
 .modal-obser h2{
     color: #303087;
@@ -421,6 +447,7 @@ el dato viene de la pag crear actividad*/
     align-items: center;
     justify-content: center;
     margin-bottom: 15px;
+    margin-top: 15px;
 }
 .sec-filtro-obs{
     justify-self: center;

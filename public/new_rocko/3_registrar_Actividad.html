@@ -41,8 +41,9 @@
             <h2>Información general</h2>
         </div>
         <div class="seccion-datos">
-            <!--
-            <div class="seccion-tabla"><!--Tabla principal con botones de clientes--><!--
+
+            <!--Tabla principal con botones de clientes-->
+            <div class="seccion-tabla"> 
                 <table class="tabla-registrar-act" id="tbl_registrar_act">
                     <thead>
                         <tr>
@@ -58,15 +59,16 @@
                             <button onclick="mostrar();">Emtelco</button>
                             <button id="open">prueba</button>
                             <tbody id="prueba_btn"></tbody>
-                            <!--prueba botón--> <!--
+                            <!--prueba botón--> 
                         </td>
-                        <!--href con n cantidad de clientes--> <!--
+                        <!--href con n cantidad de clientes--> 
                     </tr>
                 </table>
-            </div>-->
+            </div>
 
             <!------------PRUEBA NUEVA TABLA POR JS--------------------->
-            <div class="seccion_tabla">
+            <!--
+                <div class="seccion_tabla">
                 <table class="tabla-registrar-act" id="tbl_registrar_act">
                     <thead class="tb_regAct_head">
                         <tr class="tb_regAct_row">
@@ -77,7 +79,9 @@
                     <tbody class="regAct_body" id="registrarActividad"></tbody>
                 </table>
             </div>
-
+            -->
+            
+            <!-------------------------------------------------------------------->
             <div class="seccion-btnsYfiltro">
                 <div class="seccion-btns-der">
                     <input class="btn-todos" type="submit" value="Todos">
@@ -90,9 +94,12 @@
                     <label>Filtrar por cliente:</label>
                     <form action="select">
                         <select name="opc-cliente" id="opc-cliente">
-                            <option selected disabled>Seleccione uno</option>
+                            <option selected disabled>- Seleccione uno -</option>
                         </select>
                     </form>
+                </div>
+                <div class="filtrar-cliente">
+                    <input type="submit" class="btn-filtrar" value="Filtrar" onclick="filtrarCliente();">
                 </div>
             </div>
             <!--modal información de la actividad------------------------------------------------------>
@@ -153,14 +160,17 @@
                     </div>
                     
                     <div class="boton-modal">
-                        <button class="btn-modal" id="close">Confirmar</button>
+                        <button class="btn-modal" id="close" type="submit">Confirmar</button>
                     </div>
                     
                 </div>
             </div>
             <!--modal observación------------------------------------------------------>
             <div class="modal_hacer_obsr" id="modal_hacer_obsr">
-                <div class="modal-obser">
+                <div class="modal-obser" id="modal-observ">
+                    <!--<div id="cerrar-modal" class="cerrar-modal">
+                        <h3>x</h3>
+                    </div>-->
                     <div class="sec-titulo-obser">
                         <h2>Hacer una observación</h2>
                         <img src="./img/icono2.jpeg" alt="lupa" width="40">
@@ -169,7 +179,8 @@
                         <label>Elija una observación:</label>
                         <form action="select">
                             <select name="observacion" id="observacion">
-                                <option selected disabled>Seleccione uno</option>
+                                <option selected disabled>- Seleccione uno -</option>
+                                <option value="no-observacion">Sin observaciones</option>
                                 <option value="inconvenientes">Inconvenientes con la máquina</option>
                                 <option value="falla-ro">Fallas con Rocko</option>
                                 <option value="falla-pla">Fallas con Plataformas</option>
@@ -186,7 +197,7 @@
                             </select>
                         </form>
                     </div>
-                    <button class="btn-guardar-obser" id="guardar_obs">Guardar</button>
+                    <button class="btn-guardar-obser" id="guardar_obs" type="submit">Guardar</button>
                 </div>
             </div>
 
@@ -203,7 +214,7 @@
                                 <label for="cliente">Cliente</label>
                                 <form action="select">
                                     <select name="opc-cliente" id="opc-cliente">
-                                        <option selected disabled>Seleccione uno</option>
+                                        <option selected disabled>- Seleccione uno -</option>
                                     </select>
                                 </form>
                             </div>
@@ -244,7 +255,7 @@
             
                         </section>
                     </div>
-                    <button class="btn-guardar-edit" id="guardar_edit">Guardar</button>
+                    <button class="btn-guardar-edit" id="guardar_edit" type="submit">Guardar</button>
                 </div>
             </div>
 
@@ -260,7 +271,7 @@
         swal("Exito!", "Actividades transferidas satisfactoriamente.", "success");
     }
     // ------script del modal información de la actividad------
-    /*
+    
     const open = document.getElementById('open');
     const modal_info_act = document.getElementById('modal_info_act');
     const close = document.getElementById('close');
@@ -292,7 +303,19 @@
     guardar_obs.addEventListener('click', () => {
         modal_info_act.classList.add('show');
     });
-    
+
+    /*
+    const cerrarModal = document.getElementById('cerrar-modal');
+    const modal_hacerObsr = document.getElementById('modal_hacer_obsr');
+    const modal_infoAct = document.getElementById('modal_info_act');
+
+    cerrarModal.addEventListener('click', () => {
+        modal_hacerObsr.classList.remove('show');
+    });
+    cerrarModal.addEventListener('click', () => {
+        modal_infoAct.classList.add('show');
+    });
+    */
     // ------srcipt del modal de editar informe-------
     const edit_informe = document.getElementById('edit_informe');
     const modal_edit_inf = document.getElementById('modal_edit_inf');
@@ -313,11 +336,8 @@
         modal_info_act.classList.add('show');
     });
 
-    /*NOTA:vamos a traer cada hora, y por cada hora, cada cliente (cuando la hora coincida, aparece el cliente)
-        luego los registros por cada cliente. "for log de clientes se juntan los 3href"*/
     
-
-    //-----------PRUEBA PARA LLENAR LA TABLA-----------
+    //-----------PRUEBA PARA LLENAR/ CREAR LA TABLA-----------
     const secTabla = document.querySelector("div.seccion_tabla")
     let tableHeaders = document.getElementsByClassName("hora_ans","nombre_cliente");
 
@@ -350,8 +370,16 @@
 
     };
 
-    /*https://parzibyte.me/blog/2019/08/22/dibujar-tabla-html-dinamica-javascript/
+    //pags
+    /*
+    https://parzibyte.me/blog/2019/08/22/dibujar-tabla-html-dinamica-javascript/
     https://ichi.pro/es/crear-una-tabla-html-dinamica-con-javascript-269745347851983
+    https://es.stackoverflow.com/questions/160026/rellenar-una-tabla-html-desde-javascript-dinamicamente
+    https://www.bing.com/videos/search?q=cmo+conectar+una+base+de+datos+con+php&view=detail&mid=C77A25079064EBF88D23C77A25079064EBF88D23&FORM=VIRE
+    
+    conexion bd
+    https://www.raulprietofernandez.net/blog/programacion/como-conectar-php-con-una-base-de-datos-mysql#:~:text=PHP%20incorpora%20una%20funci%C3%B3n%20interna%20que%20posibilita%20la,pasadas%20posteriormente%20como%20par%C3%A1metros%20al%20m%C3%A9todo%20mysqli_connect%20%28%29.
+    
     */
 
 </script>
