@@ -30,7 +30,7 @@
                 <input class= "boton-sup" type="submit" onclick="window.location.href='./6_revisar_Datos.html'" value="Revisar datos">
             </div>
             <div class="seccion-perfil" onclick="window.location.href='./2_pag_principal.html'">
-                <label for="perfil" onclick="window.location.href='./2_pag_principal.html'">Perfil</label>
+                <label id="fullname" for="perfil" onclick="window.location.href='./2_pag_principal.html'"></label>
             </div>
             <div class="cerrar-sesion">
                 <label href="/logout">Cerrar sesión</label>
@@ -46,7 +46,7 @@
                     <label>Origen</label>
                     <form action="select"> 
                         <select name="opc-origen" id="opc-origen" onchange="getActividades();">
-                            <option selected disabled>Seleccione uno</option>   
+                            <option selected disabled>- Seleccione uno -</option>   
                         </select>
                     </form>
                 </div>
@@ -54,7 +54,7 @@
                     <label>Destino</label>
                     <form action="select"> 
                         <select name="opc-destino" id="opc-destino" onchange="getActividades();">
-                            <option selected disabled>Seleccione uno</option>
+                            <option selected disabled>- Seleccione uno -</option>
                         </select>
                     </form>
                 </div>

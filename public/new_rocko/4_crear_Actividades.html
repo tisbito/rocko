@@ -27,7 +27,7 @@
                 <input class="boton-sup" type="submit" onclick="window.location.href='./6_revisar_Datos.html'"value="Revisar datos">
             </div>
             <div class="seccion-perfil" onclick="window.location.href='./2_pag_principal.html'">
-                <label for="perfil" onclick="window.location.href='./2_pag_principal.html'">Perfil</label>
+                <label id="fullname" for="perfil" onclick="window.location.href='./2_pag_principal.html'"></label>
             </div>
             <div class="cerrar-sesion">
                 <label href="/logout">Cerrar sesión</label>
@@ -169,6 +169,7 @@
     $(document).ready(function () {
         swal("Error!", "El registro no pudo ser guardado.", "error"); //Ojo, función cambiada
         swal("Exito!", "Registro guardado satisfactoriamente.", "success");//Ojo, función cambiada
+        
         $.get("/get/fullname", function (response) {
             $("#fullname").append("<a href='#'>" + response + "</a>"); 
         });

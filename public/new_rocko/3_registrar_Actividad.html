@@ -31,7 +31,7 @@
                     value="Revisar datos">
             </div>
             <div class="seccion-perfil" onclick="window.location.href='./2_pag_principal.html'">
-                <label for="perfil" onclick="window.location.href='./2_pag_principal.html'">Perfil</label>
+                <label id="fullname" for="perfil" onclick="window.location.href='./2_pag_principal.html'"></label>
             </div>
             <div class="cerrar-sesion">
                 <label href="/logout">Cerrar sesión</label>
@@ -51,18 +51,20 @@
                             <th scope="col">Cliente</th>
                         </tr>
                     </thead>
-                    <tbody id="registrarActividad"></tbody>
-                    
-                    <tr>
+                    <tbody id="registroActividad_lista"></tbody>
+                    <!--
+                      <tr>
                         <td>14:59</td>
                         <td class="botones-tabl">
                             <button onclick="mostrar();">Emtelco</button>
-                            <button id="open">prueba</button>
+                            <button id="open" onclick="mostrarInfoActividad();">prueba</button>
                             <tbody id="prueba_btn"></tbody>
-                            <!--prueba botón--> 
+                            <!--prueba botón-->  <!--
                         </td>
-                        <!--href con n cantidad de clientes--> 
-                    </tr>
+                        <!--href con n cantidad de clientes--> <!--
+                    </tr>-->  
+                    
+                    
                 </table>
             </div>
 
@@ -81,7 +83,7 @@
             </div>
             -->
             
-            <!-------------------------------------------------------------------->
+            <!----------------------------:: SECCIÓN FILTRO ::------------------------------------->
             <div class="seccion-btnsYfiltro">
                 <div class="seccion-btns-der">
                     <input class="btn-todos" type="submit" value="Todos">
@@ -93,7 +95,7 @@
                 <div class="seccion-filtro">
                     <label>Filtrar por cliente:</label>
                     <form action="select">
-                        <select name="opc-cliente" id="opc-cliente">
+                        <select name="opc-cliente" id="opc-cliente" onchange="traerClientes();">
                             <option selected disabled>- Seleccione uno -</option>
                         </select>
                     </form>
@@ -102,7 +104,9 @@
                     <input type="submit" class="btn-filtrar" value="Filtrar" onclick="filtrarCliente();">
                 </div>
             </div>
+            
             <!--modal información de la actividad------------------------------------------------------>
+            <!--
             <div class="modal_info_act" id="modal_info_act">
                 <div class="modal-info">
                     <div class="sec-titulo-lupa">
@@ -166,11 +170,12 @@
                 </div>
             </div>
             <!--modal observación------------------------------------------------------>
+            <!--
             <div class="modal_hacer_obsr" id="modal_hacer_obsr">
                 <div class="modal-obser" id="modal-observ">
-                    <!--<div id="cerrar-modal" class="cerrar-modal">
+                    <div id="cerrar-modal" class="cerrar-modal">
                         <h3>x</h3>
-                    </div>-->
+                    </div>-->  <!--
                     <div class="sec-titulo-obser">
                         <h2>Hacer una observación</h2>
                         <img src="./img/icono2.jpeg" alt="lupa" width="40">
@@ -202,6 +207,7 @@
             </div>
 
             <!--modal editar informe------------------------------------------------------>
+            <!--
             <div class="modal_edit_inf" id="modal_edit_inf">
                 <div class="modal-editar">
                     <div class="sec-titulo-edit">
@@ -257,7 +263,7 @@
                     </div>
                     <button class="btn-guardar-edit" id="guardar_edit" type="submit">Guardar</button>
                 </div>
-            </div>
+            </div> -->
 
         </div>
     </div>
@@ -266,6 +272,7 @@
 </body>
 
 <script>
+    /*
     // ----- script prueba exito----
     function mostrar() {
         swal("Exito!", "Actividades transferidas satisfactoriamente.", "success");
@@ -316,7 +323,8 @@
         modal_infoAct.classList.add('show');
     });
     */
-    // ------srcipt del modal de editar informe-------
+    // ------srcipt del modal de editar informe------- 
+    /*
     const edit_informe = document.getElementById('edit_informe');
     const modal_edit_inf = document.getElementById('modal_edit_inf');
     const guardar_edit = document.getElementById('guardar_edit');
@@ -335,52 +343,113 @@
     guardar_edit.addEventListener('click', () => {
         modal_info_act.classList.add('show');
     });
+*/
+    /*
+    para ver los modales idea (funciona al dar clic al botón):
+    al dar click a un nombre, función para que aparezca el modal
+    */
+    function mostrarInfoActividad(){
+        const open = document.getElementById('open');
+        const modal_info_act = document.getElementById('modal_info_act');
+        const close = document.getElementById('close');
 
-    
-    //-----------PRUEBA PARA LLENAR/ CREAR LA TABLA-----------
-    const secTabla = document.querySelector("div.seccion_tabla")
-    let tableHeaders = document.getElementsByClassName("hora_ans","nombre_cliente");
-
-    const crearTablaRegistroAC = () =>{
-        while (secTabla.firstChild) secTabla.removeChild(secTabla.firstChild) // borra todos los children en secTabla, en caso de que hayan 
-
-        let tablaRegistrarAct = document.createElement("table") //crea la tabla como tal
-        tablaRegistrarAct.className = 'tabla-registrar-act'
-
-        let tbRegActHead = document.createElement("thead") //crea el grupo de head
-        tbRegActHead.className ='tb_regAct_head'
-
-        let tbRegActRow = document.createElement("tr") // crea el row que tendrá los headers
-        tbRegActHead.className = 'tb_regAct_row'
-
-        tableHeaders.forEach(header => {
-            let tablaHeader = document.createElement("th")
-            tablaHeader.innerText = header
-            tbRegActRow.append(tablaHeader)
+        open.addEventListener('click', () => {
+            modal_info_act.classList.add('show');
         });
 
-        tbRegActHead.append(tbRegActRow)
-        tablaRegistrarAct.append(tbRegActHead)
-
-        let tbRegActBody = document.createElement("tbody")
-        tbRegActBody.className = "regAct_body"
-        tablaRegistrarAct.append(tbRegActBody)
-
-        crearTablaRegistroAC.append(tablaRegistrarAct)
-
-    };
-
+        close.addEventListener('click', () => {
+            modal_info_act.classList.remove('show');
+    });
+    }
     //pags
     /*
     https://parzibyte.me/blog/2019/08/22/dibujar-tabla-html-dinamica-javascript/
     https://ichi.pro/es/crear-una-tabla-html-dinamica-con-javascript-269745347851983
     https://es.stackoverflow.com/questions/160026/rellenar-una-tabla-html-desde-javascript-dinamicamente
-    https://www.bing.com/videos/search?q=cmo+conectar+una+base+de+datos+con+php&view=detail&mid=C77A25079064EBF88D23C77A25079064EBF88D23&FORM=VIRE
-    
-    conexion bd
-    https://www.raulprietofernandez.net/blog/programacion/como-conectar-php-con-una-base-de-datos-mysql#:~:text=PHP%20incorpora%20una%20funci%C3%B3n%20interna%20que%20posibilita%20la,pasadas%20posteriormente%20como%20par%C3%A1metros%20al%20m%C3%A9todo%20mysqli_connect%20%28%29.
-    
+    https://www.bing.com/videos/search?q=cmo+conectar+una+base+de+datos+con+php&view=detail&mid=C77A25079064EBF88D23C77A25079064EBF88D23&FORM=VIRE    
     */
+    
+    //--------------------PRUEBA 1 PARA LLENAR/ CREAR LA TABLA----------------------------------------
+
+    $(document).ready(function () {
+        $.get("/get/fullname", function (response) {
+            $("#fullname").append("<a href='#'>" + response + "</a>");
+        });
+
+        $.get("/get/miActividad", function (response) {
+            $("#registroActidad_lista").html();
+            for (i = 0; i < response.length; i++) {
+                tr = "<tr>";
+                tr += "<tr>" + response[i].ans_hora + "</tr>";
+                tr += "<tr>" + response[i].nombre_cliente + "</tr>";
+                
+                //estado puede ser 1,2 o 3?
+
+
+                if (response[i].estado == 1) {
+                    tr += "<td><span id='span_" + i + "' onclick='mostrarInfoActividad(" + i + "," +
+                        response[i].id_actividad + ");'>" +
+                        response[i].analista_respaldo_red +
+                        "</span><select style='display:none' class='form-control' id='analista_respaldo_" +
+                        i +
+                        "'></select></td>";
+                } else if (response[i].estado == 2) {
+                    tr += "<td>" + response[i].analista_respaldo_red + "</td>";
+                } else if (response[i].estado == 3) {
+                    tr += "<td>" + response[i].analista_respaldo_red + "</td>";
+                }
+                tr += "<td>" + response[i].tiempo_ejecucion + "</td>";
+                tr += "<td>" + response[i].ans_hora + "</td>";
+                tr += "<td>" + response[i].ans_dias + "</td>";
+                tr += "<td>" + response[i].fecha_hora + "</td>";
+                if (response[i].estado == 1) {
+                    tr += "<td>Activo</td>";
+                } else if (response[i].estado == 2) {
+                    tr += "<td>Eliminado</td>";
+                } else if (response[i].estado == 3) {
+                    tr += "<td>Transferido</td>";
+                }
+                if (response[i].fecha_hora_eliminacion == null) {
+                    tr += "<td>-</td><td>-</td>";
+                } else {
+                    tr += "<td>" + response[i].fecha_hora_eliminacion + "</td>";
+                    tr += "<td>" + response[i].analista_elimina_red + "</td>";
+                }
+                if (response[i].estado == 1) {
+                    tr += "<td><button onclick='EliminarRegistro(" + response[i].id_actividad +
+                        ");' type='button' class='btn btn-default' aria-label='Left Align'>";
+                    tr += "<span class='glyphicon glyphicon-trash' aria-hidden='true'></span>";
+                    tr += "</button ></td > ";
+                } else if (response[i].estado == 2) {
+                    tr +=
+                        "<td><button disabled type='button' class='btn btn-default' aria-label='Left Align'>";
+                    tr += "<span class='glyphicon glyphicon-trash' aria-hidden='true'></span>";
+                    tr += "</button ></td > ";
+                } else if (response[i].estado == 3) {
+                    tr +=
+                        "<td><button disabled type='button' class='btn btn-default' aria-label='Left Align'>";
+                    tr += "<span class='glyphicon glyphicon-trash' aria-hidden='true'></span>";
+                    tr += "</button ></td > ";
+                }
+                tr += "</tr>";
+                $("#registroActidad_lista").append(tr);
+            }
+        });
+    });
+
+        //-----------PRUEBA 1 PARA LLENAR/ CREAR LA TABLA de INFO ACTIVIDAD-----------
+
+        /*
+        nombre_cliente
+        nombre_actividad
+        tiempo_ejecucion
+        ans_hora
+        nombre_frecuencia
+        analista_responsable_nombres
+        analista_respaldo_nombres
+
+        */
+
 
 </script>
 

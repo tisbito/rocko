@@ -22,7 +22,7 @@
             </div>
 
             <div class="seccion-perfil" onclick="window.location.href='./2_pag_principal.html'">
-                <label for="perfil"onclick="window.location.href='./2_pag_principal.html'">Perfil</label>
+                <label id="fullname" for="perfil"onclick="window.location.href='./2_pag_principal.html'" ></label>
             </div>
 
             <div class="cerrar-sesion">
@@ -46,6 +46,16 @@
 
     </div>
 
-</body>
+</body> 
+<script>
+    $(document).ready(function () {
+        $.get("/get/fullname", function (response) {
+            $("#fullname").append("<a href='#'>" + response + "</a>");
+        });
+    });
+
+</script>
+
+    
 
 </html>

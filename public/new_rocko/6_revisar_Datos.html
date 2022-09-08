@@ -26,7 +26,7 @@
                 <input class="boton-sup" type="submit" onclick="window.location.href='./6_revisar_Datos.html'"value="Revisar datos">
             </div>
             <div class="seccion-perfil" onclick="window.location.href='./2_pag_principal.html'">
-                <label for="perfil" onclick="window.location.href='./2_pag_principal.html'">Perfil</label>
+                <label id="fullname" for="perfil" onclick="window.location.href='./2_pag_principal.html'"></label>
             </div>
             <div class="cerrar-sesion">
                 <label href="/logout">Cerrar sesión</label>
@@ -35,7 +35,7 @@
         </div>
 
         <div class="container_2">
-            <div class="seccion-tabla">
+            <div class="seccion-tabla" id="tabla-registros">
                 <table class="tabla-revision">
                     <thead>
                         <tr>
@@ -64,7 +64,7 @@
                 </form>
 
                 <div class="filtrar-cliente">
-                    <input type="submit" class="btn-filtrar" value="Filtrar" onclick="filtrarCliente();">
+                    <input id="btn-filtrar" type="submit" class="btn-filtrar" value="Filtrar" onclick="filtrarCliente();">
                 </div>
             </div>
             
@@ -104,18 +104,27 @@
                 $("#registroActidad_lista").append(tr);
             }
         });
+
+        // -------------- INTENTO 1 PARA TRAER LOS NOMBRES -------------------------------
+        $.get("/get/nombre_cliente", function (response) {
+            $("#filtro-cliente").empty();
+            $("#filtro-cliente").append("<option value='0'>Seleccione</option>");
+            for (i = 0; i < response.length; i++) {
+                $("#filtro-cliente").append("<option value='" + response[i].id_cliente + "'>" + response[
+                    i].nombre_cliente + "</option>"); //Creo que solo necesito el nombre
+            }
+        });
     });
 
-
-    // botón filtrar
-    function filtrarCliente(){
-
+    //------------botón filtrar---------------
+   function filtrarCliente(){
+        nombre_cliente = $("filtro-cliente").val(); // necesito el id?
     }
-    // programación del filtro ----- Prueba 1
-  /*https://www.bing.com/videos/search?q=como+programar+un+select+dinamico+en+html&&view=detail&mid=E99E3325EB598C016970E99E3325EB598C016970&&FORM=VDRVSR
-    https://www.bing.com/videos/search?q=como+hacer+un+combobox+que+traiga+datos+de+una+bd+javascript&docid=607996120639287700&mid=A2B8E83AADE81849CC07A2B8E83AADE81849CC07&view=detail&FORM=VIRE
-  */
-  
+
+        
+    
+
+
    
 
     
