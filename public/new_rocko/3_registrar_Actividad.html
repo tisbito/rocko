@@ -380,62 +380,65 @@
             $("#registroActidad_lista").html();
             for (i = 0; i < response.length; i++) {
                 tr = "<tr>";
-                tr += "<tr>" + response[i].ans_hora + "</tr>";
-                tr += "<tr>" + response[i].nombre_cliente + "</tr>";
-                
-                //estado puede ser 1,2 o 3?
-
-
-                if (response[i].estado == 1) {
-                    tr += "<td><span id='span_" + i + "' onclick='mostrarInfoActividad(" + i + "," +
-                        response[i].id_actividad + ");'>" +
-                        response[i].analista_respaldo_red +
-                        "</span><select style='display:none' class='form-control' id='analista_respaldo_" +
-                        i +
-                        "'></select></td>";
-                } else if (response[i].estado == 2) {
-                    tr += "<td>" + response[i].analista_respaldo_red + "</td>";
-                } else if (response[i].estado == 3) {
-                    tr += "<td>" + response[i].analista_respaldo_red + "</td>";
-                }
-                tr += "<td>" + response[i].tiempo_ejecucion + "</td>";
                 tr += "<td>" + response[i].ans_hora + "</td>";
-                tr += "<td>" + response[i].ans_dias + "</td>";
-                tr += "<td>" + response[i].fecha_hora + "</td>";
-                if (response[i].estado == 1) {
-                    tr += "<td>Activo</td>";
-                } else if (response[i].estado == 2) {
-                    tr += "<td>Eliminado</td>";
-                } else if (response[i].estado == 3) {
-                    tr += "<td>Transferido</td>";
+                tr += "<td>" + response[i].nombre_cliente + "</td>";
+                tr += "</tr>";
+                $("#registroActidad_lista").append(tr);
+
+                // meh
+                $(ans_hora).onclick("mostrarInfoActividad();")
+            }
+            // meh
+            $.get(ans_hora).addEventListener(mostrarInfoActividad())
+        });
+        // meh        
+        var button = document.createElement("button");
+        //-- cuando cargue la pag, crear boton con nombre = nombre_cliente 
+        //1. obtener el nombre del cliente dentro de un botón
+        //2. botón onclick = "mostrarInfoActividad();"
+        
+        // meh
+        document.getElementById('registroActividad_lista')
+            
+
+            // -------------- INTENTO 1: traer los nombres al select -------------------------------
+        function traerClientes(){
+            $.get("/get/nombre_cliente", function (response) {
+                $("#opc-cliente").empty();
+                $("#opc-cliente").append("<option value='0'>Seleccione</option>");
+                for (i = 0; i < response.length; i++) {
+                    $("#opc-cliente").append("<option value='" + response[i].nombre_cliente + "'>"); //Creo que solo necesito el nombre
                 }
-                if (response[i].fecha_hora_eliminacion == null) {
-                    tr += "<td>-</td><td>-</td>";
-                } else {
-                    tr += "<td>" + response[i].fecha_hora_eliminacion + "</td>";
-                    tr += "<td>" + response[i].analista_elimina_red + "</td>";
-                }
-                if (response[i].estado == 1) {
-                    tr += "<td><button onclick='EliminarRegistro(" + response[i].id_actividad +
-                        ");' type='button' class='btn btn-default' aria-label='Left Align'>";
-                    tr += "<span class='glyphicon glyphicon-trash' aria-hidden='true'></span>";
-                    tr += "</button ></td > ";
-                } else if (response[i].estado == 2) {
-                    tr +=
-                        "<td><button disabled type='button' class='btn btn-default' aria-label='Left Align'>";
-                    tr += "<span class='glyphicon glyphicon-trash' aria-hidden='true'></span>";
-                    tr += "</button ></td > ";
-                } else if (response[i].estado == 3) {
-                    tr +=
-                        "<td><button disabled type='button' class='btn btn-default' aria-label='Left Align'>";
-                    tr += "<span class='glyphicon glyphicon-trash' aria-hidden='true'></span>";
-                    tr += "</button ></td > ";
-                }
+            });
+        }
+            
+    });
+    
+        //------------INTENTO 1: botón filtrar---------------
+    function filtrarCliente(nombre_cliente){
+        nombre_cliente = $("opc-cliente").val(); // necesito el id?
+        
+        $.get("/get/miActividad", function (response) {
+            $("#registroActidad_lista").html();
+            for (i = 0; i < response.length; i++) {
+                tr = "<tr>";
+                tr += "<td>" + response[i].ans_hora + "</td>";
+                tr += "<td>" + response[i].nombre_cliente + "</td>";
                 tr += "</tr>";
                 $("#registroActidad_lista").append(tr);
             }
         });
-    });
+    }
+
+/* crea botón
+const boton = document.getElementById("btn"); 
+boton.addEventListener("click", ()=>{ 
+boton.style.color = "white"; 
+boton.style.backgroundColor = "green"; 
+});
+*/
+
+
 
         //-----------PRUEBA 1 PARA LLENAR/ CREAR LA TABLA de INFO ACTIVIDAD-----------
 
@@ -449,6 +452,7 @@
         analista_respaldo_nombres
 
         */
+    
 
 
 </script>

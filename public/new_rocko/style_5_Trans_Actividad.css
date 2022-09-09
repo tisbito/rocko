@@ -51,6 +51,9 @@
 .seccion-perfil:hover{
     opacity: 0.9; 
 }
+.seccion-perfil label{
+    cursor: pointer;
+}
 .cerrar-sesion{
     display: flex;
     align-items: center;
@@ -59,6 +62,9 @@
 }
 .cerrar-sesion:hover{
     opacity: 0.9; 
+}
+.cerrar-sesion label{
+    cursor: pointer;
 }
 @media (max-width:1160px){
     .boton-sup{

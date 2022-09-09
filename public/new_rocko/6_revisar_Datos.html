@@ -110,8 +110,8 @@
             $("#filtro-cliente").empty();
             $("#filtro-cliente").append("<option value='0'>Seleccione</option>");
             for (i = 0; i < response.length; i++) {
-                $("#filtro-cliente").append("<option value='" + response[i].id_cliente + "'>" + response[
-                    i].nombre_cliente + "</option>"); //Creo que solo necesito el nombre
+                $("#filtro-cliente").append("<option value='" + response[
+                    i].nombre_cliente + "'>"); //Creo que solo necesito el nombre
             }
         });
     });
@@ -119,6 +119,7 @@
     //------------botón filtrar---------------
    function filtrarCliente(){
         nombre_cliente = $("filtro-cliente").val(); // necesito el id?
+        
     }
 
         
