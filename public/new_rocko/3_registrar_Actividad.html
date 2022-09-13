@@ -59,8 +59,8 @@
                             <button onclick="mostrar();">Emtelco</button>
                             <button id="open" onclick="mostrarInfoActividad();">prueba</button>
                             <tbody id="prueba_btn"></tbody>
-                            <!--prueba botón-->  <!--
-                        </td>
+                            <!--prueba botón--> <!-- 
+                        </td>-->
                         <!--href con n cantidad de clientes--> <!--
                     </tr>-->  
                     
@@ -68,7 +68,7 @@
                 </table>
             </div>
 
-            <!------------PRUEBA NUEVA TABLA POR JS--------------------->
+            <!---------------------PRUEBA NUEVA TABLA POR JS // es otra no descomentar--------------------->
             <!--
                 <div class="seccion_tabla">
                 <table class="tabla-registrar-act" id="tbl_registrar_act">
@@ -175,7 +175,7 @@
                 <div class="modal-obser" id="modal-observ">
                     <div id="cerrar-modal" class="cerrar-modal">
                         <h3>x</h3>
-                    </div>-->  <!--
+                    </div>
                     <div class="sec-titulo-obser">
                         <h2>Hacer una observación</h2>
                         <img src="./img/icono2.jpeg" alt="lupa" width="40">
@@ -311,7 +311,7 @@
         modal_info_act.classList.add('show');
     });
 
-    /*
+    
     const cerrarModal = document.getElementById('cerrar-modal');
     const modal_hacerObsr = document.getElementById('modal_hacer_obsr');
     const modal_infoAct = document.getElementById('modal_info_act');
@@ -322,9 +322,9 @@
     cerrarModal.addEventListener('click', () => {
         modal_infoAct.classList.add('show');
     });
-    */
+    
     // ------srcipt del modal de editar informe------- 
-    /*
+    
     const edit_informe = document.getElementById('edit_informe');
     const modal_edit_inf = document.getElementById('modal_edit_inf');
     const guardar_edit = document.getElementById('guardar_edit');
@@ -343,7 +343,7 @@
     guardar_edit.addEventListener('click', () => {
         modal_info_act.classList.add('show');
     });
-*/
+
     /*
     para ver los modales idea (funciona al dar clic al botón):
     al dar click a un nombre, función para que aparezca el modal
@@ -376,6 +376,7 @@
             $("#fullname").append("<a href='#'>" + response + "</a>");
         });
 
+        //trae los nombres de los clientes
         $.get("/get/miActividad", function (response) {
             $("#registroActidad_lista").html();
             for (i = 0; i < response.length; i++) {
@@ -384,25 +385,28 @@
                 tr += "<td>" + response[i].nombre_cliente + "</td>";
                 tr += "</tr>";
                 $("#registroActidad_lista").append(tr);
-
                 // meh
                 $(ans_hora).onclick("mostrarInfoActividad();")
             }
-            // meh
-            $.get(ans_hora).addEventListener(mostrarInfoActividad())
         });
-        // meh        
-        var button = document.createElement("button");
         //-- cuando cargue la pag, crear boton con nombre = nombre_cliente 
         //1. obtener el nombre del cliente dentro de un botón
         //2. botón onclick = "mostrarInfoActividad();"
         
-        // meh
-        document.getElementById('registroActividad_lista')
-            
+        
+        $('.seccion-btns-der .btn-todos').click(function(){
+            //cual es cada uno?
+            //Todos
+            //propios = id_actividad = id_analista
+            //ajenos = id_analista /= id_actividad
+            //realizados = parece que está entre 2 y 1?
+            //no realizados = parece que está entre 2 y 1?
+        })
+        
 
             // -------------- INTENTO 1: traer los nombres al select -------------------------------
         function traerClientes(){
+            document.getElementById('registroActividad_lista') //----------?
             $.get("/get/nombre_cliente", function (response) {
                 $("#opc-cliente").empty();
                 $("#opc-cliente").append("<option value='0'>Seleccione</option>");

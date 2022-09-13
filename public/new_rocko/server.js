@@ -774,7 +774,7 @@ app.route('/actividad/registro')
             console.log(error);
         }
     });
-    // ---------- tranfiere actividad
+    // ---------- transfiere actividad
 app.route('/actividad/transferir')
     .get(sessionChecker, (req, res) => {
         res.sendFile(__dirname + '/public/login.html');

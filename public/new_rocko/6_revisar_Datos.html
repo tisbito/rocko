@@ -105,7 +105,7 @@
             }
         });
 
-        // -------------- INTENTO 1 PARA TRAER LOS NOMBRES -------------------------------
+        // -------------- INTENTO 1 PARA TRAER LOS NOMBRES al select-------------------------------
         $.get("/get/nombre_cliente", function (response) {
             $("#filtro-cliente").empty();
             $("#filtro-cliente").append("<option value='0'>Seleccione</option>");
@@ -119,15 +119,19 @@
     //------------botón filtrar---------------
    function filtrarCliente(){
         nombre_cliente = $("filtro-cliente").val(); // necesito el id?
+        $.get("/get/miActividad", function (response) {
+            $("#registroActidad_lista").html();
+            for (i = 0; i < response.length; i++) {
+                tr = "<tr>";
+                tr += "<td>" + response[i].ans_hora + "</td>";
+                tr += "<td>" + response[i].nombre_cliente + "</td>";
+                tr += "</tr>";
+                $("#registroActidad_lista").append(tr);
+            }
+        });
         
     }
 
         
-    
-
-
-   
-
-    
 </script>
 </html>
